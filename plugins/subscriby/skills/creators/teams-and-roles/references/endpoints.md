@@ -17,7 +17,7 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 
 ```bash
 curl https://api.subscriby.net/v1/teams \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Every team the caller owns or is a member of; teams belonging to other creators are invisible. Never paginated. Useful for a re-auth flow that wants to surface a team picker before the user mints a token scoped to a specific team.
@@ -27,7 +27,7 @@ Every team the caller owns or is a member of; teams belonging to other creators 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/teams \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"name": "Research Collective"}'
@@ -50,7 +50,7 @@ A new team starts empty. Add people with [Team Members](https://docs.subscriby.n
 
 ```bash
 curl https://api.subscriby.net/v1/teams/current \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Exactly the team the token is scoped to via `scope:team:<uuid>`. Zapier's connection test calls this on save to validate the bearer token.
@@ -60,7 +60,7 @@ Exactly the team the token is scoped to via `scope:team:<uuid>`. Zapier's connec
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/teams/$TEAM_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -78,7 +78,7 @@ Returns `204 No Content` and emits `team.deleted`.
 
 ```bash
 curl https://api.subscriby.net/v1/teams/$TEAM_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The team if the caller belongs to it; `404 RESOURCE_NOT_FOUND` otherwise, never `403`, so foreign-team existence does not leak.
@@ -92,7 +92,7 @@ The team if the caller belongs to it; `404 RESOURCE_NOT_FOUND` otherwise, never 
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/teams/$TEAM_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"name": "Research Collective (EU)"}'
@@ -127,7 +127,7 @@ Requires `team-member:remove`, the same ability as removing a member, because wi
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/teams/$TEAM_ID/invitations/$INVITATION_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -146,7 +146,7 @@ Returns `204 No Content` and the invitation link stops working.
 
 ```bash
 curl https://api.subscriby.net/v1/teams/$TEAM_ID/members \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The team's owner as the first row followed by every member. Not paginated: a team's collaborator list is small by construction.
@@ -164,7 +164,7 @@ The same `team-member:view-any` permission gates the dashboard's **Settings → 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/teams/$TEAM_ID/members \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"email": "newcomer@example.com", "role": "support-agent"}'
@@ -191,7 +191,7 @@ Answers `201` with the invitation summary. Emits `team.member.invited`, then `te
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/teams/$TEAM_ID/members/$USER_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -208,7 +208,7 @@ Returns `204 No Content`. They lose access to every project and setting scoped t
 
 ```bash
 curl https://api.subscriby.net/v1/teams/$TEAM_ID/members/$USER_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 One collaborator, with their `email`, which this route always includes because it requires `team-member:view` by definition. `404 RESOURCE_NOT_FOUND` if the user is not on the team or the team is not in the caller's visibility set.
@@ -226,7 +226,7 @@ One collaborator, with their `email`, which this route always includes because i
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/teams/$TEAM_ID/members/$USER_ID/role \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"role": "manager"}'
@@ -261,7 +261,7 @@ Changing a member's role has **no dashboard equivalent**: the settings page offe
 
 ```bash
 curl https://api.subscriby.net/v1/roles \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Every role across the teams the caller can see, with its permission codes. Visibility is the union of every team the caller owns or belongs to; a role from a team the caller cannot see answers `404 RESOURCE_NOT_FOUND` rather than `403`, so existence never leaks.
@@ -278,7 +278,7 @@ Every role across the teams the caller can see, with its permission codes. Visib
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/roles \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -313,7 +313,7 @@ Answers `201` with the role and emits `role.created`.
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/roles/$ROLE_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -340,7 +340,7 @@ One role with its permission codes. `permissions` is a flat array of the exact a
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/roles/$ROLE_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"name": "Senior Support Agent", "permissions": ["support-conversation:view-any"]}'
@@ -379,7 +379,7 @@ Answers `200` with the role and emits `role.updated`.
 
 ```bash
 curl https://api.subscriby.net/v1/groups \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Every group across the teams the caller sees, newest first. Rows carry neither `permissions` nor `member_ids`; read a group individually for those. Visibility is the union of every team the caller owns or belongs to; a group from a team the caller cannot see answers `404 RESOURCE_NOT_FOUND` rather than `403`, so the API cannot be used to discover that a group id exists.
@@ -396,7 +396,7 @@ Every group across the teams the caller sees, newest first. Rows carry neither `
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/groups \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -429,7 +429,7 @@ Answers `201` with the group and its permissions. Emits `group.created`.
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/groups/$GROUP_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -454,7 +454,7 @@ One group with its `permissions` and `member_ids`, which are returned when the g
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/groups/$GROUP_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"name": "Billing & Finance"}'
@@ -481,7 +481,7 @@ curl -X PATCH https://api.subscriby.net/v1/groups/$GROUP_ID \
 
 ```bash
 curl -X PUT https://api.subscriby.net/v1/groups/$GROUP_ID/members \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"user_ids": ["2a91c4e7-6f38-4b52-8e0d-9c1a7b3f5d80", "4b8e2f6a-1c3d-4e5f-9a7b-8c9d0e1f2a3b"]}'

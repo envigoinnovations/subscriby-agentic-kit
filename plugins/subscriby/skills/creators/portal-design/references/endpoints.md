@@ -16,7 +16,7 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 
 ```bash
 curl https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/portal-design \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The published document, the draft when there is one, when each last moved, and a fresh preview address, or null for a project without a handle. Every key of the fourteen sections comes back in the stored shape `PUT` takes, so a design read here can be changed and sent back. `draft` is `null` and `has_draft` false while nothing is drafted.
@@ -30,7 +30,7 @@ The published document, the draft when there is one, when each last moved, and a
 
 ```bash
 curl -X PUT https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/portal-design \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: 7c1f0d3a-6b2e-4f88-9a41-2d5e6c7b8a90" \
   -H "Content-Type: application/json" \
   -d '{"preset": "midnight", "accent": "#22d3ee", "font_display": "space-grotesk"}'
@@ -136,7 +136,7 @@ Changes the keys sent in the draft, starting one from the published design when 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/portal-design/discard \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: 5a6b7c8d-9e0f-4a1b-8c2d-3e4f5a6b7c8d"
 ```
 
@@ -152,7 +152,7 @@ Throws the draft away and keeps what members see; a picture only the draft named
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/portal-design/images/gallery \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: 1b2c3d4e-5f6a-4b7c-8d9e-0f1a2b3c4d5e" \
   -F "image=@lounge.jpg"
 ```
@@ -170,7 +170,7 @@ Stores a picture for the design, cut from the centre to the slot's size: `galler
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/portal-design/publish \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: 9e2b4c6d-1a3f-4e5b-8c7d-0f1a2b3c4d5e"
 ```
 
@@ -204,7 +204,7 @@ Builds a start link against the project's connected installation. The payload de
 
 ```bash
 curl "https://api.subscriby.net/v1/projects/$PROJECT_ID/distribution/deep-link?plan_id=$PLAN_ID" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 **Parameters**

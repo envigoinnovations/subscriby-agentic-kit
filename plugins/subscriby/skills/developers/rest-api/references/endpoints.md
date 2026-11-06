@@ -14,7 +14,7 @@ The newest entries recorded against one subject, `limit` at a time (50 by defaul
 
 ```bash
 curl "https://api.subscriby.net/v1/activity?subject_type=project&subject_id=$PROJECT_ID&limit=20" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 There is no paging beyond `limit`: the endpoint is a recent-history read, not an export. The subject is resolved through its own tenant-scoped query before activity is read, so passing the id of a project (or subscription, plan, member) that belongs to another team returns `404 RESOURCE_NOT_FOUND` rather than an empty list; existence never leaks across tenants.
@@ -49,7 +49,7 @@ How the window's revenue and payments are composed, as the five donuts the dashb
 
 ```bash
 curl "https://api.subscriby.net/v1/analytics/composition?project_id=$PROJECT_ID&period=30d" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 - Every dataset carries `total`, `unit` (`usd` or `count`) and `slices` sorted largest first; each slice has its `key`, `label`, `value`, `share_percent` and the `color` the dashboard draws it in, so a client can render the same donut.
@@ -71,7 +71,7 @@ Members, access and revenue per connector: one row for every connector the scope
 
 ```bash
 curl "https://api.subscriby.net/v1/analytics/connectors?project_id=$PROJECT_ID&period=30d" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 - `installations` counts the live, not uninstalled, installations of the connector in the scope; `members` the members holding at least one account linked on it; `members_linked_in_window` those who linked one inside the window.
@@ -93,7 +93,7 @@ Total revenue, total transactions, total users and MRR, each with a trend relati
 
 ```bash
 curl "https://api.subscriby.net/v1/analytics/dashboard?period=30d&compare_period=previous" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 **Parameters**
@@ -114,7 +114,7 @@ The full earnings breakdown (gross, fees, net, transaction count) plus a timeser
 
 ```bash
 curl "https://api.subscriby.net/v1/analytics/earnings?granularity=week" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Every money figure is USD-normalised so buckets in different currencies add up; `totals.currency` says so.
@@ -137,7 +137,7 @@ A per-plan breakdown for one project: active subscribers, revenue in the window,
 
 ```bash
 curl "https://api.subscriby.net/v1/analytics/plan-performance?project_id=$PROJECT_ID&period=30d" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Figures are in the plan's own currency. `meta.range` is the window the preset resolved to.
@@ -156,7 +156,7 @@ New sign-ups, cancellations, churn rate, trial-to-paid conversion and the status
 
 ```bash
 curl "https://api.subscriby.net/v1/analytics/subscribers?project_id=$PROJECT_ID" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 **Parameters**
@@ -173,7 +173,7 @@ A keyset-paginated list of payments for one project. `project_id` is **required*
 
 ```bash
 curl "https://api.subscriby.net/v1/analytics/transactions?project_id=$PROJECT_ID&limit=100" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Every row carries its owning project, plan and subscriber, so a payment can be attributed without a follow-up lookup. Follow `meta.next_cursor` on the next call to paginate. A `null` or missing cursor means the end of the range has been reached.
@@ -198,7 +198,7 @@ USD-normalised successful-payment totals grouped by one `dimension`: `plan`, `pa
 
 ```bash
 curl "https://api.subscriby.net/v1/analytics/transactions/breakdown?dimension=payment_provider&period=90d" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 **Parameters**
@@ -226,7 +226,7 @@ Every connector Subscriby knows, lane by lane, installable connectors first, eac
 
 ```bash
 curl https://api.subscriby.net/v1/connectors \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Cards come lane by lane, installable connectors first; within a lane the most installed connector comes first (`installations`, the number of projects running it today, uninstalled rows excluded) and the name breaks ties. The public and in-app directories offer the same order plus Newest (`added_at`) and Name, and filter on `official`, `installable` and `category`; a client sorts and filters on the same fields.
@@ -254,7 +254,7 @@ One card by key, registered or on the roadmap, in the shape the directory lists.
 
 ```bash
 curl https://api.subscriby.net/v1/connectors/example \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 ### The manifest
@@ -292,7 +292,7 @@ Every key from `install_mode` onward describes what a registered connector can d
 
 ```bash
 curl https://api.subscriby.net/v1/groups \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Every group across the teams the caller sees, newest first. Rows carry neither `permissions` nor `member_ids`; read a group individually for those. Visibility is the union of every team the caller owns or belongs to; a group from a team the caller cannot see answers `404 RESOURCE_NOT_FOUND` rather than `403`, so the API cannot be used to discover that a group id exists.
@@ -309,7 +309,7 @@ Every group across the teams the caller sees, newest first. Rows carry neither `
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/groups \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -342,7 +342,7 @@ Answers `201` with the group and its permissions. Emits `group.created`.
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/groups/$GROUP_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -367,7 +367,7 @@ One group with its `permissions` and `member_ids`, which are returned when the g
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/groups/$GROUP_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"name": "Billing & Finance"}'
@@ -394,7 +394,7 @@ curl -X PATCH https://api.subscriby.net/v1/groups/$GROUP_ID \
 
 ```bash
 curl -X PUT https://api.subscriby.net/v1/groups/$GROUP_ID/members \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"user_ids": ["2a91c4e7-6f38-4b52-8e0d-9c1a7b3f5d80", "4b8e2f6a-1c3d-4e5f-9a7b-8c9d0e1f2a3b"]}'
@@ -458,7 +458,7 @@ Answers `200` with the group, its `permissions` and its `member_ids`. Emits `gro
 
 ```bash
 curl https://api.subscriby.net/v1/me \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The caller's account; never paginated.
@@ -495,7 +495,7 @@ Takes the complete list you want to keep; anything not in it is removed. Each en
 
 ```bash
 curl -X PUT https://api.subscriby.net/v1/me/alert-destinations \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -526,7 +526,7 @@ When a creator alert is sent, every connected account routed to its class receiv
 
 ```bash
 curl https://api.subscriby.net/v1/me/copilot-credits \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 One object: the `balance` split into free and paid with what lapses next, this month's free `allowance` used and left, this month's usage per kind, the per-unit prices, the `packs` on sale in this environment and the `settings` the write below changes. An agent asking whether it can afford a turn needs only this.
@@ -538,7 +538,7 @@ One object: the `balance` split into free and paid with what lapses next, this m
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/me/copilot-credits/packs \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{ "pack": "regular" }'
@@ -559,7 +559,7 @@ Answers `201` with the pack and the Stripe Checkout URL to send the creator to. 
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/me/copilot-credits/settings \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{ "auto_topup_pack": "regular", "auto_topup_below_cents": 500 }'
@@ -582,7 +582,7 @@ Answers `200` with the settings after the change. **Every field is optional and 
 
 ```bash
 curl "https://api.subscriby.net/v1/me/copilot-credits/statement?per_page=50" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Pages the last twelve months of lines, newest first: every pack bought and its bonus, every promotion and goodwill grant, every refund and lapse, and each month's usage per kind. Credits are positive and debits negative, so summing `cents` follows the balance. `sort_by` and `sort_direction` are accepted and ignored: a statement is always newest first.
@@ -599,7 +599,7 @@ Pages the last twelve months of lines, newest first: every pack bought and its b
 ### GET `/v1/me/export`
 
 ```bash
-curl https://api.subscriby.net/v1/me/export -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+curl https://api.subscriby.net/v1/me/export -H "Authorization: Bearer <token>"
 ```
 
 The caller's most recent export, whatever its state; `404 RESOURCE_NOT_FOUND` when none was ever requested. Poll it after a `POST` until `status` is `ready`, then download the zip from `download_url`, a signed link that works until `download_url_expires_at`; every read of a ready export mints a fresh link. The archive itself is removed at `expires_at`, after which `status` reads `expired` and a new export must be requested.
@@ -611,7 +611,7 @@ The caller's most recent export, whatever its state; `404 RESOURCE_NOT_FOUND` wh
 ### POST `/v1/me/export`
 
 ```bash
-curl -X POST https://api.subscriby.net/v1/me/export -H "Authorization: Bearer $SUBSCRIBY_TOKEN" -H "Idempotency-Key: 7c1b2d3e-4f5a-6b7c-8d9e-0f1a2b3c4d5e"
+curl -X POST https://api.subscriby.net/v1/me/export -H "Authorization: Bearer <token>" -H "Idempotency-Key: 7c1b2d3e-4f5a-6b7c-8d9e-0f1a2b3c4d5e"
 ```
 
 Queues an archive of everything the caller's account holds: the account as `GET /v1/me` describes it, the webhook endpoints (never their signing secrets), the platform subscription with its invoices, and for every project the plans, resources, payment methods (never their keys), members, subscriptions, payments, coupons, dated windows and support conversations, each as a JSON file in the shape this API publishes, plus one workbook per project with a sheet per table. Answers `202` with the queued export. The build runs in the background and takes from seconds to a few minutes; the creator is also emailed a signed link when it is ready.
@@ -629,7 +629,7 @@ One export may be in flight per account and one may be requested a day; a second
 
 ```bash
 curl https://api.subscriby.net/v1/me/identities \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Every account linked to the caller's creator account, by connector then purpose. Never paginated.
@@ -645,7 +645,7 @@ Every account linked to the caller's creator account, by connector then purpose.
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/me/identities/$IDENTITY_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -661,7 +661,7 @@ Drops a **primary** link at once and answers an empty `204`. You keep your passw
 
 ```bash
 curl "https://api.subscriby.net/v1/me/notifications?unread=1&class=support" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Newest first, paginated with `page` and `per_page` like every list. `unread=1` narrows to entries not yet read (`unread=0` to the ones already read); `class` narrows to one class; `q` to entries whose title or body contains the words.
@@ -688,7 +688,7 @@ Every creator alert is written to the notification centre beside whatever else i
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/me/notifications/read-all \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -703,7 +703,7 @@ Answers `200` with how many entries were unread and are read now. A second call 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/me/notifications/$NOTIFICATION_ID/read \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -719,7 +719,7 @@ Answers `200` with the entry, `read` now `true`. Idempotent: an entry already re
 
 ```bash
 curl https://api.subscriby.net/v1/me/partner \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Where you stand, whole. `status` is `applied` while Subscriby reviews the application, `active` once approved, `rejected` with `reapply_available_at` when it was declined, or `suspended`. Until approval the computed parts are `null`: there is no `code`, no `links`, no `commission_percent`, no `balance`.
@@ -736,7 +736,7 @@ Once approved:
 
 ```bash
 curl -X PUT https://api.subscriby.net/v1/me/partner/payout-details \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -791,7 +791,7 @@ Pages the cash Subscriby paid you, newest first: the `amount`, the rail it went 
 
 ```bash
 curl "https://api.subscriby.net/v1/me/partner/referrals?status=converted&per_page=25" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Pages the creators you brought to Subscriby, newest first. `status` is `signed_up`, `converted`, `under_review`, `expired` or `rejected`. Each row names the referred creator by display name alone: they are a Subscriby customer, not yours, so their email and id never appear. An application still under review has no referrals and answers an empty page.
@@ -819,7 +819,7 @@ One referral: how the creator arrived (`source` is `link`, `code_at_signup` or `
 
 ```bash
 curl "https://api.subscriby.net/v1/me/partner/rewards?status=approved" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Pages the commission ledger, newest first: one `commission` row per paid platform invoice of a referred creator, priced from the invoice's total before tax and after discount (`base_amount`) at the referral's locked rate (`amount`), plus the `clawback` rows that answer a reversal of money already settled, each with a negative `amount`. `status` is `pending` (inside the hold), `approved` (payable), `credited` (applied as Subscriby Credit), `paid` (covered by a cash payout) or `reversed`; `note` says why a row was reversed or re-priced. The ledger is read-only on every surface: rows are written by invoices, moved by the hold, settled by a credit or a payout and reversed by a refund or a dispute.
@@ -838,7 +838,7 @@ Pages the commission ledger, newest first: one `commission` row per paid platfor
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/me/partner/terms/accept \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -853,7 +853,7 @@ Records that you accept the [Partner Program Terms](https://www.subscriby.net/le
 
 ```bash
 curl https://api.subscriby.net/v1/me/recovery \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Recovering the creator's sign-in account, and keeping a backup account ahead of a ban, are two-sided **handshakes**: the API mints a code, the creator taps the link (or types the code) from the account to detect, the connector records which account that was, and the API confirms. Both sides have to agree, which is what keeps a leaked link from binding a stranger. These endpoints live under `/v1/me` because they are about the caller, never a project, and the actions behind them refuse anyone but the account holder.
@@ -877,7 +877,7 @@ Stops keeping a backup. Answers `204`.
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/me/recovery/backup-identity \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"handshake_id": "0c4f9e2a-7b31-4d68-a5e2-9f1c3b7d6e80"}'
@@ -907,7 +907,7 @@ Moves the sign-in to the backup right now, keeping the previous account as the n
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/me/recovery/handshakes \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"kind": "relink"}'
@@ -957,7 +957,7 @@ Confirms a **completed relink**: the sign-in moves to the account that tapped, e
 
 ```bash
 curl "https://api.subscriby.net/v1/me/transaction-fees?month=2026-10&channel=metered" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Pages the ledger, the most recently incurred first. `month` keeps one calendar month (`YYYY-MM`, UTC) and wins over `from` and `to`, which bound the window by instant; `project_id` keeps one project's lines; `channel` is `connect_at_source` or `metered`; `kind` is `payment_fee`, `access_code_fee`, `trial_usage`, `outage_emails` or `processing_recovery`. Sort with `sort_by` (`occurred_at` by default, or `fee_amount`, `units`, `kind`, `channel`, `created_at`) and `sort_direction`.
@@ -983,7 +983,7 @@ Each row names what the fee was for and, for a payment's fee, the project, the m
 
 ```bash
 curl "https://api.subscriby.net/v1/me/transaction-fees/summary?month=2026-10" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Adds up one calendar month, the current one when `month` is left out. `total_fee` is every line; `at_source_fee` is what Stripe Connect deducted from members' payments and never invoiced; `metered_fee` is what reached the usage meter, the figure to hold against that month's Transaction Fees line on your Subscriby invoice, split into `invoiced_fee` (a paid invoice has collected it) and `awaiting_invoice_fee` (it lands on the next one). `by_kind` lists the month per kind of fee, `by_project` per project largest first (the fees no project carries pool under a null id), and `invoices` the Subscriby invoices that billed the month's metered lines. Pass `project_id` to add up one project alone; `by_project` is then empty.
@@ -1038,7 +1038,7 @@ Answers `200` with `data.status` of `ok`, the API version and the current server
 
 ```bash
 curl https://api.subscriby.net/v1/projects \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Every project visible to the token, newest first, paged with `page` and `per_page` (default 25). A token minted with `scope:project:<uuid>` entries lists only those projects.
@@ -1055,7 +1055,7 @@ Every project visible to the token, newest first, paged with `page` and `per_pag
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -1069,7 +1069,7 @@ Banner and photo are optional image uploads. Send `multipart/form-data` when you
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -F "name=Research Premium" \
   -F "description=Weekly deep-dive research notes." \
@@ -1147,7 +1147,7 @@ Every installation the project holds, live and standby, oldest first.
 
 ```bash
 curl https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 `role` is `live` for the one that acts and `standby` for the spare the Disaster Recovery Program keeps; `state` is `pending`, `connected`, `degraded` (the health probe found something wrong, `state_reason` and `state_detail` say what, `creator_actionable` whether the creator can fix it), `revoked` (the platform withdrew it) or `disconnected` (the creator did); `operational` is the one-word answer to "can it act right now?". `external_id`, `display_name`, `handle` and `avatar_url` are the platform's own account for the installation. Credentials and settings are never serialised.
@@ -1163,7 +1163,7 @@ curl https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"unpublish_emptied_plans": true, "cancel_recurring_subscriptions": false}'
@@ -1186,7 +1186,7 @@ The two opt-ins travel in the JSON body or as query parameters; on by default, t
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -1203,7 +1203,7 @@ Installing and connecting are two acts. Installing says "this project runs this 
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example/installation \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -1222,7 +1222,7 @@ The project's installation of that connector in the live role, in whatever state
 
 ```bash
 curl https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example/installation \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 **Parameters**
@@ -1235,7 +1235,7 @@ curl https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/
 
 ```bash
 curl https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example/installation/actions \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 A connector declares the things its installation can set up on its platform as data, so every surface offers them the same way: each action carries its `key`, the `label` a button says, a `description` of what will happen, the `fields` the creator fills in first (the same shape as the connector's `install_fields`) and the `confirm` question a client asks before running, with `needs_confirmation` saying whether to ask. The list is empty for a connector that offers none, while the connector is paused, and while the installation cannot act. Run one with the endpoint below.
@@ -1250,7 +1250,7 @@ A connector declares the things its installation can set up on its platform as d
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example/installation/actions/setup_members_area \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{ "fields": { "category_name": "Inner Circle" } }'
@@ -1274,7 +1274,7 @@ Runs one action the actions endpoint listed, on the platform. `fields` is an obj
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example/installation/doctor \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -1293,7 +1293,7 @@ The report is kept on the installation (`doctor_ran_at` and `doctor_healthy` on 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example/installation/restore-access \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -1310,7 +1310,7 @@ The **Restore Access** item of the dashboard's Connectors tab, offered while an 
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example/installation/settings \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"settings": {"greeting": "Welcome aboard"}, "capabilities": {"broadcasts": false}}'
@@ -1338,7 +1338,7 @@ Answers `200` with the installation, which never carries the settings themselves
 
 ```bash
 curl "https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example/installation/spaces?kind=role" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 A connector whose installation can list the places it administers (a server's roles and channels) lets a creator pick one instead of answering a picker on the platform; its directory card declares `space_browsing`. This is that list, read from the platform on every call: a place made a moment ago is on it, a deleted one is not. `kind` is one of the connector's `resource_kinds`, as a bare word (`role`) or spelled `connector:kind` (`example:role`). Pass a place's `external_id` to the from-space endpoint of the Resources API to sell it. A connector that cannot list its places answers `422 VALIDATION_FAILED`; the link request is its door.
@@ -1354,7 +1354,7 @@ A connector whose installation can list the places it administers (a server's ro
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example/installation/verify \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -1373,7 +1373,7 @@ Uninstall deletes nothing and touches no money by itself, and it is always previ
 
 ```bash
 curl https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example/uninstall-preview \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 - `resources` are the connector's on the project (manual perks are never among them); they will be deactivated and marked `detached`, their external ids kept.
@@ -1416,7 +1416,7 @@ Every broadcast the project sent since history began, newest first, with who sen
 
 ```bash
 curl "https://api.subscriby.net/v1/projects/$PROJECT_ID/broadcasts?filter=completed" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 A send made before the release that introduced the ledger has no row, so a `broadcast_id` remembered from an older `broadcast.queued` event answers `404 RESOURCE_NOT_FOUND`.
@@ -1437,7 +1437,7 @@ A send made before the release that introduced the ledger has no row, so a `broa
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/broadcasts \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -1534,7 +1534,7 @@ Sizes a broadcast without sending it. The dashboard shows this before the confir
 
 ```bash
 curl "https://api.subscriby.net/v1/projects/$PROJECT_ID/broadcasts/preview?audience=customer&plan_id=$PLAN_ID" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The preview accepts the same `audience`, `pass_window_id`, `plan_id` and `expiring_within_days` as the send, and applies them identically, segments, plan narrowing and recipient rules alike, so a preview and the send it precedes can never describe different audiences. The fields answer the same as the send's, minus `status`.
@@ -1554,7 +1554,7 @@ One broadcast by the `broadcast_id` the send answered with. `progress` is where 
 
 ```bash
 curl https://api.subscriby.net/v1/projects/$PROJECT_ID/broadcasts/$BROADCAST_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 **Parameters**
@@ -1569,7 +1569,7 @@ The members the walk could not reach, newest first, each with `kind` (`unreachab
 
 ```bash
 curl https://api.subscriby.net/v1/projects/$PROJECT_ID/broadcasts/$BROADCAST_ID/failures \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 **Parameters**
@@ -1588,7 +1588,7 @@ Sends a finished broadcast again, to the members it could not reach and nobody e
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/broadcasts/$BROADCAST_ID/retry \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -1786,7 +1786,7 @@ The safe way to retire a code: new redemptions stop immediately and every redemp
 
 ```bash
 curl "https://api.subscriby.net/v1/projects/$PROJECT_ID/creator-tasks?status=open" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 `status` is `open` (the default: tasks not yet done whose grant still stands), `completed`, or `all`. Paged like every list but **oldest first** by default, so the longest-waiting member is at the top.
@@ -1810,7 +1810,7 @@ curl "https://api.subscriby.net/v1/projects/$PROJECT_ID/creator-tasks?status=ope
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/creator-tasks/$TASK_ID/complete \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -1847,7 +1847,7 @@ Builds a start link against the project's connected installation. The payload de
 
 ```bash
 curl "https://api.subscriby.net/v1/projects/$PROJECT_ID/distribution/deep-link?plan_id=$PLAN_ID" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 **Parameters**
@@ -1881,7 +1881,7 @@ The portal URL always uses the project's current `handle`. If you change the han
 
 ```bash
 curl "https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/knowledge?per_page=50" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Pages the entries, newest first. Each row names the entry's `kind`, its `audience`, its `status` with a label beside each, its title and how many passages it became; `body` is `null` on every row. Sort with `sort_by` (`created_at` by default, or `updated_at`, `title`) and `sort_direction`.
@@ -1900,7 +1900,7 @@ Pages the entries, newest first. Each row names the entry's `kind`, its `audienc
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/knowledge \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -1951,7 +1951,7 @@ The entry with its `body`: the answer, or the document's text as it was read out
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/knowledge/3b7e4d2a-9c1f-4a6b-8d5e-2f7c9a1b3e4d \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{ "audience": "team" }'
@@ -2125,7 +2125,7 @@ The same row for one link, under `data`.
 
 ```bash
 curl "https://api.subscriby.net/v1/projects/$PROJECT_ID/members?status=customer" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Newest first, paged with `page` and `per_page` (default 25; `limit` is accepted as an alias). `status` narrows to one lifecycle state. `identity` looks one member up by the account they connected, `connector:external_id`, for a workflow that starts from a platform event and needs the member behind an account id; the page then holds that one member with their `identities` embedded, or no rows. `access=waiting` keeps the members whose live purchase includes a place waiting for an account they have not connected (a Discord role bought through Telegram, say), the ones the [connection reminder](https://docs.subscriby.net/api/v1/reference/subscriptions) nudges.
@@ -2168,7 +2168,7 @@ Members join through a bot and are never asked for an email, so for most of them
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/members/$MEMBER_ID/ban \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"reason": "Repeated spam in the research channel."}'
@@ -2193,7 +2193,7 @@ Connector-side eviction (kicks from the gated spaces, revoked invite links) runs
 
 ```bash
 curl https://api.subscriby.net/v1/projects/$PROJECT_ID/members/$MEMBER_ID/identities \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The member's connected accounts, preferred first. Never paginated. A member can connect one account per platform the project is on, from the portal's **Account & Recovery** screen or by talking to the project's bot; the member read embeds the same rows as `identities`. Connecting has no endpoint: it is a two-sided proof the member completes on the connector.
@@ -2213,7 +2213,7 @@ The member's connected accounts, preferred first. Never paginated. A member can 
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/projects/$PROJECT_ID/members/$MEMBER_ID/identities/$LINK_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -2267,7 +2267,7 @@ Moves a `banned` member to `churned` and emits `member.unbanned`. Access is not 
 
 ```bash
 curl "https://api.subscriby.net/v1/projects/$PROJECT_ID/pass-windows?status=scheduled&sellable_only=true" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The project's windows across every pass plan, **soonest first**, 50 per page (`per_page` 1 to 100; `limit` is accepted as an alias). Filters are validated before they reach the query: an unknown status or a malformed date is a `422 VALIDATION_FAILED` naming the field, not an empty page.
@@ -2317,7 +2317,7 @@ One window, with `sellable` and `holders` resolved for it. A window is resolved 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/pass-windows/$WINDOW_ID/cancel \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -2325,7 +2325,7 @@ The body is optional. `series_holders` is the choice the dashboard's cancellatio
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/pass-windows/$WINDOW_ID/cancel \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"series_holders": "drop"}'
@@ -2364,7 +2364,7 @@ Nudges everyone who bought the window but has not yet joined, re-attaching their
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/pass-windows/$WINDOW_ID/remind \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -2385,7 +2385,7 @@ Places a window by hand on a `kind: pass` plan. This is how `schedule_mode: fixe
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/plans/$PLAN_ID/pass-windows \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -2427,7 +2427,7 @@ Each refusal below is a `422 VALIDATION_FAILED` naming the field, the same wordi
 
 ```bash
 curl https://api.subscriby.net/v1/projects/$PROJECT_ID/payment-methods \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Every payment method attached to the project, newest first.
@@ -2445,7 +2445,7 @@ Every payment method attached to the project, newest first.
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/projects/$PROJECT_ID/payment-methods/$METHOD_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -2480,7 +2480,7 @@ The method without its credentials. A method is resolved within the project: a m
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/payment-methods/$METHOD_ID/activate \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -2499,7 +2499,7 @@ Offers the method at checkout again and re-queues the plan sync for that gateway
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/payment-methods/$METHOD_ID/deactivate \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -2516,7 +2516,7 @@ The creator's switch. A deactivated method is no longer offered at checkout; the
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/payment-methods/$METHOD_ID/sync \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -2564,7 +2564,7 @@ Pages the project's plans, every kind together, newest first. Read `kind` on eac
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/plans \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -2581,7 +2581,7 @@ curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/plans \
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/plans \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -2612,7 +2612,7 @@ A series needs window ids, and those come from windows that already exist. Read 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/plans \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -2953,7 +2953,7 @@ Queues a batch of codes for the plan and answers `202 Accepted` at once; the cod
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT/plans/$PLAN/access-codes/bulk-generate \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -2989,7 +2989,7 @@ Prices a batch of `quantity` codes without queuing it, so a caller can show the 
 
 ```bash
 curl "https://api.subscriby.net/v1/projects/$PROJECT/plans/$PLAN/access-codes/preview?quantity=50" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 > **Generation is free.** The metered overage is billed at **redemption time**, and only when your tier's free access-code allotment is already exhausted. Hand out codes freely; you only pay for the ones subscribers actually activate beyond the free quota.
@@ -3029,7 +3029,7 @@ Deletes an unredeemed code so it can no longer be claimed. The code is resolved 
 
 ```bash
 curl https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/portal-design \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The published document, the draft when there is one, when each last moved, and a fresh preview address, or null for a project without a handle. Every key of the fourteen sections comes back in the stored shape `PUT` takes, so a design read here can be changed and sent back. `draft` is `null` and `has_draft` false while nothing is drafted.
@@ -3043,7 +3043,7 @@ The published document, the draft when there is one, when each last moved, and a
 
 ```bash
 curl -X PUT https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/portal-design \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: 7c1f0d3a-6b2e-4f88-9a41-2d5e6c7b8a90" \
   -H "Content-Type: application/json" \
   -d '{"preset": "midnight", "accent": "#22d3ee", "font_display": "space-grotesk"}'
@@ -3149,7 +3149,7 @@ Changes the keys sent in the draft, starting one from the published design when 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/portal-design/discard \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: 5a6b7c8d-9e0f-4a1b-8c2d-3e4f5a6b7c8d"
 ```
 
@@ -3165,7 +3165,7 @@ Throws the draft away and keeps what members see; a picture only the draft named
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/portal-design/images/gallery \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: 1b2c3d4e-5f6a-4b7c-8d9e-0f1a2b3c4d5e" \
   -F "image=@lounge.jpg"
 ```
@@ -3183,7 +3183,7 @@ Stores a picture for the design, cut from the centre to the slot's size: `galler
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/portal-design/publish \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: 9e2b4c6d-1a3f-4e5b-8c7d-0f1a2b3c4d5e"
 ```
 
@@ -3226,7 +3226,7 @@ Makes the draft the design members see; the portal, the plan embed and the socia
 
 ```bash
 curl -L https://api.subscriby.net/v1/projects/$PROJECT_ID/recovery/members/export \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" -o members.csv
+  -H "Authorization: Bearer <token>" -o members.csv
 ```
 
 The member list a creator keeps before replacing a bot, as a CSV download (`text/csv`, one member per row: name, email, connector id, active plans, when access ends, resources, whether the bot can still reach them). REST only; there is no MCP tool for a file.
@@ -3240,7 +3240,7 @@ The member list a creator keeps before replacing a bot, as a CSV download (`text
 
 ```bash
 curl https://api.subscriby.net/v1/projects/$PROJECT_ID/recovery/settings \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 - `auto_failover_enabled` says whether the platform may swap a banned channel for its standby on its own; `auto_failover_email_consented_at` when the creator accepted the per-email fee a failover may charge for the members the bot cannot reach.
@@ -3256,7 +3256,7 @@ curl https://api.subscriby.net/v1/projects/$PROJECT_ID/recovery/settings \
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/projects/$PROJECT_ID/recovery/settings \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"auto_failover": true, "accepts_email_fee": true, "email_delivery": "platform"}'
@@ -3280,7 +3280,7 @@ Every field is optional and omitted ones keep their value. Switching `auto_failo
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/projects/$PROJECT_ID/recovery/standby-installation \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -3329,7 +3329,7 @@ Stops keeping the standby; the chat itself is untouched. Answers `204` and raise
 
 ```bash
 curl https://api.subscriby.net/v1/projects/$PROJECT_ID/resources/$RESOURCE_ID/standby \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The standby's own identifier on the platform is deliberately absent, as every connector identifier is on the API.
@@ -3344,7 +3344,7 @@ The standby's own identifier on the platform is deliberately absent, as every co
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/projects/$PROJECT_ID/resources/$RESOURCE_ID/standby \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"mirror": true}'
@@ -3378,7 +3378,7 @@ Takes the open standby request back. A creator holds one request of each kind at
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/resources/$RESOURCE_ID/standby/request \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -3397,7 +3397,7 @@ Linking a standby or a replacement is a conversation with the creator on the con
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/resources/$RESOURCE_ID/standby/use \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -3414,7 +3414,7 @@ Swaps the resource onto its standby right now: the resource points at the standb
 
 ```bash
 curl https://api.subscriby.net/v1/recovery/allowances \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 One row per kind, plus the window they are counted in.
@@ -3430,7 +3430,7 @@ See [Allowances and support review](https://docs.subscriby.net/disaster-recovery
 
 ```bash
 curl "https://api.subscriby.net/v1/recovery/incidents?status=open" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 An incident is one problem a probe detected and has not yet seen fixed: the creator's sign-in account unreachable (`kind: account`), a project's bot refused by the platform (`bot`), or a channel or group the project sells gone or no longer administered (`resources`). It resolves itself when a later probe finds the thing healthy, or is resolved by the recovery that replaced it, which `resolved_by_operation_id` then names.
@@ -3450,7 +3450,7 @@ An incident is one problem a probe detected and has not yet seen fixed: the crea
 
 ```bash
 curl https://api.subscriby.net/v1/recovery/incidents/$INCIDENT_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 One incident.
@@ -3467,7 +3467,7 @@ One incident.
 
 ```bash
 curl "https://api.subscriby.net/v1/recovery/operations?kind=resources&status=completed" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 An operation is one recovery: run by the creator, by the platform on their behalf (`automatic: true`, the failover you sleep through), or on demand (`on_demand: true`, a Swap & Grant of a healthy resource, which spends no allowance). The row exists from the moment the recovery starts, because it is the quota ledger and the audit trail at once.
@@ -3488,7 +3488,7 @@ Both filters are optional: `kind` is `account`, `bot` or `resources`; `status` i
 
 ```bash
 curl https://api.subscriby.net/v1/recovery/operations/$OPERATION_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 One operation, with its undo state.
@@ -3506,7 +3506,7 @@ One operation, with its undo state.
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/recovery/operations/$OPERATION_ID/notify-members \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -3522,7 +3522,7 @@ After a **bot replacement**, emails every member the project can reach by email 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/recovery/operations/$OPERATION_ID/nudge \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -3538,7 +3538,7 @@ Sends one reminder, with a fresh link, to every member a channel recovery re-adm
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/recovery/operations/$OPERATION_ID/revert \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"resource_id": "b73c5f21-9d80-4a6e-8215-4f70ce13a9d6"}'
@@ -3562,7 +3562,7 @@ Answers `200` with the operation, its `revertible` now `false`. Raises `recovery
 
 ```bash
 curl https://api.subscriby.net/v1/recovery/operations/$OPERATION_ID/roll-call \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Where the re-admission after a channel recovery stands, read live.
@@ -3583,7 +3583,7 @@ A recovery of a kind that re-admits nobody (an account relink, a bot replacement
 
 ```bash
 curl https://api.subscriby.net/v1/recovery/readiness \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The whole checklist the **Readiness** page shows, with its totals.
@@ -3942,7 +3942,7 @@ One referral: how the friend arrived (`source` is `portal_link`, `connector_link
 
 ```bash
 curl "https://api.subscriby.net/v1/projects/$PROJECT_ID/resources?kind=telegram:channel" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Newest first, paged with `page` and `per_page`, sortable with `sort_by` (`created_at`, `kind`, `title`, `active`) and `sort_direction`. `kind` narrows to one kind, `connector` to every resource one connector gates.
@@ -3963,7 +3963,7 @@ Newest first, paged with `page` and `per_page`, sortable with `sort_by` (`create
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/resources \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -3992,7 +3992,7 @@ A connector whose installation can list the places it administers lets a client 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/resources/from-space \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{ "kind": "example:role", "external_id": "1183455190821797899", "title": "Gold members role", "description": "<p>The Gold role and everything it unlocks.</p>" }'
@@ -4019,7 +4019,7 @@ A place cannot be created from the API: only the connector can prove it administ
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/resources/link-requests \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{ "kind": "telegram:channel" }'
@@ -4073,7 +4073,7 @@ A manual perk reads `{ "kind": "manual", "connector": null, "space": null, … }
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/projects/$PROJECT_ID/resources/$RESOURCE_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{ "title": "Members lounge (VIP)" }'
@@ -4111,7 +4111,7 @@ The switch on the dashboard's resource row, on. A plan grants only its active re
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/resources/$RESOURCE_ID/deactivate \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -4429,7 +4429,7 @@ Every passage a member made through the sequence, the newest first: when they en
 
 ```bash
 curl https://api.subscriby.net/v1/projects/$PROJECT_ID/support/canned-replies \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Every snippet on the project in the creator's order (`sort_order` ascending). The set is small by design, so the list is not paginated.
@@ -4443,7 +4443,7 @@ Every snippet on the project in the creator's order (`sort_order` ascending). Th
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/support/canned-replies \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -4474,7 +4474,7 @@ Answers `201` with the snippet and emits `support.canned_reply.created`.
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/projects/$PROJECT_ID/support/canned-replies/$REPLY_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -4503,7 +4503,7 @@ One snippet. There is no `support-canned-reply:view`: a snippet is only ever rea
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/projects/$PROJECT_ID/support/canned-replies/$REPLY_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"title": "Support hours"}'
@@ -4538,7 +4538,7 @@ Answers `200` with the updated snippet. Replies already sent with the old wordin
 
 ```bash
 curl https://api.subscriby.net/v1/projects/$PROJECT_ID/support/settings \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 | Field          | Type           | Notes                                                                                                                                          |
@@ -4564,7 +4564,7 @@ The keys drop the `support_` prefix the columns carry: on this endpoint everythi
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/projects/$PROJECT_ID/support/settings \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -4607,7 +4607,7 @@ Answers `200` with the complete settings after the change. **Every field is opti
 
 ```bash
 curl https://api.subscriby.net/v1/roles \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Every role across the teams the caller can see, with its permission codes. Visibility is the union of every team the caller owns or belongs to; a role from a team the caller cannot see answers `404 RESOURCE_NOT_FOUND` rather than `403`, so existence never leaks.
@@ -4624,7 +4624,7 @@ Every role across the teams the caller can see, with its permission codes. Visib
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/roles \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -4659,7 +4659,7 @@ Answers `201` with the role and emits `role.created`.
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/roles/$ROLE_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -4686,7 +4686,7 @@ One role with its permission codes. `permissions` is a flat array of the exact a
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/roles/$ROLE_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"name": "Senior Support Agent", "permissions": ["support-conversation:view-any"]}'
@@ -4729,7 +4729,7 @@ Answers `200` with the role and emits `role.updated`.
 
 ```bash
 curl "https://api.subscriby.net/v1/subscriptions?status=active" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The held subscriptions across every project the token reaches, newest first, paged with `page` and `per_page` (default 25; `limit` is accepted as an alias). `status` matches a single payment status and `plan_id` scopes to one plan. Rows carry no `grants`.
@@ -4764,7 +4764,7 @@ One subscription with its `grants` embedded.
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/subscriptions/$SUBSCRIPTION_ID/cancel \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -4780,7 +4780,7 @@ Cancel is asynchronous: the endpoint answers `202 Accepted` once cancellation is
 
 ```bash
 curl https://api.subscriby.net/v1/subscriptions/$SUBSCRIPTION_ID/grants \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Every grant the purchase holds, one per resource and dated window, oldest first. Never paginated.
@@ -4804,7 +4804,7 @@ The ledger is written by the same job that mints invite links, so a purchase's g
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/subscriptions/$SUBSCRIPTION_ID/grants/reissue \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{ "resource_id": "c9e21f37-8a4b-4d56-b1e0-2f7c9d3a6e15" }'
@@ -4856,7 +4856,7 @@ An already-expired subscription cannot be reactivated regardless of provider.
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/subscriptions/$SUBSCRIPTION_ID/remind \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -4874,7 +4874,7 @@ This messages a real person: read the subscription back first and do not repeat 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/subscriptions/$SUBSCRIPTION_ID/remind-connection \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -4914,7 +4914,7 @@ Restores access with **fresh** invite links: the ones revoked at pause never com
 
 ```bash
 curl "https://api.subscriby.net/v1/support/conversations?status=open" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The queue across every project the token can reach, newest activity first, 25 per page. `project_id`, `status` and `assigned_to` narrow it.
@@ -4950,7 +4950,7 @@ One thread.
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/support/conversations/$CONVERSATION_ID/assign \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"assigned_to_user_id": "'"$TEAM_USER_ID"'"}'
@@ -4972,7 +4972,7 @@ Hands the thread to a team member. `assigned_to_user_id` must be **present**: om
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/support/conversations/$CONVERSATION_ID/block \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -5012,7 +5012,7 @@ Each entry of `attachments` carries the file's `kind`, `mime`, `file_name`, `siz
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/support/conversations/$CONVERSATION_ID/messages \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"body": "Sorry about that. Here is a fresh invite link, valid for 24 hours."}'
@@ -5042,7 +5042,7 @@ Add `reply_to_message_id` to quote an earlier message, the way a chat client sho
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/support/conversations/$CONVERSATION_ID/reopen \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -5058,7 +5058,7 @@ Puts the conversation back to `open` and emits `support.conversation.reopened`, 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/support/conversations/$CONVERSATION_ID/resolve \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -5095,7 +5095,7 @@ Reverses a block. Idempotent and answers `200` with the thread; `support.convers
 
 ```bash
 curl https://api.subscriby.net/v1/teams \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Every team the caller owns or is a member of; teams belonging to other creators are invisible. Never paginated. Useful for a re-auth flow that wants to surface a team picker before the user mints a token scoped to a specific team.
@@ -5105,7 +5105,7 @@ Every team the caller owns or is a member of; teams belonging to other creators 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/teams \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"name": "Research Collective"}'
@@ -5128,7 +5128,7 @@ A new team starts empty. Add people with [Team Members](https://docs.subscriby.n
 
 ```bash
 curl https://api.subscriby.net/v1/teams/current \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Exactly the team the token is scoped to via `scope:team:<uuid>`. Zapier's connection test calls this on save to validate the bearer token.
@@ -5138,7 +5138,7 @@ Exactly the team the token is scoped to via `scope:team:<uuid>`. Zapier's connec
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/teams/$TEAM_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -5156,7 +5156,7 @@ Returns `204 No Content` and emits `team.deleted`.
 
 ```bash
 curl https://api.subscriby.net/v1/teams/$TEAM_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The team if the caller belongs to it; `404 RESOURCE_NOT_FOUND` otherwise, never `403`, so foreign-team existence does not leak.
@@ -5170,7 +5170,7 @@ The team if the caller belongs to it; `404 RESOURCE_NOT_FOUND` otherwise, never 
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/teams/$TEAM_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"name": "Research Collective (EU)"}'
@@ -5205,7 +5205,7 @@ Requires `team-member:remove`, the same ability as removing a member, because wi
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/teams/$TEAM_ID/invitations/$INVITATION_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -5224,7 +5224,7 @@ Returns `204 No Content` and the invitation link stops working.
 
 ```bash
 curl https://api.subscriby.net/v1/teams/$TEAM_ID/members \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The team's owner as the first row followed by every member. Not paginated: a team's collaborator list is small by construction.
@@ -5242,7 +5242,7 @@ The same `team-member:view-any` permission gates the dashboard's **Settings → 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/teams/$TEAM_ID/members \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"email": "newcomer@example.com", "role": "support-agent"}'
@@ -5269,7 +5269,7 @@ Answers `201` with the invitation summary. Emits `team.member.invited`, then `te
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/teams/$TEAM_ID/members/$USER_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -5286,7 +5286,7 @@ Returns `204 No Content`. They lose access to every project and setting scoped t
 
 ```bash
 curl https://api.subscriby.net/v1/teams/$TEAM_ID/members/$USER_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 One collaborator, with their `email`, which this route always includes because it requires `team-member:view` by definition. `404 RESOURCE_NOT_FOUND` if the user is not on the team or the team is not in the caller's visibility set.
@@ -5304,7 +5304,7 @@ One collaborator, with their `email`, which this route always includes because i
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/teams/$TEAM_ID/members/$USER_ID/role \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"role": "manager"}'
@@ -5338,7 +5338,7 @@ Changing a member's role has **no dashboard equivalent**: the settings page offe
 
 ```bash
 curl https://api.subscriby.net/v1/tokens \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Paginated, newest first. `per_page` accepts 1–100 and defaults to 25.
@@ -5355,7 +5355,7 @@ Paginated, newest first. `per_page` accepts 1–100 and defaults to 25.
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/tokens \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -5420,7 +5420,7 @@ A retired ability keeps working on tokens that already carry it, but no new toke
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/tokens/$TOKEN_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -5436,7 +5436,7 @@ Returns `204 No Content`. Revocation is immediate: in-flight requests already au
 
 ```bash
 curl https://api.subscriby.net/v1/tokens/$TOKEN_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 One of the caller's tokens, without its value.
@@ -5463,7 +5463,7 @@ One of the caller's tokens, without its value.
 
 ```bash
 curl "https://api.subscriby.net/v1/webhook-deliveries?status=dead" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The team's deliveries across every endpoint, **newest first**, 25 per page (`per_page` 1 to 100; `limit` is accepted as an alias).
@@ -5484,7 +5484,7 @@ Once the consumer is fixed, replay everything the team dead-lettered since an in
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/webhook-deliveries/retry-dead \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"since": "2026-09-05T22:00:00Z"}'
@@ -5507,7 +5507,7 @@ Each replayed row posts its event again, so confirm the consumer is healthy firs
 
 ```bash
 curl https://api.subscriby.net/v1/webhook-deliveries/$DELIVERY_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 One delivery. Another team's delivery is a `404 RESOURCE_NOT_FOUND`, never a `403`.
@@ -5540,7 +5540,7 @@ A row is born `pending`, becomes `failed` after a non-2xx or transport error whi
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/webhook-deliveries/$DELIVERY_ID/retry \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -5571,7 +5571,7 @@ Answers `200` with the row **pending again**: `attempts` back to `0`, `response_
 
 ```bash
 curl https://api.subscriby.net/v1/webhook-endpoints \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The team's endpoints without their secrets, paged with `page` and `per_page`.
@@ -5588,7 +5588,7 @@ The team's endpoints without their secrets, paged with `page` and `per_page`.
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/webhook-endpoints \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -5620,7 +5620,7 @@ Answers `201` with the endpoint and, at the top level beside `data`, the plainte
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/webhook-endpoints/$ENDPOINT_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -5636,7 +5636,7 @@ Returns `204 No Content`. The endpoint's delivery log stays readable.
 
 ```bash
 curl https://api.subscriby.net/v1/webhook-endpoints/$ENDPOINT_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The endpoint and its delivery health. The signing secret is never part of it; it exists in the create and rotate-secret responses only.
@@ -5652,7 +5652,7 @@ The endpoint and its delivery health. The signing secret is never part of it; it
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/webhook-endpoints/$ENDPOINT_ID/pause \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -5678,7 +5678,7 @@ The switch, on. Resuming also clears the consecutive-failure streak, so a target
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/webhook-endpoints/$ENDPOINT_ID/rotate-secret \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -5710,7 +5710,7 @@ Enqueues a synthetic `subscription.created`-shaped delivery against the endpoint
 
 ```bash
 curl "https://api.subscriby.net/v1/webhook-events?type=subscription.created&limit=3" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The most recent deliveries of one event type, newest first, as the envelopes the endpoints received. `limit` defaults to 3 and is capped at 10; `project_id` restricts to deliveries whose endpoint is scoped to that project.

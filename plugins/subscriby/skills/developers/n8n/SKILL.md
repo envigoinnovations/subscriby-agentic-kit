@@ -1,6 +1,6 @@
 ---
 name: n8n
-description: This skill should be used when the user wants to run Subscriby from n8n, install the n8n-nodes-subscriby community node on Cloud or self-hosted, configure its credential, use the Subscriby Trigger or action node, fall back to the HTTP Request and Webhook nodes, or wants workflow recipes.
+description: "This skill should be used when the user wants to run Subscriby from n8n, install the n8n-nodes-subscriby community node on Cloud or self-hosted, configure its credential, use the Subscriby Trigger or action node, fall back to the HTTP Request and Webhook nodes, or wants workflow recipes."
 license: MIT
 metadata:
   category: developers

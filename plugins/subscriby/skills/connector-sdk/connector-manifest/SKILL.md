@@ -1,6 +1,6 @@
 ---
 name: connector-manifest
-description: This skill should be used when the user is writing or fixing a connector.json manifest for a Subscriby connector, asks about one of its blocks or the eighteen capabilities, the JSON Schema, a loader error naming a dotted path, or what the registry refuses at boot.
+description: "This skill should be used when the user is writing or fixing a connector.json manifest for a Subscriby connector, asks about one of its blocks or the eighteen capabilities, the JSON Schema, a loader error naming a dotted path, or what the registry refuses at boot."
 license: MIT
 metadata:
   category: connector-sdk

@@ -1,6 +1,6 @@
 ---
 name: webhooks
-description: This skill should be used when the user asks to receive Subscriby webhooks, register or manage a webhook endpoint, verify the SB-Signature header, handle retries, dead deliveries or replays, rotate a signing secret, allow deliveries through a firewall, or debug a failing delivery.
+description: "This skill should be used when the user asks to receive Subscriby webhooks, register or manage a webhook endpoint, verify the SB-Signature header, handle retries, dead deliveries or replays, rotate a signing secret, allow deliveries through a firewall, or debug a failing delivery."
 license: MIT
 metadata:
   category: developers
@@ -29,7 +29,7 @@ The body is the envelope `{id, type, created_at, api_version, project_id, data}`
 ## The handler, in order
 
 1. **Read the raw body bytes** before any JSON parsing; canonicalisation differs between libraries and breaks the HMAC.
-2. **Verify the signature** with a constant-time comparison and reject a `t` more than 300 seconds from now (the replay window). The reference verifiers in [scripts/](scripts/) do exactly this and take a list of secrets: `verify.mjs`, `verify.php`, `verify.py`, each self-testing against a fixture from `scripts/make-fixture.mjs`. The `/subscriby:verify-webhook` command writes one into a repository.
+2. **Verify the signature** with a constant-time comparison and reject a `t` more than 300 seconds from now (the replay window). The reference verifiers in [references/verifiers.md](references/verifiers.md) do exactly this and take a list of secrets: `verify.mjs`, `verify.php` and `verify.py`, each self-testing against a fixture from the `make-fixture.mjs` beside them, all four to copy into a repository. The `/subscriby:verify-webhook` command does that copying.
 3. **Deduplicate on `SB-Event-Id`** for at least 24 hours; retries deliver the same event again, and deliveries are not ordered (`subscription.expired` may arrive before its `subscription.cancelled` under retry), so reconcile from the most recent event per resource.
 4. **Answer any 2xx quickly** (the budget is 30 seconds; aim for a few) and do the work afterwards on a queue of the application's own. A non-2xx, a timeout, a TLS or DNS failure counts as a failure; a 4xx is retried like a 5xx, so to drop an event deliberately answer 200 and ignore it.
 5. **Branch on `data.synthetic`**: a test delivery is typed `subscription.created` with a marker payload and should skip business logic.
@@ -38,7 +38,7 @@ The body is the envelope `{id, type, created_at, api_version, project_id, data}`
 import { verifySubscribySignature } from "./verify.mjs";
 
 app.post("/webhooks/subscriby", express.raw({ type: "application/json" }), async (request, response) => {
-  const secrets = [process.env.SUBSCRIBY_WEBHOOK_SECRET, process.env.SUBSCRIBY_WEBHOOK_SECRET_PREVIOUS].filter(Boolean);
+  const secrets = [currentSecret, previousSecret].filter(Boolean); // both from the application's secret store, the second during a rotation
   if (!verifySubscribySignature(request.get("SB-Signature"), request.body, secrets)) return response.status(400).end();
   const event = JSON.parse(request.body.toString("utf8"));
   if (await seen(request.get("SB-Event-Id"))) return response.status(200).end();
@@ -70,5 +70,5 @@ Up to eight attempts with growing waits (10 seconds, 30 seconds, 2 minutes, 10 m
 - [references/endpoints.md](references/endpoints.md): the REST twins for endpoints, deliveries, the events catalogue and the subscription aliases.
 - [references/abilities.md](references/abilities.md): the `webhooks` abilities (`webhook-endpoint:manage` is retired and still honoured).
 - [references/skill-webhooks.md](references/skill-webhooks.md): the skill the site publishes, verbatim; its rotation paragraph still describes a grace window the platform does not have, and the documentation page above is the rule.
-- [scripts/](scripts/): `make-fixture.mjs`, `verify.mjs`, `verify.php`, `verify.py`.
+- [references/verifiers.md](references/verifiers.md): `make-fixture.mjs`, `verify.mjs`, `verify.php` and `verify.py`, tested in the kit's own suite, to copy into a repository.
 - Documentation: [Outbound webhooks](https://docs.subscriby.net/webhooks/v1), [quickstart](https://docs.subscriby.net/webhooks/v1/quickstart), [signature verification](https://docs.subscriby.net/webhooks/v1/signature-verification), [retries and delivery](https://docs.subscriby.net/webhooks/v1/retries-and-delivery), [testing and debugging](https://docs.subscriby.net/webhooks/v1/testing-and-debugging), [security](https://docs.subscriby.net/webhooks/v1/security).

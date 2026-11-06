@@ -1,6 +1,6 @@
 ---
 name: teams-and-roles
-description: This skill should be used when the user asks about teams, inviting or removing a collaborator, changing someone's role, creating or editing roles and groups, which permissions a teammate holds, or why a team action is refused on their plan.
+description: "This skill should be used when the user asks about teams, inviting or removing a collaborator, changing someone's role, creating or editing roles and groups, which permissions a teammate holds, or why a team action is refused on their plan."
 license: MIT
 metadata:
   category: creators

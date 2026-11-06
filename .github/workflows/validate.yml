@@ -27,6 +27,13 @@ jobs:
       - name: Check the generated files against the committed catalogues
         run: npm run check
 
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+
+      - name: Run the reference scripts' self-tests
+        run: npm test
+
       - name: Install Claude Code
         run: npm install -g @anthropic-ai/claude-code
 

@@ -6,6 +6,8 @@ All notable changes to the Subscriby Agentic Kit are documented here. The format
 
 ### Changed
 
+- The plugin directory's validation read: the generated endpoint references no longer carry an environment variable in their example bearer headers, and the snippets that teach a user's application to read its token or webhook secret name the application's own secret store instead of a literal environment read, so nothing in the plugin reads like a credential taken from the user's machine. The mocked tools list for the evals carries only the tools that have a mock. The hook's answer lives in `hooks/ask-before-destructive.sh` and its matcher leaves the server part open, so it holds under any name a host gives the server. Every description is a double-quoted scalar, which the lint now requires. The documentation skill declares no `allowed-tools`; Claude Code asks once per host instead. The reference scripts (the REST client, the fixture generator and the three verifiers) ship inside the skills as Markdown, rendered by `npm run sync` from `scripts/reference`, where `npm test` runs their self-tests in CI.
+
 - The hub's confirmation rule and the subscriptions skill say that a request naming the intent ("cancel it") is not the confirmation: the destructive tool is called only after the user has seen the exact record and what will change and said yes, never in the same turn as the lookup. A second eval run had Claude attempt `cancel_subscription` on a direct instruction before explaining; the hook stopped the call, and the wording now keeps the attempt from happening.
 
 ## [1.0.0] - 2026-11-06

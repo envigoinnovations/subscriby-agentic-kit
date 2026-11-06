@@ -1,5 +1,5 @@
 ---
-description: Sign Claude in to Subscriby through the bundled MCP server, or walk the personal-access-token route, then prove the connection with the account's details.
+description: "Sign Claude in to Subscriby through the bundled MCP server, or walk the personal-access-token route, then prove the connection with the account's details."
 argument-hint: "[oauth|token]"
 disable-model-invocation: true
 ---

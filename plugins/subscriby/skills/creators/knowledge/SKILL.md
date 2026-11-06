@@ -1,6 +1,6 @@
 ---
 name: knowledge
-description: This skill should be used when the user asks to teach Subscriby Copilot something about a project, add a question and answer or a guide to Knowledge, decide whether members or only the team may be answered from it, check what the Copilot knows, or read, change or remove a Knowledge entry.
+description: "This skill should be used when the user asks to teach Subscriby Copilot something about a project, add a question and answer or a guide to Knowledge, decide whether members or only the team may be answered from it, check what the Copilot knows, or read, change or remove a Knowledge entry."
 license: MIT
 metadata:
   category: creators

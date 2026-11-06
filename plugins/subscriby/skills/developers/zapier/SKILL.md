@@ -1,6 +1,6 @@
 ---
 name: zapier
-description: This skill should be used when the user wants to connect Subscriby to Zapier, build a Zap on a Subscriby trigger, action or search, asks which abilities the Zapier connection's token needs, why a Zap receives no events or fails test-auth, or wants Zap recipes.
+description: "This skill should be used when the user wants to connect Subscriby to Zapier, build a Zap on a Subscriby trigger, action or search, asks which abilities the Zapier connection's token needs, why a Zap receives no events or fails test-auth, or wants Zap recipes."
 license: MIT
 metadata:
   category: developers

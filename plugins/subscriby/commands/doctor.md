@@ -1,5 +1,5 @@
 ---
-description: Diagnose a project's connectors, places and recovery readiness, read-only, and report every gap with the tool or dashboard step that fixes it.
+description: "Diagnose a project's connectors, places and recovery readiness, read-only, and report every gap with the tool or dashboard step that fixes it."
 argument-hint: "[project name or id]"
 disable-model-invocation: true
 ---

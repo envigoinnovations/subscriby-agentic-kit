@@ -73,9 +73,17 @@ function checkProse(file, body) {
   }
 }
 
+/** The directory's front matter lint misreads an unquoted sentence, so every description is one double-quoted scalar. */
+function quotedDescription(file, raw) {
+  if (!/^description:[ \t]*"/m.test(raw)) {
+    problem(file, 'description is not double-quoted; wrap the whole value in double quotes, with \\" for a quote inside');
+  }
+}
+
 function lintSkill(file, category, name) {
-  const { data, body } = parseFrontmatter(readFileSync(file, "utf8"));
+  const { data, body, raw } = parseFrontmatter(readFileSync(file, "utf8"));
   if (!data) return problem(file, "has no front matter");
+  quotedDescription(file, raw);
 
   for (const key of Object.keys(data)) {
     if (!STANDARD_KEYS.has(key)) problem(file, `front matter key "${key}" is not in the portable set (${[...STANDARD_KEYS].join(", ")})`);
@@ -99,8 +107,9 @@ function lintSkill(file, category, name) {
 }
 
 function lintCommand(file) {
-  const { data, body } = parseFrontmatter(readFileSync(file, "utf8"));
+  const { data, body, raw } = parseFrontmatter(readFileSync(file, "utf8"));
   if (!data) return problem(file, "has no front matter");
+  quotedDescription(file, raw);
   for (const key of Object.keys(data)) {
     if (!COMMAND_KEYS.has(key)) problem(file, `front matter key "${key}" is not a command key`);
   }
@@ -110,8 +119,9 @@ function lintCommand(file) {
 }
 
 function lintAgent(file, name) {
-  const { data, body } = parseFrontmatter(readFileSync(file, "utf8"));
+  const { data, body, raw } = parseFrontmatter(readFileSync(file, "utf8"));
   if (!data) return problem(file, "has no front matter");
+  quotedDescription(file, raw);
   for (const key of Object.keys(data)) {
     if (!AGENT_KEYS.has(key)) problem(file, `front matter key "${key}" is not an agent key`);
   }

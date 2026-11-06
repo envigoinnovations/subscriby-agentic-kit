@@ -33,7 +33,7 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 
 ```bash
 curl -L https://api.subscriby.net/v1/projects/$PROJECT_ID/recovery/members/export \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" -o members.csv
+  -H "Authorization: Bearer <token>" -o members.csv
 ```
 
 The member list a creator keeps before replacing a bot, as a CSV download (`text/csv`, one member per row: name, email, connector id, active plans, when access ends, resources, whether the bot can still reach them). REST only; there is no MCP tool for a file.
@@ -47,7 +47,7 @@ The member list a creator keeps before replacing a bot, as a CSV download (`text
 
 ```bash
 curl https://api.subscriby.net/v1/projects/$PROJECT_ID/recovery/settings \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 - `auto_failover_enabled` says whether the platform may swap a banned channel for its standby on its own; `auto_failover_email_consented_at` when the creator accepted the per-email fee a failover may charge for the members the bot cannot reach.
@@ -63,7 +63,7 @@ curl https://api.subscriby.net/v1/projects/$PROJECT_ID/recovery/settings \
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/projects/$PROJECT_ID/recovery/settings \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"auto_failover": true, "accepts_email_fee": true, "email_delivery": "platform"}'
@@ -87,7 +87,7 @@ Every field is optional and omitted ones keep their value. Switching `auto_failo
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/projects/$PROJECT_ID/recovery/standby-installation \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -136,7 +136,7 @@ Stops keeping the standby; the chat itself is untouched. Answers `204` and raise
 
 ```bash
 curl https://api.subscriby.net/v1/projects/$PROJECT_ID/resources/$RESOURCE_ID/standby \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The standby's own identifier on the platform is deliberately absent, as every connector identifier is on the API.
@@ -151,7 +151,7 @@ The standby's own identifier on the platform is deliberately absent, as every co
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/projects/$PROJECT_ID/resources/$RESOURCE_ID/standby \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"mirror": true}'
@@ -185,7 +185,7 @@ Takes the open standby request back. A creator holds one request of each kind at
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/resources/$RESOURCE_ID/standby/request \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -204,7 +204,7 @@ Linking a standby or a replacement is a conversation with the creator on the con
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/resources/$RESOURCE_ID/standby/use \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -221,7 +221,7 @@ Swaps the resource onto its standby right now: the resource points at the standb
 
 ```bash
 curl https://api.subscriby.net/v1/recovery/allowances \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 One row per kind, plus the window they are counted in.
@@ -237,7 +237,7 @@ See [Allowances and support review](https://docs.subscriby.net/disaster-recovery
 
 ```bash
 curl "https://api.subscriby.net/v1/recovery/incidents?status=open" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 An incident is one problem a probe detected and has not yet seen fixed: the creator's sign-in account unreachable (`kind: account`), a project's bot refused by the platform (`bot`), or a channel or group the project sells gone or no longer administered (`resources`). It resolves itself when a later probe finds the thing healthy, or is resolved by the recovery that replaced it, which `resolved_by_operation_id` then names.
@@ -257,7 +257,7 @@ An incident is one problem a probe detected and has not yet seen fixed: the crea
 
 ```bash
 curl https://api.subscriby.net/v1/recovery/incidents/$INCIDENT_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 One incident.
@@ -274,7 +274,7 @@ One incident.
 
 ```bash
 curl "https://api.subscriby.net/v1/recovery/operations?kind=resources&status=completed" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 An operation is one recovery: run by the creator, by the platform on their behalf (`automatic: true`, the failover you sleep through), or on demand (`on_demand: true`, a Swap & Grant of a healthy resource, which spends no allowance). The row exists from the moment the recovery starts, because it is the quota ledger and the audit trail at once.
@@ -295,7 +295,7 @@ Both filters are optional: `kind` is `account`, `bot` or `resources`; `status` i
 
 ```bash
 curl https://api.subscriby.net/v1/recovery/operations/$OPERATION_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 One operation, with its undo state.
@@ -313,7 +313,7 @@ One operation, with its undo state.
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/recovery/operations/$OPERATION_ID/notify-members \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -329,7 +329,7 @@ After a **bot replacement**, emails every member the project can reach by email 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/recovery/operations/$OPERATION_ID/nudge \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -345,7 +345,7 @@ Sends one reminder, with a fresh link, to every member a channel recovery re-adm
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/recovery/operations/$OPERATION_ID/revert \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"resource_id": "b73c5f21-9d80-4a6e-8215-4f70ce13a9d6"}'
@@ -369,7 +369,7 @@ Answers `200` with the operation, its `revertible` now `false`. Raises `recovery
 
 ```bash
 curl https://api.subscriby.net/v1/recovery/operations/$OPERATION_ID/roll-call \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Where the re-admission after a channel recovery stands, read live.
@@ -390,7 +390,7 @@ A recovery of a kind that re-admits nobody (an account relink, a bot replacement
 
 ```bash
 curl https://api.subscriby.net/v1/recovery/readiness \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The whole checklist the **Readiness** page shows, with its totals.

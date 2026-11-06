@@ -21,7 +21,7 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 
 ```bash
 curl "https://api.subscriby.net/v1/subscriptions?status=active" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The held subscriptions across every project the token reaches, newest first, paged with `page` and `per_page` (default 25; `limit` is accepted as an alias). `status` matches a single payment status and `plan_id` scopes to one plan. Rows carry no `grants`.
@@ -56,7 +56,7 @@ One subscription with its `grants` embedded.
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/subscriptions/$SUBSCRIPTION_ID/cancel \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -72,7 +72,7 @@ Cancel is asynchronous: the endpoint answers `202 Accepted` once cancellation is
 
 ```bash
 curl https://api.subscriby.net/v1/subscriptions/$SUBSCRIPTION_ID/grants \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Every grant the purchase holds, one per resource and dated window, oldest first. Never paginated.
@@ -96,7 +96,7 @@ The ledger is written by the same job that mints invite links, so a purchase's g
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/subscriptions/$SUBSCRIPTION_ID/grants/reissue \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{ "resource_id": "c9e21f37-8a4b-4d56-b1e0-2f7c9d3a6e15" }'
@@ -148,7 +148,7 @@ An already-expired subscription cannot be reactivated regardless of provider.
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/subscriptions/$SUBSCRIPTION_ID/remind \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -166,7 +166,7 @@ This messages a real person: read the subscription back first and do not repeat 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/subscriptions/$SUBSCRIPTION_ID/remind-connection \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -203,7 +203,7 @@ Restores access with **fresh** invite links: the ones revoked at pause never com
 
 ```bash
 curl https://api.subscriby.net/v1/projects/$PROJECT_ID/payment-methods \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Every payment method attached to the project, newest first.
@@ -221,7 +221,7 @@ Every payment method attached to the project, newest first.
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/projects/$PROJECT_ID/payment-methods/$METHOD_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -256,7 +256,7 @@ The method without its credentials. A method is resolved within the project: a m
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/payment-methods/$METHOD_ID/activate \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -275,7 +275,7 @@ Offers the method at checkout again and re-queues the plan sync for that gateway
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/payment-methods/$METHOD_ID/deactivate \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -292,7 +292,7 @@ The creator's switch. A deactivated method is no longer offered at checkout; the
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/payment-methods/$METHOD_ID/sync \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 

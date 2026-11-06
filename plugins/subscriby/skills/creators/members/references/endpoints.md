@@ -18,7 +18,7 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 
 ```bash
 curl "https://api.subscriby.net/v1/projects/$PROJECT_ID/members?status=customer" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Newest first, paged with `page` and `per_page` (default 25; `limit` is accepted as an alias). `status` narrows to one lifecycle state. `identity` looks one member up by the account they connected, `connector:external_id`, for a workflow that starts from a platform event and needs the member behind an account id; the page then holds that one member with their `identities` embedded, or no rows. `access=waiting` keeps the members whose live purchase includes a place waiting for an account they have not connected (a Discord role bought through Telegram, say), the ones the [connection reminder](https://docs.subscriby.net/api/v1/reference/subscriptions) nudges.
@@ -61,7 +61,7 @@ Members join through a bot and are never asked for an email, so for most of them
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/members/$MEMBER_ID/ban \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"reason": "Repeated spam in the research channel."}'
@@ -86,7 +86,7 @@ Connector-side eviction (kicks from the gated spaces, revoked invite links) runs
 
 ```bash
 curl https://api.subscriby.net/v1/projects/$PROJECT_ID/members/$MEMBER_ID/identities \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The member's connected accounts, preferred first. Never paginated. A member can connect one account per platform the project is on, from the portal's **Account & Recovery** screen or by talking to the project's bot; the member read embeds the same rows as `identities`. Connecting has no endpoint: it is a two-sided proof the member completes on the connector.
@@ -106,7 +106,7 @@ The member's connected accounts, preferred first. Never paginated. A member can 
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/projects/$PROJECT_ID/members/$MEMBER_ID/identities/$LINK_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -157,7 +157,7 @@ Moves a `banned` member to `churned` and emits `member.unbanned`. Access is not 
 
 ```bash
 curl "https://api.subscriby.net/v1/projects/$PROJECT_ID/creator-tasks?status=open" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 `status` is `open` (the default: tasks not yet done whose grant still stands), `completed`, or `all`. Paged like every list but **oldest first** by default, so the longest-waiting member is at the top.
@@ -181,7 +181,7 @@ curl "https://api.subscriby.net/v1/projects/$PROJECT_ID/creator-tasks?status=ope
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/creator-tasks/$TASK_ID/complete \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 

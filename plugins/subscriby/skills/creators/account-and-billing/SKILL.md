@@ -1,6 +1,6 @@
 ---
 name: account-and-billing
-description: This skill should be used when the user asks about their own Subscriby account, notifications and where alerts go, exporting their data, the Partner Program and its commissions or payouts, transaction fees and invoices, Copilot Credits and packs, their creator plan or addons, or their API tokens.
+description: "This skill should be used when the user asks about their own Subscriby account, notifications and where alerts go, exporting their data, the Partner Program and its commissions or payouts, transaction fees and invoices, Copilot Credits and packs, their creator plan or addons, or their API tokens."
 license: MIT
 metadata:
   category: creators

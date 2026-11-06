@@ -20,7 +20,7 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 
 ```bash
 curl "https://api.subscriby.net/v1/support/conversations?status=open" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The queue across every project the token can reach, newest activity first, 25 per page. `project_id`, `status` and `assigned_to` narrow it.
@@ -56,7 +56,7 @@ One thread.
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/support/conversations/$CONVERSATION_ID/assign \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"assigned_to_user_id": "'"$TEAM_USER_ID"'"}'
@@ -78,7 +78,7 @@ Hands the thread to a team member. `assigned_to_user_id` must be **present**: om
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/support/conversations/$CONVERSATION_ID/block \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -118,7 +118,7 @@ Each entry of `attachments` carries the file's `kind`, `mime`, `file_name`, `siz
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/support/conversations/$CONVERSATION_ID/messages \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"body": "Sorry about that. Here is a fresh invite link, valid for 24 hours."}'
@@ -148,7 +148,7 @@ Add `reply_to_message_id` to quote an earlier message, the way a chat client sho
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/support/conversations/$CONVERSATION_ID/reopen \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -164,7 +164,7 @@ Puts the conversation back to `open` and emits `support.conversation.reopened`, 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/support/conversations/$CONVERSATION_ID/resolve \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -200,7 +200,7 @@ Reverses a block. Idempotent and answers `200` with the thread; `support.convers
 
 ```bash
 curl https://api.subscriby.net/v1/projects/$PROJECT_ID/support/canned-replies \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Every snippet on the project in the creator's order (`sort_order` ascending). The set is small by design, so the list is not paginated.
@@ -214,7 +214,7 @@ Every snippet on the project in the creator's order (`sort_order` ascending). Th
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/support/canned-replies \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -245,7 +245,7 @@ Answers `201` with the snippet and emits `support.canned_reply.created`.
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/projects/$PROJECT_ID/support/canned-replies/$REPLY_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -274,7 +274,7 @@ One snippet. There is no `support-canned-reply:view`: a snippet is only ever rea
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/projects/$PROJECT_ID/support/canned-replies/$REPLY_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"title": "Support hours"}'
@@ -309,7 +309,7 @@ Answers `200` with the updated snippet. Replies already sent with the old wordin
 
 ```bash
 curl https://api.subscriby.net/v1/projects/$PROJECT_ID/support/settings \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 | Field          | Type           | Notes                                                                                                                                          |
@@ -335,7 +335,7 @@ The keys drop the `support_` prefix the columns carry: on this endpoint everythi
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/projects/$PROJECT_ID/support/settings \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{

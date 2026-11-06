@@ -1,6 +1,6 @@
 ---
 name: connector-sdk
-description: This skill should be used when the user wants to build a Subscriby connector for a platform, asks what a connector is, how to start a package on subscriby/connector-sdk, which ports every connector binds, or how the package, the provider and the Connector class fit together.
+description: "This skill should be used when the user wants to build a Subscriby connector for a platform, asks what a connector is, how to start a package on subscriby/connector-sdk, which ports every connector binds, or how the package, the provider and the Connector class fit together."
 license: MIT
 metadata:
   category: connector-sdk

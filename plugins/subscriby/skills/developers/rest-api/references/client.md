@@ -1,3 +1,10 @@
+# Reference scripts: Rest api
+
+Copy the file you need into the repository you are working in, keeping its name; each one is tested in the kit's own suite (`npm test` under `scripts/reference`) and rendered here by `npm run sync`, so `npm run check` fails on a hand edit.
+
+## client.mjs
+
+```js
 #!/usr/bin/env node
 /**
  * A small client for the Subscriby REST API with the contract baked in:
@@ -8,7 +15,7 @@
  * page-based iteration that follows meta.current_page to meta.last_page.
  *
  *   import { createSubscribyClient, SubscribyApiError } from "./client.mjs";
- *   const api = createSubscribyClient({ token: process.env.SUBSCRIBY_TOKEN });
+ *   const api = createSubscribyClient({ token: subscribyToken }); // from the application's secret store
  *   const { data: team } = await api.get("teams/current");
  *   for await (const project of api.paginate("projects")) console.log(project.name);
  *
@@ -186,3 +193,4 @@ async function selfTest() {
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1] && process.argv.includes("--self-test")) {
   await selfTest();
 }
+```

@@ -1,5 +1,5 @@
 ---
-description: A guided launch from an empty project to a live one, following the launch-project skill step by step and confirming every write before it runs.
+description: "A guided launch from an empty project to a live one, following the launch-project skill step by step and confirming every write before it runs."
 disable-model-invocation: true
 ---
 

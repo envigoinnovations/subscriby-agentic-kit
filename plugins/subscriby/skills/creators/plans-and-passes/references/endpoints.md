@@ -37,7 +37,7 @@ Pages the project's plans, every kind together, newest first. Read `kind` on eac
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/plans \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -54,7 +54,7 @@ curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/plans \
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/plans \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -85,7 +85,7 @@ A series needs window ids, and those come from windows that already exist. Read 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/plans \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -407,7 +407,7 @@ Takes the plan off sale: `active` becomes `false` and `plan.deactivated` fires. 
 
 ```bash
 curl "https://api.subscriby.net/v1/projects/$PROJECT_ID/pass-windows?status=scheduled&sellable_only=true" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The project's windows across every pass plan, **soonest first**, 50 per page (`per_page` 1 to 100; `limit` is accepted as an alias). Filters are validated before they reach the query: an unknown status or a malformed date is a `422 VALIDATION_FAILED` naming the field, not an empty page.
@@ -457,7 +457,7 @@ One window, with `sellable` and `holders` resolved for it. A window is resolved 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/pass-windows/$WINDOW_ID/cancel \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -465,7 +465,7 @@ The body is optional. `series_holders` is the choice the dashboard's cancellatio
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/pass-windows/$WINDOW_ID/cancel \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"series_holders": "drop"}'
@@ -504,7 +504,7 @@ Nudges everyone who bought the window but has not yet joined, re-attaching their
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/pass-windows/$WINDOW_ID/remind \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -525,7 +525,7 @@ Places a window by hand on a `kind: pass` plan. This is how `schedule_mode: fixe
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/plans/$PLAN_ID/pass-windows \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{

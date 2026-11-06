@@ -68,7 +68,7 @@ function scalar(value) {
     return inner === "" ? [] : inner.split(",").map((item) => scalar(item));
   }
   if ((trimmed.startsWith('"') && trimmed.endsWith('"')) || (trimmed.startsWith("'") && trimmed.endsWith("'"))) {
-    return trimmed.slice(1, -1).replace(/\\"/g, '"');
+    return trimmed.slice(1, -1).replace(/\\(["\\])/g, "$1");
   }
   if (trimmed === "true") return true;
   if (trimmed === "false") return false;

@@ -1,6 +1,6 @@
 ---
 name: tokens-and-abilities
-description: This skill should be used when the user asks which abilities a token needs, how to mint or scope a personal access token, what the sbt_ format is, how team and project scope work, how to rotate or revoke a token, or why a call answers TOKEN_MISSING_ABILITY or TENANT_MISMATCH.
+description: "This skill should be used when the user asks which abilities a token needs, how to mint or scope a personal access token, what the sbt_ format is, how team and project scope work, how to rotate or revoke a token, or why a call answers TOKEN_MISSING_ABILITY or TENANT_MISMATCH."
 license: MIT
 metadata:
   category: developers

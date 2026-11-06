@@ -1,6 +1,6 @@
 ---
 name: connector-testing
-description: This skill should be used when the user is testing a Subscriby connector, asks about the SDK's fake connector or port fakes and their assertions, how to run the conformance kit with TestRegistry or inside Subscriby's suite, what the kit's rules check, or what only the platform can prove.
+description: "This skill should be used when the user is testing a Subscriby connector, asks about the SDK's fake connector or port fakes and their assertions, how to run the conformance kit with TestRegistry or inside Subscriby's suite, what the kit's rules check, or what only the platform can prove."
 license: MIT
 metadata:
   category: connector-sdk

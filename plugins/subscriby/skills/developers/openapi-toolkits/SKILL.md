@@ -1,6 +1,6 @@
 ---
 name: openapi-toolkits
-description: This skill should be used when the user wants to drive Subscriby from Make, LangChain or another OpenAPI agent toolkit, import the API into Postman or Insomnia, generate a typed client with openapi-generator, Stainless, Speakeasy or Fern, or asks what the OpenAPI document carries.
+description: "This skill should be used when the user wants to drive Subscriby from Make, LangChain or another OpenAPI agent toolkit, import the API into Postman or Insomnia, generate a typed client with openapi-generator, Stainless, Speakeasy or Fern, or asks what the OpenAPI document carries."
 license: MIT
 metadata:
   category: developers

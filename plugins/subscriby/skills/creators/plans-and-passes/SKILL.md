@@ -1,6 +1,6 @@
 ---
 name: plans-and-passes
-description: This skill should be used when the user asks to create, price, edit, publish, reorder or delete a plan, set a billing cycle or trial, restrict who can buy, sell a time-limited pass or a pass series, schedule or cancel access windows, remind pass holders, or start a next season.
+description: "This skill should be used when the user asks to create, price, edit, publish, reorder or delete a plan, set a billing cycle or trial, restrict who can buy, sell a time-limited pass or a pass series, schedule or cancel access windows, remind pass holders, or start a next season."
 license: MIT
 metadata:
   category: creators

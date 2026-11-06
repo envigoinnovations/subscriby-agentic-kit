@@ -637,7 +637,12 @@
     ],
     "documents": [
       "skill-rest-api.md"
-    ]
+    ],
+    "scripts": {
+      "client.md": [
+        "rest-api/client.mjs"
+      ]
+    }
   },
   "developers/tokens-and-abilities": {
     "tools": [
@@ -704,7 +709,15 @@
     ],
     "documents": [
       "skill-webhooks.md"
-    ]
+    ],
+    "scripts": {
+      "verifiers.md": [
+        "webhooks/make-fixture.mjs",
+        "webhooks/verify.mjs",
+        "webhooks/verify.php",
+        "webhooks/verify.py"
+      ]
+    }
   },
   "developers/webhook-events": {
     "events": [

@@ -1,9 +1,8 @@
 ---
 name: documentation
-description: This skill should be used when the user asks how something works in Subscriby, where it is documented, or to look something up in the Subscriby docs or API reference, or when an answer needs a fact the kit does not carry. Where the docs and catalogues are and how to read them as Markdown.
+description: "This skill should be used when the user asks how something works in Subscriby, where it is documented, or to look something up in the Subscriby docs or API reference, or when an answer needs a fact the kit does not carry. Where the docs and catalogues are and how to read them as Markdown."
 license: MIT
-compatibility: Needs a way to fetch a web page (Claude Code's WebFetch, or curl in a shell).
-allowed-tools: WebFetch(domain:docs.subscriby.net), WebFetch(domain:api.subscriby.net), WebFetch(domain:www.subscriby.net)
+compatibility: Needs a way to fetch a web page (Claude Code's WebFetch, which asks once per host, or curl in a shell).
 metadata:
   category: foundation
   catalogue: 2026-05-01

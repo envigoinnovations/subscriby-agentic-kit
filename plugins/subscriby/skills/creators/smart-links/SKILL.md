@@ -1,6 +1,6 @@
 ---
 name: smart-links
-description: This skill should be used when the user asks to track where members come from, create a tracked link for a bio, a video, a newsletter or a QR code, read a link's clicks, leads, checkouts, paid members and revenue, compare channels, embed plans on a website, or rename, expire or archive a link.
+description: "This skill should be used when the user asks to track where members come from, create a tracked link for a bio, a video, a newsletter or a QR code, read a link's clicks, leads, checkouts, paid members and revenue, compare channels, embed plans on a website, or rename, expire or archive a link."
 license: MIT
 metadata:
   category: creators

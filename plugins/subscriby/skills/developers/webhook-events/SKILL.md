@@ -1,6 +1,6 @@
 ---
 name: webhook-events
-description: This skill should be used when the user asks which Subscriby webhook events exist or which to subscribe to for a job, what an event's payload carries, which ability it needs, when it fires, or how to react to a new member, a failed renewal, a cancellation, a pass window or an outage.
+description: "This skill should be used when the user asks which Subscriby webhook events exist or which to subscribe to for a job, what an event's payload carries, which ability it needs, when it fires, or how to react to a new member, a failed renewal, a cancellation, a pass window or an outage."
 license: MIT
 metadata:
   category: developers

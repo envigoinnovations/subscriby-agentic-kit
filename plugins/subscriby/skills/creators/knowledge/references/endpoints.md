@@ -16,7 +16,7 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 
 ```bash
 curl "https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/knowledge?per_page=50" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Pages the entries, newest first. Each row names the entry's `kind`, its `audience`, its `status` with a label beside each, its title and how many passages it became; `body` is `null` on every row. Sort with `sort_by` (`created_at` by default, or `updated_at`, `title`) and `sort_direction`.
@@ -35,7 +35,7 @@ Pages the entries, newest first. Each row names the entry's `kind`, its `audienc
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/knowledge \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -86,7 +86,7 @@ The entry with its `body`: the answer, or the document's text as it was read out
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/knowledge/3b7e4d2a-9c1f-4a6b-8d5e-2f7c9a1b3e4d \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{ "audience": "team" }'

@@ -1,6 +1,6 @@
 ---
 name: referral-program
-description: This skill should be used when the user asks about a project's Referral Program, affiliates, referral codes or links, free membership days or cash commissions for members who bring friends, approving or suspending an affiliate, the reward ledger, or recording a payout to an affiliate.
+description: "This skill should be used when the user asks about a project's Referral Program, affiliates, referral codes or links, free membership days or cash commissions for members who bring friends, approving or suspending an affiliate, the reward ledger, or recording a payout to an affiliate."
 license: MIT
 metadata:
   category: creators

@@ -1,6 +1,6 @@
 ---
 name: mcp-clients
-description: This skill should be used when the user asks how to connect Subscriby to claude.ai, Claude Desktop, Cursor, ChatGPT Desktop, VS Code or another MCP client, how the OAuth handshake works, what the MCP resources are, how async tools are polled, the MCP limits, or why a client cannot connect.
+description: "This skill should be used when the user asks how to connect Subscriby to claude.ai, Claude Desktop, Cursor, ChatGPT Desktop, VS Code or another MCP client, how the OAuth handshake works, what the MCP resources are, how async tools are polled, the MCP limits, or why a client cannot connect."
 license: MIT
 metadata:
   category: developers
@@ -13,9 +13,9 @@ metadata:
 
 ## Per client
 
-- **claude.ai and Claude Desktop**: Settings → Connectors → Add custom connector, name `Subscriby`, URL `https://mcp.subscriby.net`, Connect, sign in, Authorize. Connectors are shared across claude.ai and Desktop on one account. A token instead: Claude Desktop's config file speaks stdio, so bridge with `mcp-remote` and keep the token in `env.AUTH_TOKEN` (on Windows `npx` splits an inline `Bearer <token>` on the space).
+- **claude.ai and Claude Desktop**: Settings → Connectors → Add custom connector, name `Subscriby`, URL `https://mcp.subscriby.net`, Connect, sign in, Authorize. Connectors are shared across claude.ai and Desktop on one account. A token instead: Claude Desktop's config file speaks stdio, so bridge with `mcp-remote` and hand the token to the bridge through its environment entry rather than inline in the command (on Windows `npx` splits an inline `Bearer <token>` on the space); the documentation page shows the entry.
 - **Claude Code without the plugin**: `claude mcp add --transport http subscriby https://mcp.subscriby.net`, then `/mcp` → Authenticate; a token as `--header "Authorization: Bearer sbt_live_…"`.
-- **Cursor**: `~/.cursor/mcp.json` (or `%APPDATA%/Cursor/mcp.json`, or a workspace `.cursor/mcp.json`) with `{"mcpServers": {"subscriby": {"url": "https://mcp.subscriby.net"}}}`, restart, Settings → MCP → the entry shows Needs login → sign in; a token as a `headers.Authorization` value.
+- **Cursor**: Cursor's MCP settings file (the global one under the user's Cursor folder, or a workspace one) with `{"mcpServers": {"subscriby": {"url": "https://mcp.subscriby.net"}}}`, restart, Settings → MCP → the entry shows Needs login → sign in; a token as a `headers.Authorization` value.
 - **ChatGPT Desktop**: Settings → Connectors → Create (developer mode), name `Subscriby`, the URL exactly, Authentication OAuth; a token as No authentication plus a custom `Authorization` header.
 - **VS Code**: MCP: Add Server → HTTP → the URL, name `subscriby`, written to `.vscode/mcp.json` or the user profile; VS Code asks to authenticate; a token as a `headers` entry, preferably through an input variable in a committed workspace file.
 

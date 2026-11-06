@@ -1,5 +1,5 @@
 ---
-description: Propose the least set of abilities a personal access token needs for a purpose, and the steps to mint it, without ever handling the token itself.
+description: "Propose the least set of abilities a personal access token needs for a purpose, and the steps to mint it, without ever handling the token itself."
 argument-hint: "[purpose, e.g. read-only analytics, a webhook subscriber, a support assistant]"
 disable-model-invocation: true
 ---

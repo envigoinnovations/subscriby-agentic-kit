@@ -15,7 +15,7 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 
 ```bash
 curl https://api.subscriby.net/v1/tokens \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Paginated, newest first. `per_page` accepts 1–100 and defaults to 25.
@@ -32,7 +32,7 @@ Paginated, newest first. `per_page` accepts 1–100 and defaults to 25.
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/tokens \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -97,7 +97,7 @@ A retired ability keeps working on tokens that already carry it, but no new toke
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/tokens/$TOKEN_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -113,7 +113,7 @@ Returns `204 No Content`. Revocation is immediate: in-flight requests already au
 
 ```bash
 curl https://api.subscriby.net/v1/tokens/$TOKEN_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 One of the caller's tokens, without its value.

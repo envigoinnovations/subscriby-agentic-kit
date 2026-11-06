@@ -31,7 +31,7 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 
 ```bash
 curl https://api.subscriby.net/v1/projects \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Every project visible to the token, newest first, paged with `page` and `per_page` (default 25). A token minted with `scope:project:<uuid>` entries lists only those projects.
@@ -48,7 +48,7 @@ Every project visible to the token, newest first, paged with `page` and `per_pag
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -62,7 +62,7 @@ Banner and photo are optional image uploads. Send `multipart/form-data` when you
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -F "name=Research Premium" \
   -F "description=Weekly deep-dive research notes." \
@@ -140,7 +140,7 @@ Every installation the project holds, live and standby, oldest first.
 
 ```bash
 curl https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 `role` is `live` for the one that acts and `standby` for the spare the Disaster Recovery Program keeps; `state` is `pending`, `connected`, `degraded` (the health probe found something wrong, `state_reason` and `state_detail` say what, `creator_actionable` whether the creator can fix it), `revoked` (the platform withdrew it) or `disconnected` (the creator did); `operational` is the one-word answer to "can it act right now?". `external_id`, `display_name`, `handle` and `avatar_url` are the platform's own account for the installation. Credentials and settings are never serialised.
@@ -156,7 +156,7 @@ curl https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"unpublish_emptied_plans": true, "cancel_recurring_subscriptions": false}'
@@ -179,7 +179,7 @@ The two opt-ins travel in the JSON body or as query parameters; on by default, t
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -196,7 +196,7 @@ Installing and connecting are two acts. Installing says "this project runs this 
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example/installation \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -215,7 +215,7 @@ The project's installation of that connector in the live role, in whatever state
 
 ```bash
 curl https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example/installation \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 **Parameters**
@@ -228,7 +228,7 @@ curl https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/
 
 ```bash
 curl https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example/installation/actions \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 A connector declares the things its installation can set up on its platform as data, so every surface offers them the same way: each action carries its `key`, the `label` a button says, a `description` of what will happen, the `fields` the creator fills in first (the same shape as the connector's `install_fields`) and the `confirm` question a client asks before running, with `needs_confirmation` saying whether to ask. The list is empty for a connector that offers none, while the connector is paused, and while the installation cannot act. Run one with the endpoint below.
@@ -243,7 +243,7 @@ A connector declares the things its installation can set up on its platform as d
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example/installation/actions/setup_members_area \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{ "fields": { "category_name": "Inner Circle" } }'
@@ -267,7 +267,7 @@ Runs one action the actions endpoint listed, on the platform. `fields` is an obj
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example/installation/doctor \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -286,7 +286,7 @@ The report is kept on the installation (`doctor_ran_at` and `doctor_healthy` on 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example/installation/restore-access \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -303,7 +303,7 @@ The **Restore Access** item of the dashboard's Connectors tab, offered while an 
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example/installation/settings \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"settings": {"greeting": "Welcome aboard"}, "capabilities": {"broadcasts": false}}'
@@ -331,7 +331,7 @@ Answers `200` with the installation, which never carries the settings themselves
 
 ```bash
 curl "https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example/installation/spaces?kind=role" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 A connector whose installation can list the places it administers (a server's roles and channels) lets a creator pick one instead of answering a picker on the platform; its directory card declares `space_browsing`. This is that list, read from the platform on every call: a place made a moment ago is on it, a deleted one is not. `kind` is one of the connector's `resource_kinds`, as a bare word (`role`) or spelled `connector:kind` (`example:role`). Pass a place's `external_id` to the from-space endpoint of the Resources API to sell it. A connector that cannot list its places answers `422 VALIDATION_FAILED`; the link request is its door.
@@ -347,7 +347,7 @@ A connector whose installation can list the places it administers (a server's ro
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example/installation/verify \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -366,7 +366,7 @@ Uninstall deletes nothing and touches no money by itself, and it is always previ
 
 ```bash
 curl https://api.subscriby.net/v1/projects/7f3d1c92-8b45-4e6a-9d21-5c8e0a4b6f13/connectors/example/uninstall-preview \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 - `resources` are the connector's on the project (manual perks are never among them); they will be deactivated and marked `detached`, their external ids kept.
@@ -410,7 +410,7 @@ Switches an archived project back on. Answers `200` with the project and emits `
 
 ```bash
 curl "https://api.subscriby.net/v1/projects/$PROJECT_ID/resources?kind=telegram:channel" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Newest first, paged with `page` and `per_page`, sortable with `sort_by` (`created_at`, `kind`, `title`, `active`) and `sort_direction`. `kind` narrows to one kind, `connector` to every resource one connector gates.
@@ -431,7 +431,7 @@ Newest first, paged with `page` and `per_page`, sortable with `sort_by` (`create
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/resources \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -460,7 +460,7 @@ A connector whose installation can list the places it administers lets a client 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/resources/from-space \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{ "kind": "example:role", "external_id": "1183455190821797899", "title": "Gold members role", "description": "<p>The Gold role and everything it unlocks.</p>" }'
@@ -487,7 +487,7 @@ A place cannot be created from the API: only the connector can prove it administ
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/resources/link-requests \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{ "kind": "telegram:channel" }'
@@ -541,7 +541,7 @@ A manual perk reads `{ "kind": "manual", "connector": null, "space": null, … }
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/projects/$PROJECT_ID/resources/$RESOURCE_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{ "title": "Members lounge (VIP)" }'
@@ -579,7 +579,7 @@ The switch on the dashboard's resource row, on. A plan grants only its active re
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/resources/$RESOURCE_ID/deactivate \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 

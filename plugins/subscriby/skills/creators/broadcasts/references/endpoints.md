@@ -20,7 +20,7 @@ Every broadcast the project sent since history began, newest first, with who sen
 
 ```bash
 curl "https://api.subscriby.net/v1/projects/$PROJECT_ID/broadcasts?filter=completed" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 A send made before the release that introduced the ledger has no row, so a `broadcast_id` remembered from an older `broadcast.queued` event answers `404 RESOURCE_NOT_FOUND`.
@@ -41,7 +41,7 @@ A send made before the release that introduced the ledger has no row, so a `broa
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/broadcasts \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -138,7 +138,7 @@ Sizes a broadcast without sending it. The dashboard shows this before the confir
 
 ```bash
 curl "https://api.subscriby.net/v1/projects/$PROJECT_ID/broadcasts/preview?audience=customer&plan_id=$PLAN_ID" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The preview accepts the same `audience`, `pass_window_id`, `plan_id` and `expiring_within_days` as the send, and applies them identically, segments, plan narrowing and recipient rules alike, so a preview and the send it precedes can never describe different audiences. The fields answer the same as the send's, minus `status`.
@@ -158,7 +158,7 @@ One broadcast by the `broadcast_id` the send answered with. `progress` is where 
 
 ```bash
 curl https://api.subscriby.net/v1/projects/$PROJECT_ID/broadcasts/$BROADCAST_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 **Parameters**
@@ -173,7 +173,7 @@ The members the walk could not reach, newest first, each with `kind` (`unreachab
 
 ```bash
 curl https://api.subscriby.net/v1/projects/$PROJECT_ID/broadcasts/$BROADCAST_ID/failures \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 **Parameters**
@@ -192,7 +192,7 @@ Sends a finished broadcast again, to the members it could not reach and nobody e
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT_ID/broadcasts/$BROADCAST_ID/retry \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 

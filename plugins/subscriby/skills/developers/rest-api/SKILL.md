@@ -1,6 +1,6 @@
 ---
 name: rest-api
-description: This skill should be used when the user asks how to call the Subscriby REST API, what the base URL, bearer header or response envelopes look like, how to paginate, send an Idempotency-Key, honour rate limits, read the OpenAPI document, or build a client in TypeScript, PHP or Python.
+description: "This skill should be used when the user asks how to call the Subscriby REST API, what the base URL, bearer header or response envelopes look like, how to paginate, send an Idempotency-Key, honour rate limits, read the OpenAPI document, or build a client in TypeScript, PHP or Python."
 license: MIT
 metadata:
   category: developers
@@ -69,12 +69,12 @@ Each operation carries `x-required-scopes` (the abilities the token needs), `x-w
 
 ## A client that honours the contract
 
-[scripts/client.mjs](scripts/client.mjs) is a dependency-free Node module with the rules baked in: the bearer from a token the caller passes from the environment, a fresh `Idempotency-Key` on every write kept across that write's retries, a retry on `429` after `Retry-After`, on `425` and on `5xx` with capped backoff and jitter, never on another `4xx`, the error envelope raised as `SubscribyApiError` with `code`, `status`, `requestId`, `docsUrl`, `remediation` and `fields`, and `paginate()` as an async iterator over every page. `node scripts/client.mjs --self-test` proves each rule against a local mock server.
+[references/client.md](references/client.md) carries `client.mjs`, a dependency-free Node module with the rules baked in: the bearer from a token the caller passes in (from the application's own secret store, never from source), a fresh `Idempotency-Key` on every write kept across that write's retries, a retry on `429` after `Retry-After`, on `425` and on `5xx` with capped backoff and jitter, never on another `4xx`, the error envelope raised as `SubscribyApiError` with `code`, `status`, `requestId`, `docsUrl`, `remediation` and `fields`, and `paginate()` as an async iterator over every page. Copy it into the repository; its self-test (`node client.mjs --self-test`) proves each rule against a local mock server and runs in the kit's own suite.
 
 ```js
 import { createSubscribyClient, SubscribyApiError } from "./client.mjs";
 
-const api = createSubscribyClient({ token: process.env.SUBSCRIBY_TOKEN });
+const api = createSubscribyClient({ token: subscribyToken }); // the token from your application's secret store
 const { data: team } = await api.get("teams/current");
 for await (const project of api.paginate("projects")) console.log(project.name);
 try {
@@ -92,7 +92,7 @@ try {
 In PHP, Laravel's HTTP client carries the same rules in one chain; the key is set once on the pending request, so every retry resends it:
 
 ```php
-$response = Http::withToken(config('services.subscriby.token'))
+$response = Http::withToken($token) // the token from the application's own configuration
     ->acceptJson()
     ->withHeaders(['Idempotency-Key' => (string) Str::uuid()])
     ->retry(times: 3, sleepMilliseconds: 500, when: fn ($exception) => in_array($exception?->response?->status(), [425, 429, 500, 502, 503, 504], true))
@@ -106,7 +106,6 @@ $response = Http::withToken(config('services.subscriby.token'))
 In Python, a `requests` session with a `urllib3` retry policy does the waiting, `Retry-After` included; the key is added per write:
 
 ```python
-import os
 import uuid
 
 import requests
@@ -114,7 +113,7 @@ from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
 session = requests.Session()
-session.headers["Authorization"] = f"Bearer {os.environ['SUBSCRIBY_TOKEN']}"
+session.headers["Authorization"] = f"Bearer {token}"  # the token from the application's secret store
 session.mount("https://", HTTPAdapter(max_retries=Retry(
     total=3, backoff_factor=0.5, status_forcelist=[425, 429, 500, 502, 503, 504],
     allowed_methods=["GET", "POST", "PATCH", "PUT", "DELETE"], respect_retry_after_header=True,
@@ -144,5 +143,5 @@ response = session.post(
 
 - [references/endpoints.md](references/endpoints.md): every endpoint by entity with method, path, required ability and fields.
 - [references/skill-rest-api.md](references/skill-rest-api.md): the skill the site publishes at `/.well-known/agent-skills/subscriby-rest-api/SKILL.md`, verbatim.
-- [scripts/client.mjs](scripts/client.mjs): the Node client and its self-test.
+- [references/client.md](references/client.md): the Node client with its self-test, to copy into a repository.
 - Documentation: [REST API](https://docs.subscriby.net/api/v1), [quickstart](https://docs.subscriby.net/api/v1/quickstart), [idempotency](https://docs.subscriby.net/api/v1/idempotency), [pagination](https://docs.subscriby.net/api/v1/pagination), [rate limiting](https://docs.subscriby.net/api/v1/rate-limiting), [versioning and deprecation](https://docs.subscriby.net/api/v1/versioning-and-deprecation), [OpenAPI](https://docs.subscriby.net/api/v1/openapi), [API reference](https://docs.subscriby.net/api/v1/reference).

@@ -42,7 +42,7 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 
 ```bash
 curl https://api.subscriby.net/v1/me \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The caller's account; never paginated.
@@ -79,7 +79,7 @@ Takes the complete list you want to keep; anything not in it is removed. Each en
 
 ```bash
 curl -X PUT https://api.subscriby.net/v1/me/alert-destinations \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -110,7 +110,7 @@ When a creator alert is sent, every connected account routed to its class receiv
 
 ```bash
 curl https://api.subscriby.net/v1/me/copilot-credits \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 One object: the `balance` split into free and paid with what lapses next, this month's free `allowance` used and left, this month's usage per kind, the per-unit prices, the `packs` on sale in this environment and the `settings` the write below changes. An agent asking whether it can afford a turn needs only this.
@@ -122,7 +122,7 @@ One object: the `balance` split into free and paid with what lapses next, this m
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/me/copilot-credits/packs \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{ "pack": "regular" }'
@@ -143,7 +143,7 @@ Answers `201` with the pack and the Stripe Checkout URL to send the creator to. 
 
 ```bash
 curl -X PATCH https://api.subscriby.net/v1/me/copilot-credits/settings \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{ "auto_topup_pack": "regular", "auto_topup_below_cents": 500 }'
@@ -166,7 +166,7 @@ Answers `200` with the settings after the change. **Every field is optional and 
 
 ```bash
 curl "https://api.subscriby.net/v1/me/copilot-credits/statement?per_page=50" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Pages the last twelve months of lines, newest first: every pack bought and its bonus, every promotion and goodwill grant, every refund and lapse, and each month's usage per kind. Credits are positive and debits negative, so summing `cents` follows the balance. `sort_by` and `sort_direction` are accepted and ignored: a statement is always newest first.
@@ -183,7 +183,7 @@ Pages the last twelve months of lines, newest first: every pack bought and its b
 ### GET `/v1/me/export`
 
 ```bash
-curl https://api.subscriby.net/v1/me/export -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+curl https://api.subscriby.net/v1/me/export -H "Authorization: Bearer <token>"
 ```
 
 The caller's most recent export, whatever its state; `404 RESOURCE_NOT_FOUND` when none was ever requested. Poll it after a `POST` until `status` is `ready`, then download the zip from `download_url`, a signed link that works until `download_url_expires_at`; every read of a ready export mints a fresh link. The archive itself is removed at `expires_at`, after which `status` reads `expired` and a new export must be requested.
@@ -195,7 +195,7 @@ The caller's most recent export, whatever its state; `404 RESOURCE_NOT_FOUND` wh
 ### POST `/v1/me/export`
 
 ```bash
-curl -X POST https://api.subscriby.net/v1/me/export -H "Authorization: Bearer $SUBSCRIBY_TOKEN" -H "Idempotency-Key: 7c1b2d3e-4f5a-6b7c-8d9e-0f1a2b3c4d5e"
+curl -X POST https://api.subscriby.net/v1/me/export -H "Authorization: Bearer <token>" -H "Idempotency-Key: 7c1b2d3e-4f5a-6b7c-8d9e-0f1a2b3c4d5e"
 ```
 
 Queues an archive of everything the caller's account holds: the account as `GET /v1/me` describes it, the webhook endpoints (never their signing secrets), the platform subscription with its invoices, and for every project the plans, resources, payment methods (never their keys), members, subscriptions, payments, coupons, dated windows and support conversations, each as a JSON file in the shape this API publishes, plus one workbook per project with a sheet per table. Answers `202` with the queued export. The build runs in the background and takes from seconds to a few minutes; the creator is also emailed a signed link when it is ready.
@@ -213,7 +213,7 @@ One export may be in flight per account and one may be requested a day; a second
 
 ```bash
 curl https://api.subscriby.net/v1/me/identities \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Every account linked to the caller's creator account, by connector then purpose. Never paginated.
@@ -229,7 +229,7 @@ Every account linked to the caller's creator account, by connector then purpose.
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/me/identities/$IDENTITY_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -245,7 +245,7 @@ Drops a **primary** link at once and answers an empty `204`. You keep your passw
 
 ```bash
 curl "https://api.subscriby.net/v1/me/notifications?unread=1&class=support" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Newest first, paginated with `page` and `per_page` like every list. `unread=1` narrows to entries not yet read (`unread=0` to the ones already read); `class` narrows to one class; `q` to entries whose title or body contains the words.
@@ -272,7 +272,7 @@ Every creator alert is written to the notification centre beside whatever else i
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/me/notifications/read-all \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -287,7 +287,7 @@ Answers `200` with how many entries were unread and are read now. A second call 
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/me/notifications/$NOTIFICATION_ID/read \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -303,7 +303,7 @@ Answers `200` with the entry, `read` now `true`. Idempotent: an entry already re
 
 ```bash
 curl https://api.subscriby.net/v1/me/partner \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Where you stand, whole. `status` is `applied` while Subscriby reviews the application, `active` once approved, `rejected` with `reapply_available_at` when it was declined, or `suspended`. Until approval the computed parts are `null`: there is no `code`, no `links`, no `commission_percent`, no `balance`.
@@ -320,7 +320,7 @@ Once approved:
 
 ```bash
 curl -X PUT https://api.subscriby.net/v1/me/partner/payout-details \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -375,7 +375,7 @@ Pages the cash Subscriby paid you, newest first: the `amount`, the rail it went 
 
 ```bash
 curl "https://api.subscriby.net/v1/me/partner/referrals?status=converted&per_page=25" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Pages the creators you brought to Subscriby, newest first. `status` is `signed_up`, `converted`, `under_review`, `expired` or `rejected`. Each row names the referred creator by display name alone: they are a Subscriby customer, not yours, so their email and id never appear. An application still under review has no referrals and answers an empty page.
@@ -403,7 +403,7 @@ One referral: how the creator arrived (`source` is `link`, `code_at_signup` or `
 
 ```bash
 curl "https://api.subscriby.net/v1/me/partner/rewards?status=approved" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Pages the commission ledger, newest first: one `commission` row per paid platform invoice of a referred creator, priced from the invoice's total before tax and after discount (`base_amount`) at the referral's locked rate (`amount`), plus the `clawback` rows that answer a reversal of money already settled, each with a negative `amount`. `status` is `pending` (inside the hold), `approved` (payable), `credited` (applied as Subscriby Credit), `paid` (covered by a cash payout) or `reversed`; `note` says why a row was reversed or re-priced. The ledger is read-only on every surface: rows are written by invoices, moved by the hold, settled by a credit or a payout and reversed by a refund or a dispute.
@@ -422,7 +422,7 @@ Pages the commission ledger, newest first: one `commission` row per paid platfor
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/me/partner/terms/accept \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -437,7 +437,7 @@ Records that you accept the [Partner Program Terms](https://www.subscriby.net/le
 
 ```bash
 curl https://api.subscriby.net/v1/me/recovery \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Recovering the creator's sign-in account, and keeping a backup account ahead of a ban, are two-sided **handshakes**: the API mints a code, the creator taps the link (or types the code) from the account to detect, the connector records which account that was, and the API confirms. Both sides have to agree, which is what keeps a leaked link from binding a stranger. These endpoints live under `/v1/me` because they are about the caller, never a project, and the actions behind them refuse anyone but the account holder.
@@ -461,7 +461,7 @@ Stops keeping a backup. Answers `204`.
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/me/recovery/backup-identity \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"handshake_id": "0c4f9e2a-7b31-4d68-a5e2-9f1c3b7d6e80"}'
@@ -491,7 +491,7 @@ Moves the sign-in to the backup right now, keeping the previous account as the n
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/me/recovery/handshakes \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"kind": "relink"}'
@@ -541,7 +541,7 @@ Confirms a **completed relink**: the sign-in moves to the account that tapped, e
 
 ```bash
 curl "https://api.subscriby.net/v1/me/transaction-fees?month=2026-10&channel=metered" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Pages the ledger, the most recently incurred first. `month` keeps one calendar month (`YYYY-MM`, UTC) and wins over `from` and `to`, which bound the window by instant; `project_id` keeps one project's lines; `channel` is `connect_at_source` or `metered`; `kind` is `payment_fee`, `access_code_fee`, `trial_usage`, `outage_emails` or `processing_recovery`. Sort with `sort_by` (`occurred_at` by default, or `fee_amount`, `units`, `kind`, `channel`, `created_at`) and `sort_direction`.
@@ -567,7 +567,7 @@ Each row names what the fee was for and, for a payment's fee, the project, the m
 
 ```bash
 curl "https://api.subscriby.net/v1/me/transaction-fees/summary?month=2026-10" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Adds up one calendar month, the current one when `month` is left out. `total_fee` is every line; `at_source_fee` is what Stripe Connect deducted from members' payments and never invoiced; `metered_fee` is what reached the usage meter, the figure to hold against that month's Transaction Fees line on your Subscriby invoice, split into `invoiced_fee` (a paid invoice has collected it) and `awaiting_invoice_fee` (it lands on the next one). `by_kind` lists the month per kind of fee, `by_project` per project largest first (the fees no project carries pool under a null id), and `invoices` the Subscriby invoices that billed the month's metered lines. Pass `project_id` to add up one project alone; `by_project` is then empty.
@@ -591,7 +591,7 @@ Adds up one calendar month, the current one when `month` is left out. `total_fee
 
 ```bash
 curl https://api.subscriby.net/v1/tokens \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Paginated, newest first. `per_page` accepts 1–100 and defaults to 25.
@@ -608,7 +608,7 @@ Paginated, newest first. `per_page` accepts 1–100 and defaults to 25.
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/tokens \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -673,7 +673,7 @@ A retired ability keeps working on tokens that already carry it, but no new toke
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/tokens/$TOKEN_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -689,7 +689,7 @@ Returns `204 No Content`. Revocation is immediate: in-flight requests already au
 
 ```bash
 curl https://api.subscriby.net/v1/tokens/$TOKEN_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 One of the caller's tokens, without its value.

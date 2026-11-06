@@ -1,6 +1,6 @@
 ---
 name: connector-data-rules
-description: This skill should be used when the user is writing a migration or a model for a Subscriby connector, asks which tables a connector may create or alter, how its rows relate to the core's rows, what storage_ref is, or what disconnect, uninstall, reinstall and purge do to data.
+description: "This skill should be used when the user is writing a migration or a model for a Subscriby connector, asks which tables a connector may create or alter, how its rows relate to the core's rows, what storage_ref is, or what disconnect, uninstall, reinstall and purge do to data."
 license: MIT
 metadata:
   category: connector-sdk

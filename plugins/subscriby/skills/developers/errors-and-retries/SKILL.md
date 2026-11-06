@@ -1,6 +1,6 @@
 ---
 name: errors-and-retries
-description: This skill should be used when the user asks what a Subscriby error code means, how to handle 401, 403, 404, 409, 422 or 429 answers, which errors to retry and how, what the error envelope carries, how to surface an error to a user or an agent, or how to report a problem with a request id.
+description: "This skill should be used when the user asks what a Subscriby error code means, how to handle 401, 403, 404, 409, 422 or 429 answers, which errors to retry and how, what the error envelope carries, how to surface an error to a user or an agent, or how to report a problem with a request id."
 license: MIT
 metadata:
   category: developers

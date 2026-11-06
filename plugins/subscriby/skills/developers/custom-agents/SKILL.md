@@ -1,6 +1,6 @@
 ---
 name: custom-agents
-description: This skill should be used when the user is building their own agent or automation on Subscriby, asks whether to use MCP or the REST API, wants an agent to register itself and get a token with the creator's confirmation, or asks how an agent should authenticate, write safely and be audited.
+description: "This skill should be used when the user is building their own agent or automation on Subscriby, asks whether to use MCP or the REST API, wants an agent to register itself and get a token with the creator's confirmation, or asks how an agent should authenticate, write safely and be audited."
 license: MIT
 metadata:
   category: developers

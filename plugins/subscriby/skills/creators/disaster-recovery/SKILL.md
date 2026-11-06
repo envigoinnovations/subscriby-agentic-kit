@@ -1,6 +1,6 @@
 ---
 name: disaster-recovery
-description: This skill should be used when the user asks about a banned bot, place or account, an outage or degraded installation, recovery incidents and operations, standbys, the live mirror, automatic failover, readiness, the roll call, undo, allowances or outage compensation.
+description: "This skill should be used when the user asks about a banned bot, place or account, an outage or degraded installation, recovery incidents and operations, standbys, the live mirror, automatic failover, readiness, the roll call, undo, allowances or outage compensation."
 license: MIT
 metadata:
   category: creators

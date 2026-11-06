@@ -1,6 +1,6 @@
 ---
 name: revenue-recovery
-description: This skill should be used when the user asks about failed renewals, the grace window, dunning, why members leave, cancellation reasons or offers, win-back or nurture sequences, leads who never bought, stalled checkouts, trials about to end, or the Revenue Recovery figures and settings.
+description: "This skill should be used when the user asks about failed renewals, the grace window, dunning, why members leave, cancellation reasons or offers, win-back or nurture sequences, leads who never bought, stalled checkouts, trials about to end, or the Revenue Recovery figures and settings."
 license: MIT
 metadata:
   category: creators

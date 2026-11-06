@@ -1,6 +1,6 @@
 ---
 name: connector-ports
-description: This skill should be used when the user is implementing a port of a Subscriby connector (the lifecycle, identity, inbound, failure, renderer, settings, slots, messenger, access, relay or recovery ports), asks when the core calls a method or what it must return, or needs a Core API contract.
+description: "This skill should be used when the user is implementing a port of a Subscriby connector (the lifecycle, identity, inbound, failure, renderer, settings, slots, messenger, access, relay or recovery ports), asks when the core calls a method or what it must return, or needs a Core API contract."
 license: MIT
 metadata:
   category: connector-sdk

@@ -1,6 +1,6 @@
 ---
 name: portal-design
-description: This skill should be used when the user asks to change how a project's portal page looks or reads, its colours, fonts, layout, wording, blocks, announcement, gallery, footer, pixels, CSS or languages, to publish or discard a portal draft, or for the portal address or a bot deep link.
+description: "This skill should be used when the user asks to change how a project's portal page looks or reads, its colours, fonts, layout, wording, blocks, announcement, gallery, footer, pixels, CSS or languages, to publish or discard a portal draft, or for the portal address or a bot deep link."
 license: MIT
 metadata:
   category: creators

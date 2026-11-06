@@ -21,7 +21,7 @@ How the window's revenue and payments are composed, as the five donuts the dashb
 
 ```bash
 curl "https://api.subscriby.net/v1/analytics/composition?project_id=$PROJECT_ID&period=30d" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 - Every dataset carries `total`, `unit` (`usd` or `count`) and `slices` sorted largest first; each slice has its `key`, `label`, `value`, `share_percent` and the `color` the dashboard draws it in, so a client can render the same donut.
@@ -43,7 +43,7 @@ Members, access and revenue per connector: one row for every connector the scope
 
 ```bash
 curl "https://api.subscriby.net/v1/analytics/connectors?project_id=$PROJECT_ID&period=30d" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 - `installations` counts the live, not uninstalled, installations of the connector in the scope; `members` the members holding at least one account linked on it; `members_linked_in_window` those who linked one inside the window.
@@ -65,7 +65,7 @@ Total revenue, total transactions, total users and MRR, each with a trend relati
 
 ```bash
 curl "https://api.subscriby.net/v1/analytics/dashboard?period=30d&compare_period=previous" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 **Parameters**
@@ -86,7 +86,7 @@ The full earnings breakdown (gross, fees, net, transaction count) plus a timeser
 
 ```bash
 curl "https://api.subscriby.net/v1/analytics/earnings?granularity=week" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Every money figure is USD-normalised so buckets in different currencies add up; `totals.currency` says so.
@@ -109,7 +109,7 @@ A per-plan breakdown for one project: active subscribers, revenue in the window,
 
 ```bash
 curl "https://api.subscriby.net/v1/analytics/plan-performance?project_id=$PROJECT_ID&period=30d" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Figures are in the plan's own currency. `meta.range` is the window the preset resolved to.
@@ -128,7 +128,7 @@ New sign-ups, cancellations, churn rate, trial-to-paid conversion and the status
 
 ```bash
 curl "https://api.subscriby.net/v1/analytics/subscribers?project_id=$PROJECT_ID" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 **Parameters**
@@ -145,7 +145,7 @@ A keyset-paginated list of payments for one project. `project_id` is **required*
 
 ```bash
 curl "https://api.subscriby.net/v1/analytics/transactions?project_id=$PROJECT_ID&limit=100" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Every row carries its owning project, plan and subscriber, so a payment can be attributed without a follow-up lookup. Follow `meta.next_cursor` on the next call to paginate. A `null` or missing cursor means the end of the range has been reached.
@@ -170,7 +170,7 @@ USD-normalised successful-payment totals grouped by one `dimension`: `plan`, `pa
 
 ```bash
 curl "https://api.subscriby.net/v1/analytics/transactions/breakdown?dimension=payment_provider&period=90d" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 **Parameters**
@@ -197,7 +197,7 @@ The newest entries recorded against one subject, `limit` at a time (50 by defaul
 
 ```bash
 curl "https://api.subscriby.net/v1/activity?subject_type=project&subject_id=$PROJECT_ID&limit=20" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 There is no paging beyond `limit`: the endpoint is a recent-history read, not an export. The subject is resolved through its own tenant-scoped query before activity is read, so passing the id of a project (or subscription, plan, member) that belongs to another team returns `404 RESOURCE_NOT_FOUND` rather than an empty list; existence never leaks across tenants.

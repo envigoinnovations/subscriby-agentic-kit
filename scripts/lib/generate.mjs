@@ -201,19 +201,39 @@ function resourcesReference(catalogue, entry) {
   return lines.join("\n") + "\n";
 }
 
+/**
+ * The reference scripts a skill ships: tested sources under scripts/reference,
+ * rendered as one fenced block each, because the plugin carries Markdown and
+ * JSON only and a user copies the block into their own repository.
+ */
+function scriptsReference(root, entry, sources) {
+  const languages = { mjs: "js", js: "js", php: "php", py: "python", sh: "sh" };
+  const blocks = sources.map((source) => {
+    const code = readFileSync(join(root, "scripts", "reference", source), "utf8").replace(/\r\n/g, "\n").trimEnd();
+    const file = source.split("/").pop();
+    const language = languages[file.split(".").pop()] ?? "";
+    return `## ${file}\n\n\`\`\`${language}\n${code}\n\`\`\``;
+  });
+  return [
+    `# Reference scripts: ${entry.title}`,
+    "",
+    "Copy the file you need into the repository you are working in, keeping its name; each one is tested in the kit's own suite (`npm test` under `scripts/reference`) and rendered here by `npm run sync`, so `npm run check` fails on a hand edit.",
+    "",
+    ...blocks,
+  ].join("\n") + "\n";
+}
+
 function hooks(catalogue) {
   const guarded = catalogue.tools.filter((tool) => kindOf(tool) === "destructive").map((tool) => tool.name);
-  const reason = "This Subscriby tool changes or removes existing data. Confirm it before it runs.";
-  const output = JSON.stringify({ hookSpecificOutput: { hookEventName: "PreToolUse", permissionDecision: "ask", permissionDecisionReason: reason } });
 
   return JSON.stringify(
     {
-      description: "Every Subscriby tool that changes or removes existing data asks before it runs, whatever the server's permission setting. Generated from the tool catalogue by npm run sync.",
+      description: "Every Subscriby tool that changes or removes existing data asks before it runs, whatever the server's permission setting. The matcher is generated from the tool catalogue by npm run sync and leaves the server part open, so it holds under any name a host gives the server; the answer is hooks/ask-before-destructive.sh.",
       hooks: {
         PreToolUse: [
           {
-            matcher: `^${TOOL_PREFIX}(${guarded.join("|")})$`,
-            hooks: [{ type: "command", command: `echo '${output}'`, timeout: 5 }],
+            matcher: `^mcp__.*__(${guarded.join("|")})$`,
+            hooks: [{ type: "command", command: '"${CLAUDE_PLUGIN_ROOT}"/hooks/ask-before-destructive.sh', timeout: 5 }],
           },
         ],
       },
@@ -223,10 +243,11 @@ function hooks(catalogue) {
   ) + "\n";
 }
 
-function mockTools(catalogue) {
+/** The saved tools/list for the eval mocks, limited to the tools that have a mock file: a tool without one is never available to a run. */
+function mockTools(catalogue, mocked) {
   return JSON.stringify(
     {
-      tools: catalogue.tools.map((tool) => ({
+      tools: catalogue.tools.filter((tool) => mocked.has(tool.name)).map((tool) => ({
         name: tool.name,
         title: tool.title,
         description: tool.description,
@@ -347,7 +368,10 @@ export function generate({ root, catalogue, map }) {
       "resources.md": resourcesReference(catalogue, entry),
     };
     for (const [file, content] of Object.entries(parts)) {
-      if (content) outputs.set(`${base}/${file}`, content);
+      if (content) outputs.set(`${base}/${file}`, content.replace(/\$\{?SUBSCRIBY_TOKEN\}?/g, "<token>"));
+    }
+    for (const [file, sources] of Object.entries(entry.scripts ?? {})) {
+      outputs.set(`${base}/${file}`, scriptsReference(root, entry, sources));
     }
     for (const document of entry.documents ?? []) {
       const content = catalogue.documents[document];
@@ -357,7 +381,15 @@ export function generate({ root, catalogue, map }) {
   }
 
   outputs.set(`${PLUGIN}/hooks/hooks.json`, hooks(catalogue));
-  outputs.set(`${PLUGIN}/evals/mocks/subscriby/_tools.json`, mockTools(catalogue));
+  const mocksDir = join(root, PLUGIN, "evals", "mocks", "subscriby");
+  const mocked = new Set(
+    existsSync(mocksDir)
+      ? readdirSync(mocksDir)
+          .filter((file) => file.endsWith(".md") && !file.startsWith("_"))
+          .map((file) => file.replace(/\.md$/, ""))
+      : [],
+  );
+  outputs.set(`${PLUGIN}/evals/mocks/subscriby/_tools.json`, mockTools(catalogue, mocked));
 
   const readme = readmeBlocks(root, catalogue);
   if (readme) outputs.set("README.md", readme);

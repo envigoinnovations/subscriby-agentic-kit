@@ -16,7 +16,8 @@
     "lint": "node scripts/lint-skills.mjs",
     "validate": "node scripts/claude.mjs plugin validate --strict . && node scripts/claude.mjs plugin validate --strict plugins/subscriby",
     "details": "node scripts/claude.mjs plugin details subscriby",
-    "gate": "npm run lint && npm run check && npm run validate",
+    "test": "node scripts/test-reference.mjs",
+    "gate": "npm run lint && npm run check && npm test && npm run validate",
     "export:inventory": "node scripts/export-inventory.mjs",
     "eval": "node scripts/claude.mjs plugin eval plugins/subscriby --trust-plugin --runs 1 -j 2 --max-cost-usd 10 --judge-model sonnet --no-publish",
     "format": "prettier --write \"**/*.{json,yml,yaml,md}\""

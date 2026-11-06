@@ -1,5 +1,5 @@
 ---
-description: The week in figures against the week before, read-only: revenue, payments, new and lost members, failed renewals and recoveries, trials ending, the inbox, the installations, the pass windows ahead.
+description: "The week in figures against the week before, read-only: revenue, payments, new and lost members, failed renewals and recoveries, trials ending, the inbox, the installations, the pass windows ahead."
 argument-hint: "[project name or id]"
 disable-model-invocation: true
 ---

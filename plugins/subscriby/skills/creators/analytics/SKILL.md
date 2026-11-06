@@ -1,6 +1,6 @@
 ---
 name: analytics
-description: This skill should be used when the user asks for figures, trends, revenue, MRR, churn, trial conversion, earnings by period, plan performance, where revenue comes from, subscriber counts, a report, the transaction ledger, or the activity log of a member, a subscription or a project.
+description: "This skill should be used when the user asks for figures, trends, revenue, MRR, churn, trial conversion, earnings by period, plan performance, where revenue comes from, subscriber counts, a report, the transaction ledger, or the activity log of a member, a subscription or a project."
 license: MIT
 metadata:
   category: creators

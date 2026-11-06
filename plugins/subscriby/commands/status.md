@@ -1,5 +1,5 @@
 ---
-description: One card on the account's state, read-only. Account, team and plan, open alerts and notifications, the health of every installation, the inbox, Copilot Credits and recent activity.
+description: "One card on the account's state, read-only. Account, team and plan, open alerts and notifications, the health of every installation, the inbox, Copilot Credits and recent activity."
 disable-model-invocation: true
 ---
 

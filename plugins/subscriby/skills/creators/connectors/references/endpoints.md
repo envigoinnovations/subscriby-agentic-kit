@@ -15,7 +15,7 @@ Every connector Subscriby knows, lane by lane, installable connectors first, eac
 
 ```bash
 curl https://api.subscriby.net/v1/connectors \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 Cards come lane by lane, installable connectors first; within a lane the most installed connector comes first (`installations`, the number of projects running it today, uninstalled rows excluded) and the name breaks ties. The public and in-app directories offer the same order plus Newest (`added_at`) and Name, and filter on `official`, `installable` and `category`; a client sorts and filters on the same fields.
@@ -43,7 +43,7 @@ One card by key, registered or on the roadmap, in the shape the directory lists.
 
 ```bash
 curl https://api.subscriby.net/v1/connectors/example \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 ### The manifest

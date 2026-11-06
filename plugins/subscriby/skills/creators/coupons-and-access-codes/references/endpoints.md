@@ -211,7 +211,7 @@ Queues a batch of codes for the plan and answers `202 Accepted` at once; the cod
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/projects/$PROJECT/plans/$PLAN/access-codes/bulk-generate \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -247,7 +247,7 @@ Prices a batch of `quantity` codes without queuing it, so a caller can show the 
 
 ```bash
 curl "https://api.subscriby.net/v1/projects/$PROJECT/plans/$PLAN/access-codes/preview?quantity=50" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 > **Generation is free.** The metered overage is billed at **redemption time**, and only when your tier's free access-code allotment is already exhausted. Hand out codes freely; you only pay for the ones subscribers actually activate beyond the free quota.

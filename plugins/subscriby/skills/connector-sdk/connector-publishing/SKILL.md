@@ -1,6 +1,6 @@
 ---
 name: connector-publishing
-description: This skill should be used when the user is preparing a Subscriby connector for release, asks how to version it or pin the SDK, write the listing and marketing words, pass review, submit a package, update it after first publish, or what the lanes, badges, pausing and retiring mean.
+description: "This skill should be used when the user is preparing a Subscriby connector for release, asks how to version it or pin the SDK, write the listing and marketing words, pass review, submit a package, update it after first publish, or what the lanes, badges, pausing and retiring mean."
 license: MIT
 metadata:
   category: connector-sdk

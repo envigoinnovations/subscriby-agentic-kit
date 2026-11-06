@@ -1,6 +1,6 @@
 ---
 name: broadcasts
-description: This skill should be used when the user asks to send a message, announcement or reminder to members, a segment, a plan's members, pass holders or people whose access is expiring, to preview who a broadcast reaches, to read a broadcast's history or who it missed, or to retry or resend one.
+description: "This skill should be used when the user asks to send a message, announcement or reminder to members, a segment, a plan's members, pass holders or people whose access is expiring, to preview who a broadcast reaches, to read a broadcast's history or who it missed, or to retry or resend one."
 license: MIT
 metadata:
   category: creators

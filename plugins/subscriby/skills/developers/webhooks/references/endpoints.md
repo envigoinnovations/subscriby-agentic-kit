@@ -19,7 +19,7 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 
 ```bash
 curl https://api.subscriby.net/v1/webhook-endpoints \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The team's endpoints without their secrets, paged with `page` and `per_page`.
@@ -36,7 +36,7 @@ The team's endpoints without their secrets, paged with `page` and `per_page`.
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/webhook-endpoints \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{
@@ -68,7 +68,7 @@ Answers `201` with the endpoint and, at the top level beside `data`, the plainte
 
 ```bash
 curl -X DELETE https://api.subscriby.net/v1/webhook-endpoints/$ENDPOINT_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -84,7 +84,7 @@ Returns `204 No Content`. The endpoint's delivery log stays readable.
 
 ```bash
 curl https://api.subscriby.net/v1/webhook-endpoints/$ENDPOINT_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The endpoint and its delivery health. The signing secret is never part of it; it exists in the create and rotate-secret responses only.
@@ -100,7 +100,7 @@ The endpoint and its delivery health. The signing secret is never part of it; it
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/webhook-endpoints/$ENDPOINT_ID/pause \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -126,7 +126,7 @@ The switch, on. Resuming also clears the consecutive-failure streak, so a target
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/webhook-endpoints/$ENDPOINT_ID/rotate-secret \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -161,7 +161,7 @@ Enqueues a synthetic `subscription.created`-shaped delivery against the endpoint
 
 ```bash
 curl "https://api.subscriby.net/v1/webhook-deliveries?status=dead" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The team's deliveries across every endpoint, **newest first**, 25 per page (`per_page` 1 to 100; `limit` is accepted as an alias).
@@ -182,7 +182,7 @@ Once the consumer is fixed, replay everything the team dead-lettered since an in
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/webhook-deliveries/retry-dead \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)" \
   -H "Content-Type: application/json" \
   -d '{"since": "2026-09-05T22:00:00Z"}'
@@ -205,7 +205,7 @@ Each replayed row posts its event again, so confirm the consumer is healthy firs
 
 ```bash
 curl https://api.subscriby.net/v1/webhook-deliveries/$DELIVERY_ID \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 One delivery. Another team's delivery is a `404 RESOURCE_NOT_FOUND`, never a `403`.
@@ -238,7 +238,7 @@ A row is born `pending`, becomes `failed` after a non-2xx or transport error whi
 
 ```bash
 curl -X POST https://api.subscriby.net/v1/webhook-deliveries/$DELIVERY_ID/retry \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN" \
+  -H "Authorization: Bearer <token>" \
   -H "Idempotency-Key: $(uuidgen)"
 ```
 
@@ -262,7 +262,7 @@ Answers `200` with the row **pending again**: `attempts` back to `0`, `response_
 
 ```bash
 curl "https://api.subscriby.net/v1/webhook-events?type=subscription.created&limit=3" \
-  -H "Authorization: Bearer $SUBSCRIBY_TOKEN"
+  -H "Authorization: Bearer <token>"
 ```
 
 The most recent deliveries of one event type, newest first, as the envelopes the endpoints received. `limit` defaults to 3 and is capped at 10; `project_id` restricts to deliveries whose endpoint is scoped to that project.
