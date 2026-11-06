@@ -39,7 +39,7 @@ Prefer a narrower grant? Mint a personal access token under **Settings → API T
 
 | Skill | When Claude reaches for it |
 | --- | --- |
-| `authentication` | This skill should be used when the user asks to connect Claude to Subscriby, sign in, authenticate the server, use or mint a personal access token, pick abilities, fix TOKEN_MISSING_ABILITY, or asks what the connection can and cannot do. |
+| `authentication` | This skill should be used when the user asks to connect Claude to Subscriby, sign in, authenticate the server, whether Claude is signed in or which account the connection acts as, use or mint a personal access token, pick abilities, fix TOKEN_MISSING_ABILITY, or what the connection can do. |
 | `documentation` | This skill should be used when the user asks how something works in Subscriby, where it is documented, or to look something up in the Subscriby docs or API reference, or when an answer needs a fact the kit does not carry. Where the docs and catalogues are and how to read them as Markdown. |
 | `subscriby` | This skill should be used when the user mentions Subscriby, asks what it is or how it works, or asks for anything about a paid community, its members, plans, payments, connectors or integrations and no more specific Subscriby skill matches. The concept model, the ground rules and the routing table. |
 

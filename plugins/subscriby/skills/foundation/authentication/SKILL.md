@@ -1,6 +1,6 @@
 ---
 name: authentication
-description: This skill should be used when the user asks to connect Claude to Subscriby, sign in, authenticate the server, use or mint a personal access token, pick abilities, fix TOKEN_MISSING_ABILITY, or asks what the connection can and cannot do.
+description: This skill should be used when the user asks to connect Claude to Subscriby, sign in, authenticate the server, whether Claude is signed in or which account the connection acts as, use or mint a personal access token, pick abilities, fix TOKEN_MISSING_ABILITY, or what the connection can do.
 license: MIT
 metadata:
   category: foundation
