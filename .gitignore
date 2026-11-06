@@ -27,3 +27,6 @@ desktop.ini
 .vscode/
 .idea/
 *.swp
+
+# the inventory the docs render from is exported with npm run export:inventory -- --to-docs and committed there, not here
+kit-inventory.json
