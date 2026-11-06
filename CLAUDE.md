@@ -14,7 +14,7 @@ This repository is a Claude Code plugin marketplace (`envigo`) with one plugin (
 - `npm run sync [-- --from ../Subscriby/public]`: pull the catalogues (or copy the local export before a deploy), snapshot them under `catalogue/`, regenerate everything generated.
 - `npm run check`: regenerate in memory and fail on any difference from the committed files; fail when a tool, ability category, event family, endpoint entity or error code has no skill in `scripts/skill-map.json`.
 - `npm run lint`: the frontmatter, style, tool-name and link rules over `plugins/subscriby/**`.
-- `npm run validate`: `claude plugin validate --strict` on the marketplace and on the plugin (set `CLAUDE_BIN` when `claude` is not on the PATH).
+- `npm run validate`: `claude plugin validate --strict` on the marketplace and on the plugin. `scripts/claude.mjs` finds Claude Code on the PATH, in the VS Code extension or where the native installer or npm put it; `CLAUDE_BIN` names a binary explicitly.
 - `npm run gate`: lint, check, validate. Green before any unit of work is called done.
 - `npm run export:inventory`: writes `kit-inventory.json`, the file `../SubscribyDocs/scripts/data/` reads to fill the generated blocks of the docs' Agentic Kit section.
 - `npm run eval`: `claude plugin eval` with a cost ceiling; run once per release, never in CI by default.

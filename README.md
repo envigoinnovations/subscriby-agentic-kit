@@ -131,7 +131,7 @@ claude --plugin-dir plugins/subscriby
 npm run gate
 ```
 
-`npm run sync` refreshes every generated file from the catalogues Subscriby publishes; `npm run check` fails when a generated file is stale or a catalogue item has no skill; `npm run lint` holds the writing rules, the eval suite's shape included; `npm run validate` runs `claude plugin validate --strict` on the marketplace and the plugin.
+`npm run sync` refreshes every generated file from the catalogues Subscriby publishes; `npm run check` fails when a generated file is stale or a catalogue item has no skill; `npm run lint` holds the writing rules, the eval suite's shape included; `npm run validate` runs `claude plugin validate --strict` on the marketplace and the plugin. The scripts find Claude Code wherever it is installed (on the PATH, in the VS Code extension, or where the native installer or npm put it); set `CLAUDE_BIN` to name a binary explicitly.
 
 `npm run eval` runs the suite under `plugins/subscriby/evals` with `claude plugin eval`: one case per job a user brings (a sign-in check, a launch checklist, a broadcast that must be previewed and confirmed, a cancellation that must be confirmed, a weekly figure, a webhook verifier, the events for a CRM, a connector's data rules, and a request that must not trigger the plugin), each graded on the answer and on the steps taken, against mocked MCP tools that carry the real schemas. Every run is a real model call on your account; the script caps the cost and compares each case with a no-plugin baseline.
 
