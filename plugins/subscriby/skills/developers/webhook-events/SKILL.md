@@ -9,7 +9,7 @@ metadata:
 
 # The webhook events
 
-Every event is an entity in the singular followed by what happened: `subscription.created`, `member.churned`, `pass.window_opened`. They are grouped in families, each behind the ability that reads the family, and a token registers an endpoint for an event only when it holds that ability. The generated [references/events.md](references/events.md) carries every event with its ability, its payload keys, when it fires and an example delivery; this skill is how to choose.
+Every event is an entity in the singular followed by what happened: `subscription.created`, `member.churned`, `pass.window_opened`. They are grouped in families, each behind the ability that reads the family, and a token registers an endpoint for an event only when it holds that ability. The generated [references/events.md](references/events.md) indexes one file per family under `references/events/`, each carrying every event of the family with its ability, its payload keys, when it fires and an example delivery; this skill is how to choose.
 
 ## The families
 
@@ -46,5 +46,5 @@ Subscribe to the few events a job needs rather than everything: every event the 
 
 ## References
 
-- [references/events.md](references/events.md): every event with ability, payload keys, when it fires, caveats and an example.
+- [references/events.md](references/events.md): the index of the per-family files under `references/events/`, each with every event's ability, payload keys, when it fires, caveats and an example.
 - Documentation: [the events reference](https://docs.subscriby.net/webhooks/v1/events), [receiving webhooks](https://docs.subscriby.net/webhooks/v1).

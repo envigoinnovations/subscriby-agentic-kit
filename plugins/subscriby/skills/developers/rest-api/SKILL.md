@@ -9,11 +9,11 @@ metadata:
 
 # Calling the REST API
 
-`https://api.subscriby.net/v1` is every operation the creator dashboard can perform, behind a personal access token: a versioned, additive contract described by an OpenAPI 3.1 document and designed so that an agent or a script can self-correct from the error it receives. This skill is the contract; [references/endpoints.md](references/endpoints.md) is every operation by entity with its method, path, required ability and fields.
+`https://api.subscriby.net/v1` is every operation the creator dashboard can perform, behind a personal access token: a versioned, additive contract described by an OpenAPI 3.1 document and designed so that an agent or a script can self-correct from the error it receives. This skill is the contract; [references/endpoints.md](references/endpoints.md) indexes one file per entity under `references/endpoints/`, each carrying every operation of the entity with its method, path, required ability and fields.
 
 ## The contract at a glance
 
-- **Authentication**: `Authorization: Bearer sbt_live_…` on every request; sessions, cookies and keys in the query string are refused. The `tokens-and-abilities` skill covers the token's format, abilities and scope. The team is read from the token, never from the body.
+- **Authentication**: `Authorization: Bearer <token>` on every request, the token being a personal access token; sessions, cookies and keys in the query string are refused. The `tokens-and-abilities` skill covers the token's format, abilities and scope. The team is read from the token, never from the body.
 - **Writes**: `POST`, `PATCH`, `PUT` and `DELETE` all require an `Idempotency-Key` header.
 - **Envelopes**: one object answers `{"data": {…}}`; a list answers `{"data": [...], "links": {first, last, prev, next}, "meta": {current_page, from, last_page, per_page, to, total}}`; a failure answers `{"error": {code, message, docs_url, remediation, request_id, fields?, context?}}` (the `errors-and-retries` skill).
 - **Identifiers**: a bare lowercase hyphenated UUID with no type prefix, stored as an opaque string and never parsed or sorted. Two exceptions, documented where they appear: the webhook envelope `id` is `evt_` plus a ULID (the `SB-Event-Id` header carries it without the prefix, and it sorts by creation time), and a token's `id` is a positive integer serialised as a string.
@@ -141,7 +141,7 @@ response = session.post(
 
 ## References
 
-- [references/endpoints.md](references/endpoints.md): every endpoint by entity with method, path, required ability and fields.
+- [references/endpoints.md](references/endpoints.md): the index of the per-entity files under `references/endpoints/`, each with every endpoint's method, path, required ability and fields.
 - [references/skill-rest-api.md](references/skill-rest-api.md): the skill the site publishes at `/.well-known/agent-skills/subscriby-rest-api/SKILL.md`, verbatim.
 - [references/client.md](references/client.md): the Node client with its self-test, to copy into a repository.
 - Documentation: [REST API](https://docs.subscriby.net/api/v1), [quickstart](https://docs.subscriby.net/api/v1/quickstart), [idempotency](https://docs.subscriby.net/api/v1/idempotency), [pagination](https://docs.subscriby.net/api/v1/pagination), [rate limiting](https://docs.subscriby.net/api/v1/rate-limiting), [versioning and deprecation](https://docs.subscriby.net/api/v1/versioning-and-deprecation), [OpenAPI](https://docs.subscriby.net/api/v1/openapi), [API reference](https://docs.subscriby.net/api/v1/reference).

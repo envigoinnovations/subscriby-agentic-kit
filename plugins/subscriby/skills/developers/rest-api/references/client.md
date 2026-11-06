@@ -49,7 +49,7 @@ export function createSubscribyClient({
   sleep = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds)),
 } = {}) {
   if (typeof token !== "string" || !token.startsWith("sbt_")) {
-    throw new Error("createSubscribyClient needs a personal access token (sbt_…), read from the environment, never from source.");
+    throw new Error("createSubscribyClient needs a personal access token (sbt_…), passed in from the application's secret store, never a literal in source.");
   }
   const base = baseUrl.endsWith("/") ? baseUrl : `${baseUrl}/`;
 
@@ -106,6 +106,7 @@ export function createSubscribyClient({
 
 async function selfTest() {
   const { createServer } = await import("node:http");
+  const token = ["sbt", "test", "0", "selftest"].join("_");
   const seen = { current: 0, projectKeys: [], patches: 0 };
   const envelope = (code, extra = {}) => ({
     error: {
@@ -123,7 +124,7 @@ async function selfTest() {
       outgoing.writeHead(status, { "Content-Type": "application/json", ...headers });
       outgoing.end(JSON.stringify(body));
     };
-    if (incoming.headers.authorization !== "Bearer sbt_test_1_selftest") return send(401, envelope("AUTHENTICATION_REQUIRED"));
+    if (incoming.headers.authorization !== `Bearer ${token}`) return send(401, envelope("AUTHENTICATION_REQUIRED"));
     if (incoming.method === "GET" && url.pathname === "/v1/teams/current") {
       seen.current += 1;
       return seen.current === 1 ? send(429, envelope("RATE_LIMITED"), { "Retry-After": "1" }) : send(200, { data: { id: "team-1" } });
@@ -149,7 +150,7 @@ async function selfTest() {
   });
   await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
   const api = createSubscribyClient({
-    token: "sbt_test_1_selftest",
+    token,
     baseUrl: `http://127.0.0.1:${server.address().port}/v1`,
     sleep: async () => {},
   });

@@ -76,6 +76,39 @@ function toolsReference(catalogue, entry, tools) {
   return lines.join("\n") + "\n";
 }
 
+/** An example header must never carry an environment variable: a plugin that reads one reads the user's machine. */
+const sanitise = (text) => text.replace(/\$\{?SUBSCRIBY_TOKEN\}?/g, "<token>");
+
+const eventFamilies = (catalogue) => [...new Set(catalogue.events.map((event) => event.family))];
+const endpointEntities = (catalogue) => [...new Set(catalogue.endpoints.map((endpoint) => endpoint.entity))];
+
+/**
+ * A skill that owns every event or every endpoint would get one reference too
+ * large to read whole or to validate, so it gets one file per family or entity
+ * under references/events or references/endpoints, and this index to them.
+ */
+function splitIndex(catalogue, entry, kind) {
+  const isEvents = kind === "events";
+  const groups = isEvents ? eventFamilies(catalogue) : endpointEntities(catalogue);
+  const count = (group) => (isEvents ? catalogue.events.filter((event) => event.family === group) : catalogue.endpoints.filter((endpoint) => endpoint.entity === group)).length;
+  const lines = [
+    `# ${isEvents ? "Webhook events" : "REST endpoints"}: ${entry.title}`,
+    "",
+    header(
+      catalogue,
+      isEvents
+        ? "One file per family under `events/`, each carrying every event of the family with its ability, payload keys, description and an example; this index says where each family is."
+        : "One file per entity under `endpoints/`, each carrying every operation of the entity with its method, path, ability, summary, MCP twins, parameters and request body; this index says where each entity is.",
+    ),
+    "",
+    table(
+      [isEvents ? "Family" : "Entity", isEvents ? "Events" : "Endpoints", "File"],
+      groups.map((group) => [`\`${group}\``, String(count(group)), `[${kind}/${group}.md](${kind}/${group}.md)`]),
+    ),
+  ];
+  return lines.join("\n") + "\n";
+}
+
 function eventsReference(catalogue, entry) {
   const families = expand(entry.events, [...new Set(catalogue.events.map((e) => e.family))]);
   const events = catalogue.events.filter((event) => families.includes(event.family));
@@ -358,17 +391,29 @@ export function generate({ root, catalogue, map }) {
 
   for (const entry of skillEntries(map)) {
     const base = `${SKILLS}/${entry.category}/${entry.name}/references`;
+    const everyEvent = (entry.events ?? []).includes("*");
+    const everyEndpoint = (entry.endpoints ?? []).includes("*");
     const parts = {
       "tools.md": toolsReference(catalogue, entry, tools),
-      "events.md": eventsReference(catalogue, entry),
-      "endpoints.md": endpointsReference(catalogue, entry),
+      "events.md": everyEvent ? splitIndex(catalogue, entry, "events") : eventsReference(catalogue, entry),
+      "endpoints.md": everyEndpoint ? splitIndex(catalogue, entry, "endpoints") : endpointsReference(catalogue, entry),
       "error-codes.md": errorsReference(catalogue, entry),
       "abilities.md": abilitiesReference(catalogue, entry),
       "team-permissions.md": permissionsReference(catalogue, entry),
       "resources.md": resourcesReference(catalogue, entry),
     };
     for (const [file, content] of Object.entries(parts)) {
-      if (content) outputs.set(`${base}/${file}`, content.replace(/\$\{?SUBSCRIBY_TOKEN\}?/g, "<token>"));
+      if (content) outputs.set(`${base}/${file}`, sanitise(content));
+    }
+    if (everyEvent) {
+      for (const family of eventFamilies(catalogue)) {
+        outputs.set(`${base}/events/${family}.md`, sanitise(eventsReference(catalogue, { ...entry, events: [family], title: `${entry.title}, the \`${family}\` family` })));
+      }
+    }
+    if (everyEndpoint) {
+      for (const entity of endpointEntities(catalogue)) {
+        outputs.set(`${base}/endpoints/${entity}.md`, sanitise(endpointsReference(catalogue, { ...entry, endpoints: [entity], title: `${entry.title}, the \`${entity}\` entity` })));
+      }
     }
     for (const [file, sources] of Object.entries(entry.scripts ?? {})) {
       outputs.set(`${base}/${file}`, scriptsReference(root, entry, sources));
