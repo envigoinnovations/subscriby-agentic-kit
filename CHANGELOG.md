@@ -2,6 +2,12 @@
 
 All notable changes to the Subscriby Agentic Kit are documented here. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the kit adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html): a removed or renamed skill, command or agent is a major, a new one or a widened one a minor, a wording or reference refresh a patch. The catalogue stamp in `catalogue/stamp.json` records which Subscriby catalogue every release was generated from.
 
+## [Unreleased]
+
+### Added
+
+- `get_pass_roster` and `list_pass_moves` join the plans-and-passes skill with the `pass-roster` endpoint entity: a project's members against the dates its pass plans sell (each member's standing on every date they hold, the cancelled dates they were moved off with where they went, the columns and the moves folded by destination) and one purchase's whole trail from the pass move log. Generated from the Subscriby catalogue that carries the Pass Roster.
+
 ## [1.1.0] - 2026-11-07
 
 Generated from the same Subscriby catalogue as 1.0.0 (`catalogue/stamp.json`); the kit answers the plugin directory's three readings and ships its guard as a second plugin. Both plugins carry this version.

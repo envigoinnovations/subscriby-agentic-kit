@@ -551,3 +551,9 @@ Each refusal below is a `422 VALIDATION_FAILED` naming the field, the same wordi
 - `starts_at` (string, required): When access opens, ISO 8601. **A value with no offset is read as wall-clock time in the plan's `timezone`**, exactly as the dashboard authors it; a value with an offset or `Z` is the instant it names. Must be in the future, judged in the plan's own zone.
 - `duration_minutes` (integer, required): How long the window lasts, a whole number of minutes, at least 1. The plan's configured floor and ceiling apply: 5 minutes and 30 days by default.
 
+
+## `pass-roster`
+
+| Method | Path | Ability | Summary | MCP twins |
+| --- | --- | --- | --- | --- |
+| GET | `/v1/projects/{project}/pass-roster` | `project-user:view-any` |  |  |

@@ -11,6 +11,7 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 | POST | `/v1/subscriptions/{subscription}/cancel` | `project-subscription:update` | Cancel a subscription | `cancel_subscription` |
 | GET | `/v1/subscriptions/{subscription}/grants` | `project-subscription:view` | List a subscription's grants | `list_subscription_grants` |
 | POST | `/v1/subscriptions/{subscription}/grants/reissue` | `project-subscription:update` | Reissue a subscription's access | `reissue_subscription_grants` |
+| GET | `/v1/subscriptions/{subscription}/pass-moves` | `project-subscription:view` |  |  |
 | POST | `/v1/subscriptions/{subscription}/pause` | `project-subscription:update` | Pause a subscription | `pause_subscription` |
 | POST | `/v1/subscriptions/{subscription}/reactivate` | `project-subscription:update` | Reactivate a subscription | `reactivate_subscription` |
 | POST | `/v1/subscriptions/{subscription}/remind` | `project-subscription:update` | Remind a pass holder | `remind_pass_holder` |

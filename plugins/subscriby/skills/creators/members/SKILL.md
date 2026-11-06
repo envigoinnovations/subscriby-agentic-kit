@@ -27,6 +27,7 @@ The status moves on its own as the person's relationship changes (lead to triali
 
 - `list_subscribers` pages a project's members (`status`, `access: waiting` for the ones whose purchase includes a place on a platform they have not connected, `search` by name or email, `limit`, `page`). Cap the walk: ask for the first fifty and say more exist.
 - `get_subscriber` answers one member: the account, the status, the connected accounts with the platform's own id, who referred them and whom they referred, the Smart Link they came from, when they joined, and every subscription and pass with its state, dates, the code it was redeemed with and the gateway reference.
+- `get_pass_roster` (the `plans-and-passes` skill) answers the members against the dates a project's pass plans sell: who holds which date, where each stands on it, and who was moved from where when a date was cancelled; `list_pass_moves` is one purchase's trail of those moves.
 - `find_member_by_identity` finds a member from a platform account (`connector` and the platform's `external_id`), the way a support question usually arrives; `list_member_identities` lists one member's accounts and `unlink_member_identity` detaches one (destructive; the member can link again from the portal).
 - The activity log (`get_activity_log`, the `analytics` skill) is the timeline behind a dispute: every sign-up, renewal, payment, cancellation and bot interaction.
 

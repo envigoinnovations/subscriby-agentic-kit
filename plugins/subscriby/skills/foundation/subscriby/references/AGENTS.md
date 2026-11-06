@@ -59,6 +59,7 @@ https://mcp.subscriby.net speaks the Model Context Protocol over Streamable HTTP
 ## Agent skills and further reading
 
 - Skills: https://www.subscriby.net/.well-known/agent-skills/index.json (REST API, MCP server, webhooks; one SKILL.md each).
+- Claude Code: the Agentic Kit, a plugin marketplace with a skill for every job a creator, a developer or a connector author brings, slash commands, read-only subagents, a guard on every destructive tool and the MCP server bundled: `/plugin marketplace add envigoinnovations/subscriby-agentic-kit` then `/plugin install subscriby@envigo` (https://docs.subscriby.net/integrations/agentic-kit); other agents take the skills alone with `npx skills add envigoinnovations/subscriby-agentic-kit`.
 - Credentials: https://www.subscriby.net/auth.md.
 - Discovery: https://www.subscriby.net/.well-known/api-catalog (API catalog), https://www.subscriby.net/.well-known/agent-card.json (A2A agent card), https://www.subscriby.net/.well-known/mcp/server-card.json (MCP server card), https://www.subscriby.net/.well-known/ai-catalog.json (capability manifest).
 - Documentation: https://docs.subscriby.net; for language models https://www.subscriby.net/llms.txt; every page https://www.subscriby.net/sitemap.md.

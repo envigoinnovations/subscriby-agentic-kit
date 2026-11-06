@@ -18,6 +18,7 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 | `knowledge` | 5 | [endpoints/knowledge.md](endpoints/knowledge.md) |
 | `links` | 7 | [endpoints/links.md](endpoints/links.md) |
 | `members` | 7 | [endpoints/members.md](endpoints/members.md) |
+| `pass-roster` | 1 | [endpoints/pass-roster.md](endpoints/pass-roster.md) |
 | `pass-windows` | 5 | [endpoints/pass-windows.md](endpoints/pass-windows.md) |
 | `payment-methods` | 6 | [endpoints/payment-methods.md](endpoints/payment-methods.md) |
 | `plans` | 9 | [endpoints/plans.md](endpoints/plans.md) |
@@ -35,7 +36,7 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 | `support-canned-replies` | 5 | [endpoints/support-canned-replies.md](endpoints/support-canned-replies.md) |
 | `support-settings` | 2 | [endpoints/support-settings.md](endpoints/support-settings.md) |
 | `roles` | 5 | [endpoints/roles.md](endpoints/roles.md) |
-| `subscriptions` | 10 | [endpoints/subscriptions.md](endpoints/subscriptions.md) |
+| `subscriptions` | 11 | [endpoints/subscriptions.md](endpoints/subscriptions.md) |
 | `support-conversations` | 9 | [endpoints/support-conversations.md](endpoints/support-conversations.md) |
 | `teams` | 6 | [endpoints/teams.md](endpoints/teams.md) |
 | `team-members` | 6 | [endpoints/team-members.md](endpoints/team-members.md) |

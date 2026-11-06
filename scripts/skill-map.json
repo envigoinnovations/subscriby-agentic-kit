@@ -154,7 +154,9 @@
       "cancel_pass_window",
       "remind_pass_window_queue",
       "remind_pass_holder",
-      "start_next_season"
+      "start_next_season",
+      "get_pass_roster",
+      "list_pass_moves"
     ],
     "events": [
       "plan",
@@ -163,7 +165,8 @@
     ],
     "endpoints": [
       "plans",
-      "pass-windows"
+      "pass-windows",
+      "pass-roster"
     ],
     "abilities": [
       "passes"
@@ -172,7 +175,8 @@
       "https://docs.subscriby.net/creators/plans",
       "https://docs.subscriby.net/creators/time-limited-passes",
       "https://docs.subscriby.net/creators/pass-series",
-      "https://docs.subscriby.net/payments/currency-conversion"
+      "https://docs.subscriby.net/payments/currency-conversion",
+      "https://docs.subscriby.net/creators/pass-roster"
     ]
   },
   "creators/members": {

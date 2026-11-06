@@ -19,6 +19,8 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 | `remind_pass_window_queue` | additive | `pass-window:update` | Nudges everyone who bought a window but has not come through their grant yet, re-sending it. |
 | `remind_pass_holder` | additive | `project-subscription:update` | Nudges ONE pass holder who bought a window but has not come through their grant yet, re-sending it. |
 | `start_next_season` | additive | `project-subscription-plan:create` | Duplicates a finished pass series into its next season: a NEW inactive pass_series plan with the same price, settings, resources and rules but an empty slate, linked from the old season as its successor so the presale reaches every current holder. |
+| `get_pass_roster` | read | `project-user:view-any` | Reads a project's Pass Roster: its members against the dates its pass and series plans sell, one row per member with their standing on each date they hold (in, queued, holds, missed, ended or covered) and the cancelled dates they were moved off with where they went, plus the columns under `meta.dates`, the dates beyond the span that holders were moved onto under `meta.moved_to_dates`, and every move off a column folded by destination under `meta.relocations`. |
+| `list_pass_moves` | read | `project-subscription:view` | Lists every hop one purchase's passes made, oldest first, from the project's pass move log: a date cancelled and the holder rolled forward (window_cancelled), a season date replaced by another (series_date_substituted), or a payment that settled after the date it was for and was bound to the next one (paid_after_window). |
 
 ## `list_plans`
 
@@ -209,3 +211,29 @@ Duplicates a finished pass series into its next season: a NEW inactive pass_seri
 **Arguments**
 
 - `plan_id` (string, required): UUID of the finished pass_series plan to duplicate into its next season.
+
+## `get_pass_roster`
+
+Read · requires `project-user:view-any`
+
+Reads a project's Pass Roster: its members against the dates its pass and series plans sell, one row per member with their standing on each date they hold (in, queued, holds, missed, ended or covered) and the cancelled dates they were moved off with where they went, plus the columns under `meta.dates`, the dates beyond the span that holders were moved onto under `meta.moved_to_dates`, and every move off a column folded by destination under `meta.relocations`. Requires `project_id`. Narrow with `plan_id` (one pass or series plan of the project), with a search text (a name or email fragment), and with `from` and `to` ISO-8601 bounds on the span, which is eight weeks either side of now when neither is given. Paginates with `limit` (1..100, default 25) and `page`, members by name. Use it to answer who holds which date, who was rolled over from a cancelled date and to where, and who still has not joined the queue for a date; `get_subscriber` reads one member in full and `list_pass_moves` one purchase's whole trail. Reads under `project-user:view-any`; each member's address is returned verbatim, as `list_subscribers` warns, so quote it only when the creator asked.
+
+**Arguments**
+
+- `project_id` (string, required): UUID of the project whose roster to read.
+- `plan_id` (string): UUID of one pass or series plan of the project, to keep to its dates and holders.
+- `search` (string): Keep the members whose name or email contains this text (up to 100 characters).
+- `from` (string): ISO-8601 instant: only dates ending at or after it are columns. Eight weeks before now when omitted.
+- `to` (string): ISO-8601 instant: only dates starting at or before it are columns. Eight weeks after now when omitted.
+- `limit` (integer): Maximum rows to return per page (1..100).
+- `page` (integer): 1-indexed page number.
+
+## `list_pass_moves`
+
+Read · requires `project-subscription:view`
+
+Lists every hop one purchase's passes made, oldest first, from the project's pass move log: a date cancelled and the holder rolled forward (window_cancelled), a season date replaced by another (series_date_substituted), or a payment that settled after the date it was for and was bound to the next one (paid_after_window). Requires `subscription_id`. Each hop names both dates by id and as a person reads them in the plan's zone, who made it (null when the platform did on its own) and when; the ledger keeps only a pass's last move, the log keeps them all, so a pass moved twice answers two rows and an empty list means the purchase's passes never moved. Reads under `project-subscription:view`; `get_pass_roster` shows the same hops as departures across every member, and `get_subscription` the purchase itself.
+
+**Arguments**
+
+- `subscription_id` (string, required): UUID of the purchase whose passes' moves to list.

@@ -30,7 +30,7 @@ Prefer a narrower grant? Mint a personal access token under **Settings → API T
 | Slash commands | 8 |
 | Subagents | 3 |
 | MCP tools the guard watches | 84 |
-| MCP tools, resources, events, endpoints behind them | 238 tools, 6 resources, 191 events, 257 endpoints (catalogue 2026-05-01) |
+| MCP tools, resources, events, endpoints behind them | 240 tools, 6 resources, 191 events, 259 endpoints (catalogue 2026-05-01) |
 
 <!-- generated:counts:end -->
 
