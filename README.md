@@ -11,6 +11,8 @@ Teach Claude to run your paid community, integrate Subscriby into whatever you a
 /plugin install subscriby@envigo
 ```
 
+If the first line stops at `Host key verification failed`, the machine has no SSH host key for GitHub: set `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` in the shell that runs Claude Code and add the marketplace again, and the clone goes over HTTPS with no credential needed.
+
 Then run `/mcp` and authenticate the `subscriby` server: Claude Code opens your browser, you sign in to Subscriby and press **Authorize**. The connection acts as you, on the team you were working in, with your own permissions and nothing more. `/subscriby:connect` walks the sign-in and proves it with your account details.
 
 Prefer a narrower grant? Mint a personal access token under **Settings → API Tokens** with only the abilities you want and add it as a second server; the `authentication` skill explains both routes.

@@ -4,7 +4,7 @@ All notable changes to the Subscriby Agentic Kit are documented here. The format
 
 ## [Unreleased]
 
-## [1.0.0] - unreleased
+## [1.0.0] - 2026-11-06
 
 The first release, generated from the Subscriby catalogue of 2026-05-01 (`catalogue/stamp.json`). About 4,300 tokens of skill descriptions join every session; a skill's body is loaded only when it fires.
 
