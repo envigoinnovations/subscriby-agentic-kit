@@ -21,9 +21,9 @@ Prefer a narrower grant? Mint a personal access token under **Settings → API T
 
 | Component | Count |
 | --- | --- |
-| Skills | 3 |
-| Slash commands | 3 |
-| Subagents | 0 |
+| Skills | 9 |
+| Slash commands | 5 |
+| Subagents | 1 |
 | MCP tools the guard watches | 84 |
 | MCP tools, resources, events, endpoints behind them | 238 tools, 6 resources, 191 events, 257 endpoints (catalogue 2026-05-01) |
 
@@ -40,6 +40,17 @@ Prefer a narrower grant? Mint a personal access token under **Settings → API T
 | `authentication` | This skill should be used when the user asks to connect Claude to Subscriby, sign in, authenticate the server, use or mint a personal access token, pick abilities, fix TOKEN_MISSING_ABILITY, or asks what the connection can and cannot do. |
 | `documentation` | This skill should be used when the user asks how something works in Subscriby, where it is documented, or to look something up in the Subscriby docs or API reference, or when an answer needs a fact the kit does not carry. Where the docs and catalogues are and how to read them as Markdown. |
 | `subscriby` | This skill should be used when the user mentions Subscriby, asks what it is or how it works, or asks for anything about a paid community, its members, plans, payments, connectors or integrations and no more specific Subscriby skill matches. The concept model, the ground rules and the routing table. |
+
+#### Creators (6)
+
+| Skill | When Claude reaches for it |
+| --- | --- |
+| `connectors` | This skill should be used when the user asks about a project's connectors, installations or bots and their health, the Connectors Marketplace, installing, verifying, configuring, diagnosing, disconnecting or uninstalling a connector, the places a connector gates, or Telegram and Discord specifics. |
+| `coupons-and-access-codes` | This skill should be used when the user asks to create or manage a coupon or discount code, run a sale, generate access codes for a giveaway, an offline sale, a gift, team access or a migration, revoke a code, check a code that does not work, or asks what the code quota and overage cost are. |
+| `launch-project` | This skill should be used when the user asks to create a new Subscriby project, launch or set up a paid community from nothing, go live, run the go-live checklist, or asks what a project needs before it can sell. From an empty project to a live one, in order, with the writes confirmed one at a time. |
+| `members` | This skill should be used when the user asks about a project's members or subscribers, who lapsed or churned, a member's connected accounts, members waiting on a connection, banning, unbanning or kicking someone, the perks still to hand over, or a member's access grants and invite links. |
+| `plans-and-passes` | This skill should be used when the user asks to create, price, edit, publish, reorder or delete a plan, set a billing cycle or trial, restrict who can buy, sell a time-limited pass or a pass series, schedule or cancel access windows, remind pass holders, start a next season, or sync plans to a provider. |
+| `subscriptions-and-payments` | This skill should be used when the user asks about subscriptions and their statuses, cancelling, pausing or reactivating one, a member's payments, transactions, refunds or failed charges, payment methods and gateways, test against live mode, syncing plans to a provider, or the currency a member pays in. |
 
 <!-- generated:skills:end -->
 

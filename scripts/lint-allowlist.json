@@ -2,6 +2,8 @@
   "$comment": "Backticked snake_case identifiers that start like a tool name but are fields, headers or values, so the tool-name check leaves them alone.",
   "identifiers": [
     "request_id",
+    "cancel_recurring_subscriptions",
+    "unpublish_emptied_plans",
     "set_up",
     "use_resource",
     "add_ons",
