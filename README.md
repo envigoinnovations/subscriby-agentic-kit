@@ -21,9 +21,9 @@ Prefer a narrower grant? Mint a personal access token under **Settings → API T
 
 | Component | Count |
 | --- | --- |
-| Skills | 20 |
-| Slash commands | 6 |
-| Subagents | 2 |
+| Skills | 30 |
+| Slash commands | 8 |
+| Subagents | 3 |
 | MCP tools the guard watches | 84 |
 | MCP tools, resources, events, endpoints behind them | 238 tools, 6 resources, 191 events, 257 endpoints (catalogue 2026-05-01) |
 
@@ -62,6 +62,21 @@ Prefer a narrower grant? Mint a personal access token under **Settings → API T
 | `subscriptions-and-payments` | This skill should be used when the user asks about subscriptions and their statuses, cancelling, pausing or reactivating one, a member's payments, transactions, refunds or failed charges, payment methods and gateways, test against live mode, or the currency a member pays in. |
 | `support-inbox` | This skill should be used when the user asks about member messages, the support inbox or a conversation, to triage, reply, resolve, reopen, assign or block, to manage saved replies, or to change the inbox settings, including whether Subscriby Copilot may answer members in the inbox or on the portal. |
 | `teams-and-roles` | This skill should be used when the user asks about teams, inviting or removing a collaborator, changing someone's role, creating or editing roles and groups, which permissions a teammate holds, or why a team action is refused on their plan. |
+
+#### Developers (10)
+
+| Skill | When Claude reaches for it |
+| --- | --- |
+| `custom-agents` | This skill should be used when the user is building their own agent or automation on Subscriby, asks whether to use MCP or the REST API, wants an agent to register itself and get a token with the creator's confirmation, or asks how an agent should authenticate, write safely and be audited. |
+| `errors-and-retries` | This skill should be used when the user asks what a Subscriby error code means, how to handle 401, 403, 404, 409, 422 or 429 answers, which errors to retry and how, what the error envelope carries, how to surface an error to a user or an agent, or how to report a problem with a request id. |
+| `mcp-clients` | This skill should be used when the user asks how to connect Subscriby to claude.ai, Claude Desktop, Cursor, ChatGPT Desktop, VS Code or another MCP client, how the OAuth handshake works, what the MCP resources are, how async tools are polled, the MCP limits, or why a client cannot connect. |
+| `n8n` | This skill should be used when the user wants to run Subscriby from n8n, install the n8n-nodes-subscriby community node on Cloud or self-hosted, configure its credential, use the Subscriby Trigger or action node, fall back to the HTTP Request and Webhook nodes, or wants workflow recipes. |
+| `openapi-toolkits` | This skill should be used when the user wants to drive Subscriby from Make, LangChain or another OpenAPI agent toolkit, import the API into Postman or Insomnia, generate a typed client with openapi-generator, Stainless, Speakeasy or Fern, or asks what the OpenAPI document carries. |
+| `rest-api` | This skill should be used when the user asks how to call the Subscriby REST API, what the base URL, bearer header or response envelopes look like, how to paginate, send an Idempotency-Key, honour rate limits, read the OpenAPI document, or build a client in TypeScript, PHP or Python. |
+| `tokens-and-abilities` | This skill should be used when the user asks which abilities a token needs, how to mint or scope a personal access token, what the sbt_ format is, how team and project scope work, how to rotate or revoke a token, or why a call answers TOKEN_MISSING_ABILITY or TENANT_MISMATCH. |
+| `webhook-events` | This skill should be used when the user asks which Subscriby webhook events exist or which to subscribe to for a job, what an event's payload carries, which ability it needs, when it fires, or how to react to a new member, a failed renewal, a cancellation, a pass window or an outage. |
+| `webhooks` | This skill should be used when the user asks to receive Subscriby webhooks, register or manage a webhook endpoint, verify the SB-Signature header, handle retries, dead deliveries or replays, rotate a signing secret, allow deliveries through a firewall, or debug a failing delivery. |
+| `zapier` | This skill should be used when the user wants to connect Subscriby to Zapier, build a Zap on a Subscriby trigger, action or search, asks which abilities the Zapier connection's token needs, why a Zap receives no events or fails test-auth, or wants Zap recipes. |
 
 <!-- generated:skills:end -->
 

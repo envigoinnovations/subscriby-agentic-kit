@@ -737,6 +737,9 @@
       "https://docs.subscriby.net/integrations/custom-agents",
       "https://docs.subscriby.net/api/v1/agent-readiness",
       "https://docs.subscriby.net/mcp/v1/authentication"
+    ],
+    "documents": [
+      "auth.md"
     ]
   },
   "developers/mcp-clients": {
