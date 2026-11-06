@@ -1,6 +1,6 @@
 ---
 name: subscriptions-and-payments
-description: This skill should be used when the user asks about subscriptions and their statuses, cancelling, pausing or reactivating one, a member's payments, transactions, refunds or failed charges, payment methods and gateways, test against live mode, syncing plans to a provider, or the currency a member pays in.
+description: This skill should be used when the user asks about subscriptions and their statuses, cancelling, pausing or reactivating one, a member's payments, transactions, refunds or failed charges, payment methods and gateways, test against live mode, or the currency a member pays in.
 license: MIT
 metadata:
   category: creators

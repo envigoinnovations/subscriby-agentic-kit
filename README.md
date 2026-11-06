@@ -21,9 +21,9 @@ Prefer a narrower grant? Mint a personal access token under **Settings → API T
 
 | Component | Count |
 | --- | --- |
-| Skills | 9 |
-| Slash commands | 5 |
-| Subagents | 1 |
+| Skills | 20 |
+| Slash commands | 6 |
+| Subagents | 2 |
 | MCP tools the guard watches | 84 |
 | MCP tools, resources, events, endpoints behind them | 238 tools, 6 resources, 191 events, 257 endpoints (catalogue 2026-05-01) |
 
@@ -41,16 +41,27 @@ Prefer a narrower grant? Mint a personal access token under **Settings → API T
 | `documentation` | This skill should be used when the user asks how something works in Subscriby, where it is documented, or to look something up in the Subscriby docs or API reference, or when an answer needs a fact the kit does not carry. Where the docs and catalogues are and how to read them as Markdown. |
 | `subscriby` | This skill should be used when the user mentions Subscriby, asks what it is or how it works, or asks for anything about a paid community, its members, plans, payments, connectors or integrations and no more specific Subscriby skill matches. The concept model, the ground rules and the routing table. |
 
-#### Creators (6)
+#### Creators (17)
 
 | Skill | When Claude reaches for it |
 | --- | --- |
+| `account-and-billing` | This skill should be used when the user asks about their own Subscriby account, notifications and where alerts go, exporting their data, the Partner Program and its commissions or payouts, transaction fees and invoices, Copilot Credits and packs, their creator plan or addons, or their API tokens. |
+| `analytics` | This skill should be used when the user asks for figures, trends, revenue, MRR, churn, trial conversion, earnings by period, plan performance, where revenue comes from, subscriber counts, a report, the transaction ledger, or the activity log of a member, a subscription or a project. |
+| `broadcasts` | This skill should be used when the user asks to send a message, announcement or reminder to members, a segment, a plan's members, pass holders or people whose access is expiring, to preview who a broadcast reaches, to read a broadcast's history or who it missed, or to retry or resend one. |
 | `connectors` | This skill should be used when the user asks about a project's connectors, installations or bots and their health, the Connectors Marketplace, installing, verifying, configuring, diagnosing, disconnecting or uninstalling a connector, the places a connector gates, or Telegram and Discord specifics. |
 | `coupons-and-access-codes` | This skill should be used when the user asks to create or manage a coupon or discount code, run a sale, generate access codes for a giveaway, an offline sale, a gift, team access or a migration, revoke a code, check a code that does not work, or asks what the code quota and overage cost are. |
+| `disaster-recovery` | This skill should be used when the user asks about a banned bot, place or account, an outage or degraded installation, recovery incidents and operations, standbys, the live mirror, automatic failover, readiness, the roll call, undo, allowances or outage compensation. |
+| `knowledge` | This skill should be used when the user asks to teach Subscriby Copilot something about a project, add a question and answer or a guide to Knowledge, decide whether members or only the team may be answered from it, check what the Copilot knows, or read, change or remove a Knowledge entry. |
 | `launch-project` | This skill should be used when the user asks to create a new Subscriby project, launch or set up a paid community from nothing, go live, run the go-live checklist, or asks what a project needs before it can sell. From an empty project to a live one, in order, with the writes confirmed one at a time. |
 | `members` | This skill should be used when the user asks about a project's members or subscribers, who lapsed or churned, a member's connected accounts, members waiting on a connection, banning, unbanning or kicking someone, the perks still to hand over, or a member's access grants and invite links. |
-| `plans-and-passes` | This skill should be used when the user asks to create, price, edit, publish, reorder or delete a plan, set a billing cycle or trial, restrict who can buy, sell a time-limited pass or a pass series, schedule or cancel access windows, remind pass holders, start a next season, or sync plans to a provider. |
-| `subscriptions-and-payments` | This skill should be used when the user asks about subscriptions and their statuses, cancelling, pausing or reactivating one, a member's payments, transactions, refunds or failed charges, payment methods and gateways, test against live mode, syncing plans to a provider, or the currency a member pays in. |
+| `plans-and-passes` | This skill should be used when the user asks to create, price, edit, publish, reorder or delete a plan, set a billing cycle or trial, restrict who can buy, sell a time-limited pass or a pass series, schedule or cancel access windows, remind pass holders, or start a next season. |
+| `portal-design` | This skill should be used when the user asks to change how a project's portal page looks or reads, its colours, fonts, layout, wording, blocks, announcement, gallery, footer, pixels, CSS or languages, to publish or discard a portal draft, or for the portal address or a bot deep link. |
+| `referral-program` | This skill should be used when the user asks about a project's Referral Program, affiliates, referral codes or links, free membership days or cash commissions for members who bring friends, approving or suspending an affiliate, the reward ledger, or recording a payout to an affiliate. |
+| `revenue-recovery` | This skill should be used when the user asks about failed renewals, the grace window, dunning, why members leave, cancellation reasons or offers, win-back or nurture sequences, leads who never bought, stalled checkouts, trials about to end, or the Revenue Recovery figures and settings. |
+| `smart-links` | This skill should be used when the user asks to track where members come from, create a tracked link for a bio, a video, a newsletter or a QR code, read a link's clicks, leads, checkouts, paid members and revenue, compare channels, embed plans on a website, or rename, expire or archive a link. |
+| `subscriptions-and-payments` | This skill should be used when the user asks about subscriptions and their statuses, cancelling, pausing or reactivating one, a member's payments, transactions, refunds or failed charges, payment methods and gateways, test against live mode, or the currency a member pays in. |
+| `support-inbox` | This skill should be used when the user asks about member messages, the support inbox or a conversation, to triage, reply, resolve, reopen, assign or block, to manage saved replies, or to change the inbox settings, including whether Subscriby Copilot may answer members in the inbox or on the portal. |
+| `teams-and-roles` | This skill should be used when the user asks about teams, inviting or removing a collaborator, changing someone's role, creating or editing roles and groups, which permissions a teammate holds, or why a team action is refused on their plan. |
 
 <!-- generated:skills:end -->
 
