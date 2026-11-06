@@ -13,7 +13,7 @@ Teach Claude to run your paid community, integrate Subscriby into whatever you a
 
 Then run `/mcp` and authenticate the `subscriby` server: Claude Code opens your browser, you sign in to Subscriby and press **Authorize**. The connection acts as you, on the team you were working in, with your own permissions and nothing more. `/subscriby:connect` walks the sign-in and proves it with your account details.
 
-Prefer a narrower grant? Mint a personal access token under **Settings → API Tokens** with only the abilities you want and add it as a second server; the `connect` skill explains both routes.
+Prefer a narrower grant? Mint a personal access token under **Settings → API Tokens** with only the abilities you want and add it as a second server; the `authentication` skill explains both routes.
 
 ## What is inside
 
@@ -21,8 +21,8 @@ Prefer a narrower grant? Mint a personal access token under **Settings → API T
 
 | Component | Count |
 | --- | --- |
-| Skills | 0 |
-| Slash commands | 0 |
+| Skills | 3 |
+| Slash commands | 3 |
 | Subagents | 0 |
 | MCP tools the guard watches | 84 |
 | MCP tools, resources, events, endpoints behind them | 238 tools, 6 resources, 191 events, 257 endpoints (catalogue 2026-05-01) |
@@ -33,7 +33,13 @@ Prefer a narrower grant? Mint a personal access token under **Settings → API T
 
 <!-- generated:skills:start -->
 
-The skills by category appear here after the first `npm run sync`.
+#### Foundation (3)
+
+| Skill | When Claude reaches for it |
+| --- | --- |
+| `authentication` | This skill should be used when the user asks to connect Claude to Subscriby, sign in, authenticate the server, use or mint a personal access token, pick abilities, fix TOKEN_MISSING_ABILITY, or asks what the connection can and cannot do. |
+| `documentation` | This skill should be used when the user asks how something works in Subscriby, where it is documented, or to look something up in the Subscriby docs or API reference, or when an answer needs a fact the kit does not carry. Where the docs and catalogues are and how to read them as Markdown. |
+| `subscriby` | This skill should be used when the user mentions Subscriby, asks what it is or how it works, or asks for anything about a paid community, its members, plans, payments, connectors or integrations and no more specific Subscriby skill matches. The concept model, the ground rules and the routing table. |
 
 <!-- generated:skills:end -->
 

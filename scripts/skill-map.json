@@ -18,7 +18,7 @@
       "AGENTS.md"
     ]
   },
-  "foundation/connect": {
+  "foundation/authentication": {
     "tools": [
       "get_me",
       "list_teams",
@@ -43,7 +43,7 @@
       "auth.md"
     ]
   },
-  "foundation/docs": {
+  "foundation/documentation": {
     "docs": [
       "https://docs.subscriby.net/llms.txt",
       "https://docs.subscriby.net/api/v1/agent-readiness"
