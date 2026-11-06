@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "subscriby": {
+      "type": "http",
+      "url": "https://mcp.subscriby.net"
+    }
+  }
+}

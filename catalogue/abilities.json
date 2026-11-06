@@ -1,0 +1,916 @@
+{
+    "version": "2026-05-01",
+    "count": 130,
+    "items": [
+        {
+            "value": "project:view-any",
+            "name": "ProjectViewAny",
+            "category": "projects",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project:view",
+            "name": "ProjectView",
+            "category": "projects",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project:create",
+            "name": "ProjectCreate",
+            "category": "projects",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project:update",
+            "name": "ProjectUpdate",
+            "category": "projects",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project:delete",
+            "name": "ProjectDelete",
+            "category": "projects",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-payment-method:view-any",
+            "name": "ProjectPaymentMethodViewAny",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-payment-method:view",
+            "name": "ProjectPaymentMethodView",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-payment-method:create",
+            "name": "ProjectPaymentMethodCreate",
+            "category": "project-resources",
+            "status": "pending",
+            "note": null
+        },
+        {
+            "value": "project-payment-method:update",
+            "name": "ProjectPaymentMethodUpdate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-payment-method:delete",
+            "name": "ProjectPaymentMethodDelete",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-resource:view-any",
+            "name": "ProjectResourceViewAny",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-resource:view",
+            "name": "ProjectResourceView",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-resource:create",
+            "name": "ProjectResourceCreate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-resource:update",
+            "name": "ProjectResourceUpdate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-resource:delete",
+            "name": "ProjectResourceDelete",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-access-code:view-any",
+            "name": "ProjectAccessCodeViewAny",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-access-code:view",
+            "name": "ProjectAccessCodeView",
+            "category": "project-resources",
+            "status": "pending",
+            "note": null
+        },
+        {
+            "value": "project-access-code:create",
+            "name": "ProjectAccessCodeCreate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-access-code:update",
+            "name": "ProjectAccessCodeUpdate",
+            "category": "project-resources",
+            "status": "pending",
+            "note": null
+        },
+        {
+            "value": "project-access-code:delete",
+            "name": "ProjectAccessCodeDelete",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-coupon:view-any",
+            "name": "ProjectCouponViewAny",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-coupon:view",
+            "name": "ProjectCouponView",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-coupon:create",
+            "name": "ProjectCouponCreate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-coupon:update",
+            "name": "ProjectCouponUpdate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-coupon:delete",
+            "name": "ProjectCouponDelete",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-subscription:view-any",
+            "name": "ProjectSubscriptionViewAny",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-subscription:view",
+            "name": "ProjectSubscriptionView",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-subscription:create",
+            "name": "ProjectSubscriptionCreate",
+            "category": "project-resources",
+            "status": "pending",
+            "note": null
+        },
+        {
+            "value": "project-subscription:update",
+            "name": "ProjectSubscriptionUpdate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-subscription:delete",
+            "name": "ProjectSubscriptionDelete",
+            "category": "project-resources",
+            "status": "pending",
+            "note": null
+        },
+        {
+            "value": "project-subscription-plan:view-any",
+            "name": "ProjectSubscriptionPlanViewAny",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-subscription-plan:view",
+            "name": "ProjectSubscriptionPlanView",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-subscription-plan:create",
+            "name": "ProjectSubscriptionPlanCreate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-subscription-plan:update",
+            "name": "ProjectSubscriptionPlanUpdate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-subscription-plan:delete",
+            "name": "ProjectSubscriptionPlanDelete",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-user:view-any",
+            "name": "ProjectUserViewAny",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-user:view",
+            "name": "ProjectUserView",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-user:create",
+            "name": "ProjectUserCreate",
+            "category": "project-resources",
+            "status": "pending",
+            "note": null
+        },
+        {
+            "value": "project-user:update",
+            "name": "ProjectUserUpdate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-user:delete",
+            "name": "ProjectUserDelete",
+            "category": "project-resources",
+            "status": "pending",
+            "note": null
+        },
+        {
+            "value": "project-recovery:view-any",
+            "name": "ProjectRecoveryViewAny",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-recovery:view",
+            "name": "ProjectRecoveryView",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-recovery:create",
+            "name": "ProjectRecoveryCreate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-recovery:update",
+            "name": "ProjectRecoveryUpdate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-recovery:delete",
+            "name": "ProjectRecoveryDelete",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-connector:view-any",
+            "name": "ProjectConnectorViewAny",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-connector:view",
+            "name": "ProjectConnectorView",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-connector:create",
+            "name": "ProjectConnectorCreate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-connector:update",
+            "name": "ProjectConnectorUpdate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-connector:delete",
+            "name": "ProjectConnectorDelete",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-referral:view-any",
+            "name": "ProjectReferralViewAny",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-referral:view",
+            "name": "ProjectReferralView",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-referral:create",
+            "name": "ProjectReferralCreate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-referral:update",
+            "name": "ProjectReferralUpdate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-referral:delete",
+            "name": "ProjectReferralDelete",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-link:view-any",
+            "name": "ProjectLinkViewAny",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-link:view",
+            "name": "ProjectLinkView",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-link:create",
+            "name": "ProjectLinkCreate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-link:update",
+            "name": "ProjectLinkUpdate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-link:delete",
+            "name": "ProjectLinkDelete",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-sequence:view-any",
+            "name": "ProjectSequenceViewAny",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-sequence:view",
+            "name": "ProjectSequenceView",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-sequence:create",
+            "name": "ProjectSequenceCreate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-sequence:update",
+            "name": "ProjectSequenceUpdate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-sequence:delete",
+            "name": "ProjectSequenceDelete",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-knowledge:view-any",
+            "name": "ProjectKnowledgeViewAny",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-knowledge:view",
+            "name": "ProjectKnowledgeView",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-knowledge:create",
+            "name": "ProjectKnowledgeCreate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-knowledge:update",
+            "name": "ProjectKnowledgeUpdate",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "project-knowledge:delete",
+            "name": "ProjectKnowledgeDelete",
+            "category": "project-resources",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "support-conversation:view-any",
+            "name": "SupportConversationViewAny",
+            "category": "support",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "support-conversation:view",
+            "name": "SupportConversationView",
+            "category": "support",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "support-conversation:create",
+            "name": "SupportConversationCreate",
+            "category": "support",
+            "status": "pending",
+            "note": null
+        },
+        {
+            "value": "support-conversation:update",
+            "name": "SupportConversationUpdate",
+            "category": "support",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "support-conversation:delete",
+            "name": "SupportConversationDelete",
+            "category": "support",
+            "status": "pending",
+            "note": null
+        },
+        {
+            "value": "team:view-any",
+            "name": "TeamViewAny",
+            "category": "teams",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "team:view",
+            "name": "TeamView",
+            "category": "teams",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "team:create",
+            "name": "TeamCreate",
+            "category": "teams",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "team:update",
+            "name": "TeamUpdate",
+            "category": "teams",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "team:delete",
+            "name": "TeamDelete",
+            "category": "teams",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "role:view-any",
+            "name": "RoleViewAny",
+            "category": "rbac",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "role:view",
+            "name": "RoleView",
+            "category": "rbac",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "role:create",
+            "name": "RoleCreate",
+            "category": "rbac",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "role:update",
+            "name": "RoleUpdate",
+            "category": "rbac",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "role:delete",
+            "name": "RoleDelete",
+            "category": "rbac",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "group:view-any",
+            "name": "GroupViewAny",
+            "category": "rbac",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "group:view",
+            "name": "GroupView",
+            "category": "rbac",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "group:create",
+            "name": "GroupCreate",
+            "category": "rbac",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "group:update",
+            "name": "GroupUpdate",
+            "category": "rbac",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "group:delete",
+            "name": "GroupDelete",
+            "category": "rbac",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "team-member:view-any",
+            "name": "TeamMemberViewAny",
+            "category": "teams",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "team-member:view",
+            "name": "TeamMemberView",
+            "category": "teams",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "team-member:invite",
+            "name": "TeamMemberInvite",
+            "category": "teams",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "team-member:remove",
+            "name": "TeamMemberRemove",
+            "category": "teams",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "team-member:update-role",
+            "name": "TeamMemberUpdateRole",
+            "category": "teams",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "copilot:use",
+            "name": "CopilotUse",
+            "category": "copilot",
+            "status": "no-api-surface",
+            "note": "The team permission that opens Subscriby Copilot in the dashboard and the platform bot. The Copilot runs in-app and has no REST or MCP surface of its own; the MCP server is the door for outside agents."
+        },
+        {
+            "value": "account:read",
+            "name": "AccountRead",
+            "category": "account",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "account:write",
+            "name": "AccountWrite",
+            "category": "account",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "account:export",
+            "name": "AccountExport",
+            "category": "account",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "billing:read",
+            "name": "BillingRead",
+            "category": "billing",
+            "status": "no-api-surface",
+            "note": "Subscribes an endpoint to the billing.* webhook events. The creator's own Subscriby billing has no REST surface to read."
+        },
+        {
+            "value": "billing:manage",
+            "name": "BillingManage",
+            "category": "billing",
+            "status": "no-api-surface",
+            "note": "The creator's own Subscriby billing is deliberately dashboard-only."
+        },
+        {
+            "value": "token:view-any",
+            "name": "TokenViewAny",
+            "category": "tokens",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "token:view",
+            "name": "TokenView",
+            "category": "tokens",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "token:create",
+            "name": "TokenCreate",
+            "category": "tokens",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "token:delete",
+            "name": "TokenDelete",
+            "category": "tokens",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "payment:view-any",
+            "name": "PaymentViewAny",
+            "category": "payments",
+            "status": "pending",
+            "note": null
+        },
+        {
+            "value": "payment:view",
+            "name": "PaymentView",
+            "category": "payments",
+            "status": "pending",
+            "note": null
+        },
+        {
+            "value": "payment:refund",
+            "name": "PaymentRefund",
+            "category": "payments",
+            "status": "pending",
+            "note": null
+        },
+        {
+            "value": "pass-window:view-any",
+            "name": "PassWindowViewAny",
+            "category": "passes",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "pass-window:view",
+            "name": "PassWindowView",
+            "category": "passes",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "pass-window:create",
+            "name": "PassWindowCreate",
+            "category": "passes",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "pass-window:update",
+            "name": "PassWindowUpdate",
+            "category": "passes",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "pass-window:delete",
+            "name": "PassWindowDelete",
+            "category": "passes",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "support-canned-reply:view-any",
+            "name": "SupportCannedReplyViewAny",
+            "category": "support",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "support-canned-reply:create",
+            "name": "SupportCannedReplyCreate",
+            "category": "support",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "support-canned-reply:update",
+            "name": "SupportCannedReplyUpdate",
+            "category": "support",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "support-canned-reply:delete",
+            "name": "SupportCannedReplyDelete",
+            "category": "support",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "webhook-endpoint:view-any",
+            "name": "WebhookEndpointViewAny",
+            "category": "webhooks",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "webhook-endpoint:view",
+            "name": "WebhookEndpointView",
+            "category": "webhooks",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "webhook-endpoint:create",
+            "name": "WebhookEndpointCreate",
+            "category": "webhooks",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "webhook-endpoint:update",
+            "name": "WebhookEndpointUpdate",
+            "category": "webhooks",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "webhook-endpoint:delete",
+            "name": "WebhookEndpointDelete",
+            "category": "webhooks",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "webhook-endpoint:manage",
+            "name": "WebhookEndpointManage",
+            "category": "webhooks",
+            "status": "deprecated",
+            "note": "Split into the five webhook-endpoint verbs plus the two webhook-delivery abilities. Still grants all seven on tokens that carry it; cannot be granted to a new one."
+        },
+        {
+            "value": "webhook-delivery:view-any",
+            "name": "WebhookDeliveryViewAny",
+            "category": "webhooks",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "webhook-delivery:retry",
+            "name": "WebhookDeliveryRetry",
+            "category": "webhooks",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "broadcast:read",
+            "name": "BroadcastRead",
+            "category": "bot",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "broadcast:send",
+            "name": "BroadcastSend",
+            "category": "bot",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "dashboard:read",
+            "name": "DashboardRead",
+            "category": "analytics",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "distribution:read",
+            "name": "DistributionRead",
+            "category": "distribution",
+            "status": "enforced",
+            "note": null
+        },
+        {
+            "value": "activity:read",
+            "name": "Activity",
+            "category": "activity",
+            "status": "enforced",
+            "note": null
+        }
+    ]
+}

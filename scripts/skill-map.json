@@ -1,0 +1,798 @@
+{
+  "$comment": "Hand-maintained. Each key is <category>/<skill>; the lists name the catalogue items the skill owns or relies on. A tool, event family, endpoint entity, ability category or error code that appears in no entry fails `npm run check`, so every new catalogue item is placed here on purpose. `*` means every item of that kind.",
+  "foundation/subscriby": {
+    "tools": [
+      "get_job_status",
+      "get_me"
+    ],
+    "resources": [
+      "*"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/mcp/v1",
+      "https://docs.subscriby.net/introduction",
+      "https://docs.subscriby.net/how-it-works",
+      "https://docs.subscriby.net/reference/glossary"
+    ],
+    "documents": [
+      "AGENTS.md"
+    ]
+  },
+  "foundation/connect": {
+    "tools": [
+      "get_me",
+      "list_teams",
+      "get_team",
+      "list_tokens",
+      "get_token"
+    ],
+    "endpoints": [
+      "ping",
+      "me"
+    ],
+    "abilities": [
+      "account"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/mcp/v1/authentication",
+      "https://docs.subscriby.net/mcp/v1/connecting-vscode-claude",
+      "https://docs.subscriby.net/api/v1/authentication",
+      "https://docs.subscriby.net/mcp/v1/security"
+    ],
+    "documents": [
+      "auth.md"
+    ]
+  },
+  "foundation/docs": {
+    "docs": [
+      "https://docs.subscriby.net/llms.txt",
+      "https://docs.subscriby.net/api/v1/agent-readiness"
+    ]
+  },
+  "creators/launch-project": {
+    "tools": [
+      "create_project",
+      "get_project",
+      "update_project",
+      "list_projects",
+      "archive_project",
+      "restore_project",
+      "delete_project",
+      "list_connectors",
+      "get_connector",
+      "install_connector",
+      "verify_connector_installation",
+      "list_connector_spaces",
+      "create_resource_from_space",
+      "request_resource_link",
+      "create_resource",
+      "list_resources",
+      "get_resource",
+      "update_resource",
+      "activate_resource",
+      "deactivate_resource",
+      "unlink_resource",
+      "delete_resource",
+      "list_payment_methods",
+      "activate_payment_method",
+      "create_plan",
+      "publish_plan",
+      "get_portal_design",
+      "publish_portal_design",
+      "get_portal_url",
+      "get_deep_link",
+      "get_recovery_readiness",
+      "list_webhook_endpoints"
+    ],
+    "events": [
+      "project"
+    ],
+    "endpoints": [
+      "projects",
+      "resources"
+    ],
+    "abilities": [
+      "projects"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/creators/projects",
+      "https://docs.subscriby.net/creators/resources",
+      "https://docs.subscriby.net/creators/methods",
+      "https://docs.subscriby.net/creators/go-live-checklist",
+      "https://docs.subscriby.net/quickstart"
+    ]
+  },
+  "creators/connectors": {
+    "tools": [
+      "list_connectors",
+      "get_connector",
+      "list_connector_installations",
+      "get_connector_installation",
+      "install_connector",
+      "verify_connector_installation",
+      "update_connector_installation_settings",
+      "run_connector_doctor",
+      "list_connector_installation_actions",
+      "run_connector_installation_action",
+      "list_connector_spaces",
+      "create_resource_from_space",
+      "get_connector_uninstall_preview",
+      "uninstall_connector",
+      "disconnect_connector",
+      "get_connector_analytics"
+    ],
+    "events": [
+      "connector"
+    ],
+    "endpoints": [
+      "connectors"
+    ],
+    "abilities": [
+      "project-resources"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/connectors",
+      "https://docs.subscriby.net/connectors/marketplace",
+      "https://docs.subscriby.net/connectors/telegram",
+      "https://docs.subscriby.net/connectors/discord",
+      "https://docs.subscriby.net/creators/connectors"
+    ]
+  },
+  "creators/plans-and-passes": {
+    "tools": [
+      "list_plans",
+      "get_plan",
+      "create_plan",
+      "update_plan",
+      "delete_plan",
+      "publish_plan",
+      "reorder_plans",
+      "sync_payment_method_plans",
+      "list_pass_windows",
+      "get_pass_window",
+      "create_pass_window",
+      "cancel_pass_window",
+      "remind_pass_window_queue",
+      "remind_pass_holder",
+      "start_next_season"
+    ],
+    "events": [
+      "plan",
+      "pass",
+      "pass_series"
+    ],
+    "endpoints": [
+      "plans",
+      "pass-windows"
+    ],
+    "abilities": [
+      "passes"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/creators/plans",
+      "https://docs.subscriby.net/creators/time-limited-passes",
+      "https://docs.subscriby.net/creators/pass-series",
+      "https://docs.subscriby.net/payments/currency-conversion"
+    ]
+  },
+  "creators/members": {
+    "tools": [
+      "list_subscribers",
+      "get_subscriber",
+      "find_member_by_identity",
+      "list_member_identities",
+      "unlink_member_identity",
+      "remind_member_to_connect",
+      "nudge_pending_readmissions",
+      "ban_member",
+      "unban_member",
+      "kick_member",
+      "list_creator_tasks",
+      "complete_creator_task",
+      "list_subscription_grants",
+      "reissue_subscription_grants"
+    ],
+    "events": [
+      "member",
+      "creator_task"
+    ],
+    "endpoints": [
+      "members",
+      "creator-tasks"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/creators/managing-members",
+      "https://docs.subscriby.net/subscribers/on-the-platform"
+    ]
+  },
+  "creators/subscriptions-and-payments": {
+    "tools": [
+      "list_subscriptions",
+      "get_subscription",
+      "cancel_subscription",
+      "pause_subscription",
+      "unpause_subscription",
+      "reactivate_subscription",
+      "list_subscription_grants",
+      "reissue_subscription_grants",
+      "list_transactions",
+      "list_recent_payments",
+      "list_payment_methods",
+      "get_payment_method",
+      "activate_payment_method",
+      "deactivate_payment_method",
+      "delete_payment_method",
+      "sync_payment_method_plans"
+    ],
+    "events": [
+      "subscription",
+      "payment"
+    ],
+    "endpoints": [
+      "subscriptions",
+      "payment-methods"
+    ],
+    "abilities": [
+      "payments"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/creators/managing-subscriptions",
+      "https://docs.subscriby.net/creators/transactions",
+      "https://docs.subscriby.net/creators/methods",
+      "https://docs.subscriby.net/payments",
+      "https://docs.subscriby.net/payments/choosing-a-provider"
+    ]
+  },
+  "creators/coupons-and-access-codes": {
+    "tools": [
+      "list_coupons",
+      "get_coupon",
+      "create_coupon",
+      "update_coupon",
+      "activate_coupon",
+      "deactivate_coupon",
+      "delete_coupon",
+      "list_access_codes",
+      "preview_access_code_cost",
+      "bulk_generate_access_codes",
+      "revoke_access_code",
+      "get_job_status"
+    ],
+    "events": [
+      "coupon",
+      "access_code"
+    ],
+    "endpoints": [
+      "coupons",
+      "access-codes"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/creators/coupon-codes",
+      "https://docs.subscriby.net/creators/codes",
+      "https://docs.subscriby.net/payments/access-codes",
+      "https://docs.subscriby.net/mcp/v1/async-jobs"
+    ]
+  },
+  "creators/broadcasts": {
+    "tools": [
+      "list_broadcast_audiences",
+      "preview_broadcast_audience",
+      "broadcast_message",
+      "list_broadcasts",
+      "get_broadcast",
+      "retry_broadcast"
+    ],
+    "events": [
+      "broadcast"
+    ],
+    "endpoints": [
+      "broadcasts"
+    ],
+    "abilities": [
+      "bot"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/creators/broadcasts"
+    ]
+  },
+  "creators/support-inbox": {
+    "tools": [
+      "list_support_conversations",
+      "get_support_conversation",
+      "reply_support_conversation",
+      "resolve_support_conversation",
+      "reopen_support_conversation",
+      "assign_support_conversation",
+      "block_support_contact",
+      "unblock_support_contact",
+      "list_canned_replies",
+      "get_canned_reply",
+      "create_canned_reply",
+      "update_canned_reply",
+      "delete_canned_reply",
+      "get_support_settings",
+      "update_support_settings"
+    ],
+    "events": [
+      "support"
+    ],
+    "endpoints": [
+      "support-conversations",
+      "support-canned-replies",
+      "support-settings"
+    ],
+    "abilities": [
+      "support"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/creators/support-inbox",
+      "https://docs.subscriby.net/copilot/in-your-inbox"
+    ]
+  },
+  "creators/knowledge": {
+    "tools": [
+      "list_knowledge_entries",
+      "get_knowledge_entry",
+      "create_knowledge_entry",
+      "update_knowledge_entry",
+      "delete_knowledge_entry"
+    ],
+    "events": [
+      "knowledge"
+    ],
+    "endpoints": [
+      "knowledge"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/creators/knowledge",
+      "https://docs.subscriby.net/copilot/what-it-can-do"
+    ]
+  },
+  "creators/revenue-recovery": {
+    "tools": [
+      "get_retention_settings",
+      "update_retention_settings",
+      "get_retention_stats",
+      "list_retention_activity",
+      "list_cancellation_feedback",
+      "list_checkouts",
+      "list_sequences",
+      "get_sequence",
+      "create_sequence",
+      "update_sequence",
+      "delete_sequence",
+      "list_sequence_enrollments"
+    ],
+    "events": [
+      "checkout",
+      "sequence"
+    ],
+    "endpoints": [
+      "retention",
+      "sequences"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/creators/revenue-recovery",
+      "https://docs.subscriby.net/addons/revenue-recovery",
+      "https://docs.subscriby.net/subscribers/follow-up-messages"
+    ]
+  },
+  "creators/referral-program": {
+    "tools": [
+      "get_referral_program",
+      "update_referral_program",
+      "activate_referral_program",
+      "deactivate_referral_program",
+      "delete_referral_program",
+      "list_referral_affiliates",
+      "get_referral_affiliate",
+      "add_referral_affiliate",
+      "approve_referral_affiliate",
+      "suspend_referral_affiliate",
+      "list_referrals",
+      "get_referral",
+      "list_referral_rewards",
+      "list_referral_payouts",
+      "record_referral_payout"
+    ],
+    "events": [
+      "referral"
+    ],
+    "endpoints": [
+      "referral-program",
+      "referral-affiliates",
+      "referrals",
+      "referral-rewards",
+      "referral-payouts"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/creators/referral-program",
+      "https://docs.subscriby.net/addons/referral-program",
+      "https://docs.subscriby.net/subscribers/refer-a-friend"
+    ]
+  },
+  "creators/smart-links": {
+    "tools": [
+      "list_links",
+      "get_link",
+      "get_link_funnel",
+      "create_link",
+      "update_link",
+      "archive_link"
+    ],
+    "events": [
+      "link"
+    ],
+    "endpoints": [
+      "links"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/creators/smart-links",
+      "https://docs.subscriby.net/creators/share"
+    ]
+  },
+  "creators/portal-design": {
+    "tools": [
+      "get_portal_design",
+      "update_portal_design",
+      "publish_portal_design",
+      "discard_portal_design_draft",
+      "get_portal_url",
+      "get_deep_link"
+    ],
+    "endpoints": [
+      "portal-design",
+      "distribution"
+    ],
+    "abilities": [
+      "distribution"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/creators/portal-design",
+      "https://docs.subscriby.net/creators/portal-css",
+      "https://docs.subscriby.net/creators/share",
+      "https://docs.subscriby.net/subscribers/portal"
+    ]
+  },
+  "creators/analytics": {
+    "tools": [
+      "get_dashboard_metrics",
+      "get_earnings_report",
+      "get_plan_performance",
+      "get_revenue_composition",
+      "get_subscriber_analytics",
+      "get_transaction_breakdown",
+      "get_connector_analytics",
+      "get_activity_log",
+      "list_transactions",
+      "list_recent_payments"
+    ],
+    "endpoints": [
+      "analytics",
+      "activity"
+    ],
+    "abilities": [
+      "analytics",
+      "activity"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/creators/dashboard-analytics",
+      "https://docs.subscriby.net/creators/exporting-data",
+      "https://docs.subscriby.net/mcp/v1/prompting-guide"
+    ]
+  },
+  "creators/disaster-recovery": {
+    "tools": [
+      "get_recovery_readiness",
+      "get_recovery_settings",
+      "update_recovery_settings",
+      "get_recovery_allowances",
+      "get_recovery_roll_call",
+      "list_recovery_incidents",
+      "get_recovery_incident",
+      "list_recovery_operations",
+      "get_recovery_operation",
+      "revert_recovery_operation",
+      "notify_members_of_recovery",
+      "get_resource_standby",
+      "request_resource_standby",
+      "withdraw_resource_standby_request",
+      "remove_resource_standby",
+      "set_resource_standby_mirror",
+      "use_resource_standby",
+      "remove_standby_installation",
+      "request_resource_replacement",
+      "withdraw_resource_replacement_request",
+      "restore_connector_access"
+    ],
+    "events": [
+      "recovery"
+    ],
+    "endpoints": [
+      "recovery"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/disaster-recovery",
+      "https://docs.subscriby.net/disaster-recovery/how-detection-works",
+      "https://docs.subscriby.net/disaster-recovery/replacing-places",
+      "https://docs.subscriby.net/disaster-recovery/history-and-undo"
+    ]
+  },
+  "creators/teams-and-roles": {
+    "tools": [
+      "list_teams",
+      "get_team",
+      "create_team",
+      "update_team",
+      "delete_team",
+      "list_team_members",
+      "get_team_member",
+      "invite_team_member",
+      "cancel_team_invitation",
+      "update_team_member_role",
+      "remove_team_member",
+      "list_roles",
+      "get_role",
+      "create_role",
+      "update_role",
+      "delete_role",
+      "list_groups",
+      "get_group",
+      "create_group",
+      "update_group",
+      "delete_group",
+      "sync_group_members"
+    ],
+    "events": [
+      "team",
+      "role",
+      "group"
+    ],
+    "endpoints": [
+      "teams",
+      "team-members",
+      "roles",
+      "groups"
+    ],
+    "abilities": [
+      "teams",
+      "rbac",
+      "copilot"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/teams",
+      "https://docs.subscriby.net/teams/roles",
+      "https://docs.subscriby.net/teams/groups",
+      "https://docs.subscriby.net/teams/abilities"
+    ],
+    "permissions": [
+      "*"
+    ]
+  },
+  "creators/account-and-billing": {
+    "tools": [
+      "get_me",
+      "list_notifications",
+      "mark_notification_read",
+      "mark_all_notifications_read",
+      "get_alert_destinations",
+      "update_alert_destinations",
+      "request_account_export",
+      "get_account_export",
+      "get_partner_program",
+      "get_partner_referral",
+      "list_partner_referrals",
+      "list_partner_rewards",
+      "list_partner_payouts",
+      "update_partner_payout_details",
+      "accept_partner_terms",
+      "list_transaction_fees",
+      "get_transaction_fee_summary",
+      "get_copilot_credits",
+      "list_copilot_credits_statement",
+      "create_copilot_credits_pack",
+      "update_copilot_credits_settings",
+      "list_tokens",
+      "get_token",
+      "create_token",
+      "revoke_token",
+      "get_job_status"
+    ],
+    "events": [
+      "billing",
+      "partner",
+      "copilot_credit"
+    ],
+    "endpoints": [
+      "me",
+      "tokens"
+    ],
+    "abilities": [
+      "account",
+      "billing",
+      "tokens"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/account",
+      "https://docs.subscriby.net/account/notifications",
+      "https://docs.subscriby.net/account/partner-program",
+      "https://docs.subscriby.net/fees",
+      "https://docs.subscriby.net/credits",
+      "https://docs.subscriby.net/subscriptions"
+    ]
+  },
+  "developers/rest-api": {
+    "endpoints": [
+      "*"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/api/v1",
+      "https://docs.subscriby.net/api/v1/quickstart",
+      "https://docs.subscriby.net/api/v1/idempotency",
+      "https://docs.subscriby.net/api/v1/pagination",
+      "https://docs.subscriby.net/api/v1/rate-limiting",
+      "https://docs.subscriby.net/api/v1/versioning-and-deprecation",
+      "https://docs.subscriby.net/api/v1/openapi",
+      "https://docs.subscriby.net/api/v1/reference"
+    ],
+    "documents": [
+      "skill-rest-api.md"
+    ]
+  },
+  "developers/tokens-and-abilities": {
+    "tools": [
+      "list_tokens",
+      "get_token",
+      "create_token",
+      "revoke_token"
+    ],
+    "endpoints": [
+      "tokens"
+    ],
+    "abilities": [
+      "*"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/api/v1/authentication",
+      "https://docs.subscriby.net/api/v1/abilities",
+      "https://docs.subscriby.net/api/v1/tenancy-and-scopes",
+      "https://docs.subscriby.net/mcp/v1/security"
+    ]
+  },
+  "developers/errors-and-retries": {
+    "errors": [
+      "*"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/api/v1/errors",
+      "https://docs.subscriby.net/api/v1/rate-limiting",
+      "https://docs.subscriby.net/reference/status-codes",
+      "https://docs.subscriby.net/reference/troubleshooting"
+    ]
+  },
+  "developers/webhooks": {
+    "tools": [
+      "list_webhook_endpoints",
+      "get_webhook_endpoint",
+      "create_webhook_endpoint",
+      "delete_webhook_endpoint",
+      "pause_webhook_endpoint",
+      "resume_webhook_endpoint",
+      "rotate_webhook_endpoint_secret",
+      "test_webhook_endpoint",
+      "list_webhook_deliveries",
+      "get_webhook_delivery",
+      "retry_webhook_delivery",
+      "retry_dead_webhook_deliveries"
+    ],
+    "endpoints": [
+      "webhook-endpoints",
+      "webhook-deliveries",
+      "webhook-events",
+      "webhook-subscriptions"
+    ],
+    "abilities": [
+      "webhooks"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/webhooks/v1",
+      "https://docs.subscriby.net/webhooks/v1/quickstart",
+      "https://docs.subscriby.net/webhooks/v1/signature-verification",
+      "https://docs.subscriby.net/webhooks/v1/retries-and-delivery",
+      "https://docs.subscriby.net/webhooks/v1/testing-and-debugging",
+      "https://docs.subscriby.net/webhooks/v1/security"
+    ],
+    "documents": [
+      "skill-webhooks.md"
+    ]
+  },
+  "developers/webhook-events": {
+    "events": [
+      "*"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/webhooks/v1/events"
+    ]
+  },
+  "developers/zapier": {
+    "docs": [
+      "https://docs.subscriby.net/integrations/zapier"
+    ]
+  },
+  "developers/n8n": {
+    "docs": [
+      "https://docs.subscriby.net/integrations/n8n"
+    ]
+  },
+  "developers/openapi-toolkits": {
+    "docs": [
+      "https://docs.subscriby.net/integrations/make",
+      "https://docs.subscriby.net/integrations/langchain",
+      "https://docs.subscriby.net/integrations/postman-insomnia",
+      "https://docs.subscriby.net/api/v1/openapi"
+    ]
+  },
+  "developers/custom-agents": {
+    "docs": [
+      "https://docs.subscriby.net/integrations/custom-agents",
+      "https://docs.subscriby.net/api/v1/agent-readiness",
+      "https://docs.subscriby.net/mcp/v1/authentication"
+    ]
+  },
+  "developers/mcp-clients": {
+    "tools": [
+      "get_job_status"
+    ],
+    "resources": [
+      "*"
+    ],
+    "docs": [
+      "https://docs.subscriby.net/mcp/v1",
+      "https://docs.subscriby.net/mcp/v1/quickstart",
+      "https://docs.subscriby.net/mcp/v1/connecting-claude-desktop",
+      "https://docs.subscriby.net/mcp/v1/connecting-cursor",
+      "https://docs.subscriby.net/mcp/v1/connecting-chatgpt-desktop",
+      "https://docs.subscriby.net/mcp/v1/connecting-vscode-claude",
+      "https://docs.subscriby.net/mcp/v1/resources-reference",
+      "https://docs.subscriby.net/mcp/v1/async-jobs",
+      "https://docs.subscriby.net/mcp/v1/troubleshooting"
+    ],
+    "documents": [
+      "skill-mcp.md"
+    ]
+  },
+  "connector-sdk/connector-sdk": {
+    "docs": [
+      "https://docs.subscriby.net/sdk/v1",
+      "https://docs.subscriby.net/sdk/v1/building"
+    ]
+  },
+  "connector-sdk/connector-manifest": {
+    "docs": [
+      "https://docs.subscriby.net/sdk/v1/manifest"
+    ]
+  },
+  "connector-sdk/connector-ports": {
+    "docs": [
+      "https://docs.subscriby.net/sdk/v1/ports",
+      "https://docs.subscriby.net/sdk/v1/core-api"
+    ]
+  },
+  "connector-sdk/connector-data-rules": {
+    "docs": [
+      "https://docs.subscriby.net/sdk/v1/building/data"
+    ]
+  },
+  "connector-sdk/connector-testing": {
+    "docs": [
+      "https://docs.subscriby.net/sdk/v1/building/testing",
+      "https://docs.subscriby.net/sdk/v1/conformance"
+    ]
+  },
+  "connector-sdk/connector-publishing": {
+    "docs": [
+      "https://docs.subscriby.net/sdk/v1/building/publishing",
+      "https://docs.subscriby.net/sdk/v1/building/listing"
+    ]
+  }
+}

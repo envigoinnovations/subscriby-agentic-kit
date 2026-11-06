@@ -1,0 +1,30 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "envigo",
+  "description": "Envigo Innovations' Claude Code marketplace. The Subscriby Agentic Kit: the skills, slash commands, subagents and guard rails that teach Claude to run a paid community, integrate the Subscriby REST API and webhooks into any app, and build connectors on the SDK, with the hosted MCP server bundled.",
+  "owner": {
+    "name": "Envigo Innovations",
+    "email": "support@subscriby.net",
+    "url": "https://www.subscriby.net"
+  },
+  "plugins": [
+    {
+      "name": "subscriby",
+      "source": "./plugins/subscriby",
+      "description": "Run a paid community, integrate the Subscriby API and webhooks, or build a connector on the SDK, with Claude: skills for creators, developers and connector authors, slash commands, read-only subagents, a guard that makes every destructive tool ask first, and the hosted MCP server bundled.",
+      "category": "productivity",
+      "homepage": "https://docs.subscriby.net/integrations/agentic-kit",
+      "relevance": {
+        "topic": "Subscriby",
+        "signals": {
+          "hosts": ["api.subscriby.net", "mcp.subscriby.net", "docs.subscriby.net", "app.subscriby.net"],
+          "filesRead": ["**/connector.json", "**/*subscriby*"],
+          "manifestDeps": [
+            { "file": "[/\\\\]composer\\.json$", "pattern": "\"subscriby/connector-sdk\"\\s*:" },
+            { "file": "[/\\\\]package\\.json$", "pattern": "\"n8n-nodes-subscriby\"\\s*:" }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "name": "subscriby",
+  "displayName": "Subscriby",
+  "version": "1.0.0",
+  "description": "Run a paid community, integrate the Subscriby API and webhooks, or build a connector on the SDK, with Claude: skills for creators, developers and connector authors, slash commands, read-only subagents, a guard that makes every destructive tool ask first, and the hosted MCP server bundled.",
+  "author": {
+    "name": "Envigo Innovations",
+    "email": "support@subscriby.net",
+    "url": "https://www.subscriby.net"
+  },
+  "homepage": "https://docs.subscriby.net/integrations/agentic-kit",
+  "repository": "https://github.com/envigoinnovations/subscriby-agentic-kit",
+  "license": "MIT",
+  "keywords": [
+    "subscriby",
+    "memberships",
+    "subscriptions",
+    "paid-communities",
+    "telegram",
+    "discord",
+    "mcp",
+    "webhooks",
+    "rest-api",
+    "connector-sdk",
+    "zapier",
+    "n8n"
+  ],
+  "icon": "./assets/icon.png",
+  "documentationUrl": "https://docs.subscriby.net/integrations/agentic-kit",
+  "supportUrl": "https://github.com/envigoinnovations/subscriby-agentic-kit/issues",
+  "privacyPolicyUrl": "https://www.subscriby.net/privacy",
+  "termsOfServiceUrl": "https://www.subscriby.net/terms",
+  "skills": [
+    "./skills/foundation",
+    "./skills/creators",
+    "./skills/developers",
+    "./skills/connector-sdk"
+  ]
+}

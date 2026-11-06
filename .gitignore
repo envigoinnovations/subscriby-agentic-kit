@@ -1,0 +1,29 @@
+# deps
+node_modules/
+
+# eval runs and adopted recordings are local
+plugins/subscriby/evals/results/
+plugins/subscriby/evals/mocks/.replay/
+results.json
+
+# the OpenAPI document is read at sync time, never committed (6 MB)
+catalogue/openapi.json
+
+# logs
+*.log
+npm-debug.log*
+
+# env
+.env
+.env.local
+.env.*.local
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# editors
+.vscode/
+.idea/
+*.swp

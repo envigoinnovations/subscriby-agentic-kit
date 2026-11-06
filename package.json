@@ -1,0 +1,28 @@
+{
+  "name": "@envigoinnovations/subscriby-agentic-kit",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The Subscriby Agentic Kit: a Claude Code plugin marketplace with the skills, commands, agents, hooks and evals that teach Claude to work with Subscriby",
+  "license": "MIT",
+  "author": "Envigo Innovations <support@subscriby.net>",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "prepare": "git config core.hooksPath .githooks || exit 0",
+    "sync": "node scripts/sync-catalogues.mjs",
+    "check": "node scripts/check-catalogues.mjs",
+    "lint": "node scripts/lint-skills.mjs",
+    "validate": "node scripts/claude.mjs plugin validate --strict . && node scripts/claude.mjs plugin validate --strict plugins/subscriby",
+    "details": "node scripts/claude.mjs plugin details subscriby",
+    "gate": "npm run lint && npm run check && npm run validate",
+    "export:inventory": "node scripts/export-inventory.mjs",
+    "eval": "node scripts/claude.mjs plugin eval plugins/subscriby --runs 1 -j 2 --max-cost-usd 10 --judge-model sonnet",
+    "format": "prettier --write \"**/*.{json,yml,yaml,md}\""
+  },
+  "devDependencies": {
+    "prettier": "^3.0.0"
+  },
+  "repository": "github:envigoinnovations/subscriby-agentic-kit"
+}

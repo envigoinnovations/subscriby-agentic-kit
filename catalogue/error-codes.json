@@ -1,0 +1,195 @@
+{
+    "version": "2026-05-01",
+    "count": 27,
+    "items": [
+        {
+            "code": "VALIDATION_FAILED",
+            "http_status": 422,
+            "default_message": "The request payload failed validation.",
+            "remediation": "Inspect the error.fields map to discover which keys failed validation and why.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#validation-failed"
+        },
+        {
+            "code": "AUTHENTICATION_REQUIRED",
+            "http_status": 401,
+            "default_message": "A valid API token is required for this endpoint.",
+            "remediation": "Send the request with an Authorization: Bearer <sbt_...> header using a token minted at /settings/tokens.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#authentication-required"
+        },
+        {
+            "code": "TOKEN_MISSING_ABILITY",
+            "http_status": 403,
+            "default_message": "The presented API token does not carry the ability required to perform this action.",
+            "remediation": "Mint a new token including the ability listed in error.required_ability, or ask the team owner to grant it.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#token-missing-ability"
+        },
+        {
+            "code": "TENANT_MISMATCH",
+            "http_status": 404,
+            "default_message": "The requested resource does not belong to the team this API token is scoped to.",
+            "remediation": "Use a token minted for the correct team, or switch the creator's current team before minting.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#tenant-mismatch"
+        },
+        {
+            "code": "RESOURCE_NOT_FOUND",
+            "http_status": 404,
+            "default_message": "The requested resource could not be found.",
+            "remediation": "Double-check the UUID in the path. The resource may have been deleted or never existed.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#resource-not-found"
+        },
+        {
+            "code": "PLAN_CURRENCY_MISMATCH",
+            "http_status": 400,
+            "default_message": "The plan currency is not supported by the chosen payment provider.",
+            "remediation": "Change the plan currency to one supported by the provider, or enable a provider that supports the plan currency.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#plan-currency-mismatch"
+        },
+        {
+            "code": "PLAN_PROVIDER_UNSUPPORTED",
+            "http_status": 400,
+            "default_message": "The chosen payment provider does not support the billing cycle on this plan.",
+            "remediation": "Choose a billing cycle supported by every provider the plan is offered on, or drop the unsupported provider from the plan.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#plan-provider-unsupported"
+        },
+        {
+            "code": "PAYMENT_METHOD_NOT_CONFIGURED",
+            "http_status": 400,
+            "default_message": "The project has no payment method configured for the chosen provider.",
+            "remediation": "Configure the missing payment method on the project's Payment Methods page before publishing the plan.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#payment-method-not-configured"
+        },
+        {
+            "code": "SUBSCRIPTION_ALREADY_ACTIVE",
+            "http_status": 400,
+            "default_message": "The subscriber already holds an active subscription on this project.",
+            "remediation": "Cancel the existing subscription first, or update its plan instead of creating a new one.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#subscription-already-active"
+        },
+        {
+            "code": "ACCESS_CODE_INVALID",
+            "http_status": 400,
+            "default_message": "The supplied access code is not recognised.",
+            "remediation": "Verify the code is spelled correctly and belongs to this project. Codes are case-sensitive.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#access-code-invalid"
+        },
+        {
+            "code": "ACCESS_CODE_EXPIRED",
+            "http_status": 400,
+            "default_message": "The supplied access code has already expired.",
+            "remediation": "Generate a new batch of access codes with a fresh expiry window.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#access-code-expired"
+        },
+        {
+            "code": "ACCESS_CODE_ALREADY_REDEEMED",
+            "http_status": 400,
+            "default_message": "The supplied access code has already been redeemed.",
+            "remediation": "Access codes are single-use. Generate a new code for the subscriber.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#access-code-already-redeemed"
+        },
+        {
+            "code": "ACCESS_CODE_CAP_EXCEEDED",
+            "http_status": 400,
+            "default_message": "The creator's monthly access-code generation cap has been exceeded.",
+            "remediation": "Upgrade the creator's tier to unlock a higher access-code quota, or wait until the next cycle.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#access-code-cap-exceeded"
+        },
+        {
+            "code": "IDEMPOTENCY_KEY_MISSING",
+            "http_status": 400,
+            "default_message": "An Idempotency-Key header is required on this endpoint.",
+            "remediation": "Re-send the request with Idempotency-Key: <uuid>; every mutation endpoint requires one.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#idempotency-key-missing"
+        },
+        {
+            "code": "IDEMPOTENCY_KEY_REUSED",
+            "http_status": 409,
+            "default_message": "The supplied Idempotency-Key was already used with a different request body.",
+            "remediation": "Choose a fresh Idempotency-Key per distinct operation. The server caches responses for 24h per key.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#idempotency-key-reused"
+        },
+        {
+            "code": "IDEMPOTENCY_REPLAY_IN_PROGRESS",
+            "http_status": 425,
+            "default_message": "A prior request with the same Idempotency-Key is still in flight.",
+            "remediation": "Wait a few seconds and retry; the original request has not yet finished.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#idempotency-replay-in-progress"
+        },
+        {
+            "code": "METHOD_NOT_ALLOWED",
+            "http_status": 405,
+            "default_message": "That HTTP method is not supported by this endpoint.",
+            "remediation": "Check the endpoint reference for the verbs this path accepts; the Allow header lists them.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#method-not-allowed"
+        },
+        {
+            "code": "RATE_LIMITED",
+            "http_status": 429,
+            "default_message": "The rate limit for this token has been exceeded.",
+            "remediation": "Back off and retry after the time hinted by the Retry-After header.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#rate-limited"
+        },
+        {
+            "code": "TEAM_TIER_REQUIRED",
+            "http_status": 403,
+            "default_message": "This operation requires the creator's account to be on the Growth Plan.",
+            "remediation": "Upgrade the creator to the Growth Plan from /settings/billing.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#team-tier-required"
+        },
+        {
+            "code": "CONNECTOR_UNAVAILABLE",
+            "http_status": 422,
+            "default_message": "That connector is not one creators may install today.",
+            "remediation": "Read GET /v1/connectors: only a connector whose status is available or beta can be installed.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#connector-unavailable"
+        },
+        {
+            "code": "CONNECTOR_TIER_REQUIRED",
+            "http_status": 403,
+            "default_message": "The connector needs a higher plan on the creator's account: a second connector on the same project needs the Growth Plan, and a connector reserved for a paid tier needs that tier or higher.",
+            "remediation": "Upgrade the creator to the Growth Plan from /settings/billing, or uninstall the project's other connector first.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#connector-tier-required"
+        },
+        {
+            "code": "CONNECTOR_NOT_INSTALLED",
+            "http_status": 404,
+            "default_message": "That connector is not installed on this project.",
+            "remediation": "Install the connector on the project first (POST /v1/projects/{project}/connectors/{key}), or read GET /v1/projects/{project}/connectors for what is installed.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#connector-not-installed"
+        },
+        {
+            "code": "CONNECTOR_NOT_CONNECTED",
+            "http_status": 422,
+            "default_message": "That connector is installed on this project but not connected, so it cannot be asked.",
+            "remediation": "Connect the installation from the project's Connectors page, verify it (POST /v1/projects/{project}/connectors/{key}/installation/verify), then retry.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#connector-not-connected"
+        },
+        {
+            "code": "IDENTITY_NOT_LINKED",
+            "http_status": 422,
+            "default_message": "The creator holds no linked account on the connector that has to ask them.",
+            "remediation": "Have the creator link their account on the connector from Settings → Security → Linked accounts in the dashboard, then retry; GET /v1/me/identities lists what is linked.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#identity-not-linked"
+        },
+        {
+            "code": "WEBHOOK_ENDPOINT_UNREACHABLE",
+            "http_status": 502,
+            "default_message": "The configured webhook endpoint did not respond successfully.",
+            "remediation": "Investigate the consumer endpoint. Subscriby will retry per the configured backoff before dead-lettering.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#webhook-endpoint-unreachable"
+        },
+        {
+            "code": "FORBIDDEN",
+            "http_status": 403,
+            "default_message": "The token holder can see this resource but may not change it.",
+            "remediation": "Only the member who registered the resource, or the team owner, may change it. Ask one of them, or mint the token as that member.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#forbidden"
+        },
+        {
+            "code": "INTERNAL_SERVER_ERROR",
+            "http_status": 500,
+            "default_message": "An unexpected error occurred. The incident has been recorded.",
+            "remediation": "Capture the error.request_id and contact support if the problem persists.",
+            "docs_url": "https://docs.subscriby.net/api/v1/errors#internal-server-error"
+        }
+    ]
+}

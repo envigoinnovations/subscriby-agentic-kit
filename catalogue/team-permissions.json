@@ -1,0 +1,573 @@
+{
+    "version": "2026-05-01",
+    "count": 81,
+    "items": [
+        {
+            "value": "project:view-any",
+            "name": "ProjectViewAny",
+            "entity": "project",
+            "action": "view-any",
+            "label": "View Any Project"
+        },
+        {
+            "value": "project:view",
+            "name": "ProjectView",
+            "entity": "project",
+            "action": "view",
+            "label": "View Project"
+        },
+        {
+            "value": "project:create",
+            "name": "ProjectCreate",
+            "entity": "project",
+            "action": "create",
+            "label": "Create Project"
+        },
+        {
+            "value": "project:update",
+            "name": "ProjectUpdate",
+            "entity": "project",
+            "action": "update",
+            "label": "Update Project"
+        },
+        {
+            "value": "project:delete",
+            "name": "ProjectDelete",
+            "entity": "project",
+            "action": "delete",
+            "label": "Delete Project"
+        },
+        {
+            "value": "project-payment-method:view-any",
+            "name": "ProjectPaymentMethodViewAny",
+            "entity": "project-payment-method",
+            "action": "view-any",
+            "label": "View Any Project Payment Method"
+        },
+        {
+            "value": "project-payment-method:view",
+            "name": "ProjectPaymentMethodView",
+            "entity": "project-payment-method",
+            "action": "view",
+            "label": "View Project Payment Method"
+        },
+        {
+            "value": "project-payment-method:create",
+            "name": "ProjectPaymentMethodCreate",
+            "entity": "project-payment-method",
+            "action": "create",
+            "label": "Create Project Payment Method"
+        },
+        {
+            "value": "project-payment-method:update",
+            "name": "ProjectPaymentMethodUpdate",
+            "entity": "project-payment-method",
+            "action": "update",
+            "label": "Update Project Payment Method"
+        },
+        {
+            "value": "project-payment-method:delete",
+            "name": "ProjectPaymentMethodDelete",
+            "entity": "project-payment-method",
+            "action": "delete",
+            "label": "Delete Project Payment Method"
+        },
+        {
+            "value": "project-resource:view-any",
+            "name": "ProjectResourceViewAny",
+            "entity": "project-resource",
+            "action": "view-any",
+            "label": "View Any Project Resource"
+        },
+        {
+            "value": "project-resource:view",
+            "name": "ProjectResourceView",
+            "entity": "project-resource",
+            "action": "view",
+            "label": "View Project Resource"
+        },
+        {
+            "value": "project-resource:create",
+            "name": "ProjectResourceCreate",
+            "entity": "project-resource",
+            "action": "create",
+            "label": "Create Project Resource"
+        },
+        {
+            "value": "project-resource:update",
+            "name": "ProjectResourceUpdate",
+            "entity": "project-resource",
+            "action": "update",
+            "label": "Update Project Resource"
+        },
+        {
+            "value": "project-resource:delete",
+            "name": "ProjectResourceDelete",
+            "entity": "project-resource",
+            "action": "delete",
+            "label": "Delete Project Resource"
+        },
+        {
+            "value": "project-access-code:view-any",
+            "name": "ProjectAccessCodeViewAny",
+            "entity": "project-access-code",
+            "action": "view-any",
+            "label": "View Any Project Access Code"
+        },
+        {
+            "value": "project-access-code:view",
+            "name": "ProjectAccessCodeView",
+            "entity": "project-access-code",
+            "action": "view",
+            "label": "View Project Access Code"
+        },
+        {
+            "value": "project-access-code:create",
+            "name": "ProjectAccessCodeCreate",
+            "entity": "project-access-code",
+            "action": "create",
+            "label": "Create Project Access Code"
+        },
+        {
+            "value": "project-access-code:update",
+            "name": "ProjectAccessCodeUpdate",
+            "entity": "project-access-code",
+            "action": "update",
+            "label": "Update Project Access Code"
+        },
+        {
+            "value": "project-access-code:delete",
+            "name": "ProjectAccessCodeDelete",
+            "entity": "project-access-code",
+            "action": "delete",
+            "label": "Delete Project Access Code"
+        },
+        {
+            "value": "project-coupon:view-any",
+            "name": "ProjectCouponViewAny",
+            "entity": "project-coupon",
+            "action": "view-any",
+            "label": "View Any Project Coupon"
+        },
+        {
+            "value": "project-coupon:view",
+            "name": "ProjectCouponView",
+            "entity": "project-coupon",
+            "action": "view",
+            "label": "View Project Coupon"
+        },
+        {
+            "value": "project-coupon:create",
+            "name": "ProjectCouponCreate",
+            "entity": "project-coupon",
+            "action": "create",
+            "label": "Create Project Coupon"
+        },
+        {
+            "value": "project-coupon:update",
+            "name": "ProjectCouponUpdate",
+            "entity": "project-coupon",
+            "action": "update",
+            "label": "Update Project Coupon"
+        },
+        {
+            "value": "project-coupon:delete",
+            "name": "ProjectCouponDelete",
+            "entity": "project-coupon",
+            "action": "delete",
+            "label": "Delete Project Coupon"
+        },
+        {
+            "value": "project-subscription:view-any",
+            "name": "ProjectSubscriptionViewAny",
+            "entity": "project-subscription",
+            "action": "view-any",
+            "label": "View Any Project Subscription"
+        },
+        {
+            "value": "project-subscription:view",
+            "name": "ProjectSubscriptionView",
+            "entity": "project-subscription",
+            "action": "view",
+            "label": "View Project Subscription"
+        },
+        {
+            "value": "project-subscription:create",
+            "name": "ProjectSubscriptionCreate",
+            "entity": "project-subscription",
+            "action": "create",
+            "label": "Create Project Subscription"
+        },
+        {
+            "value": "project-subscription:update",
+            "name": "ProjectSubscriptionUpdate",
+            "entity": "project-subscription",
+            "action": "update",
+            "label": "Update Project Subscription"
+        },
+        {
+            "value": "project-subscription:delete",
+            "name": "ProjectSubscriptionDelete",
+            "entity": "project-subscription",
+            "action": "delete",
+            "label": "Delete Project Subscription"
+        },
+        {
+            "value": "project-subscription-plan:view-any",
+            "name": "ProjectSubscriptionPlanViewAny",
+            "entity": "project-subscription-plan",
+            "action": "view-any",
+            "label": "View Any Project Subscription Plan"
+        },
+        {
+            "value": "project-subscription-plan:view",
+            "name": "ProjectSubscriptionPlanView",
+            "entity": "project-subscription-plan",
+            "action": "view",
+            "label": "View Project Subscription Plan"
+        },
+        {
+            "value": "project-subscription-plan:create",
+            "name": "ProjectSubscriptionPlanCreate",
+            "entity": "project-subscription-plan",
+            "action": "create",
+            "label": "Create Project Subscription Plan"
+        },
+        {
+            "value": "project-subscription-plan:update",
+            "name": "ProjectSubscriptionPlanUpdate",
+            "entity": "project-subscription-plan",
+            "action": "update",
+            "label": "Update Project Subscription Plan"
+        },
+        {
+            "value": "project-subscription-plan:delete",
+            "name": "ProjectSubscriptionPlanDelete",
+            "entity": "project-subscription-plan",
+            "action": "delete",
+            "label": "Delete Project Subscription Plan"
+        },
+        {
+            "value": "project-user:view-any",
+            "name": "ProjectUserViewAny",
+            "entity": "project-user",
+            "action": "view-any",
+            "label": "View Any Project User"
+        },
+        {
+            "value": "project-user:view",
+            "name": "ProjectUserView",
+            "entity": "project-user",
+            "action": "view",
+            "label": "View Project User"
+        },
+        {
+            "value": "project-user:create",
+            "name": "ProjectUserCreate",
+            "entity": "project-user",
+            "action": "create",
+            "label": "Create Project User"
+        },
+        {
+            "value": "project-user:update",
+            "name": "ProjectUserUpdate",
+            "entity": "project-user",
+            "action": "update",
+            "label": "Update Project User"
+        },
+        {
+            "value": "project-user:delete",
+            "name": "ProjectUserDelete",
+            "entity": "project-user",
+            "action": "delete",
+            "label": "Delete Project User"
+        },
+        {
+            "value": "project-recovery:view-any",
+            "name": "ProjectRecoveryViewAny",
+            "entity": "project-recovery",
+            "action": "view-any",
+            "label": "View Any Project Recovery"
+        },
+        {
+            "value": "project-recovery:view",
+            "name": "ProjectRecoveryView",
+            "entity": "project-recovery",
+            "action": "view",
+            "label": "View Project Recovery"
+        },
+        {
+            "value": "project-recovery:create",
+            "name": "ProjectRecoveryCreate",
+            "entity": "project-recovery",
+            "action": "create",
+            "label": "Create Project Recovery"
+        },
+        {
+            "value": "project-recovery:update",
+            "name": "ProjectRecoveryUpdate",
+            "entity": "project-recovery",
+            "action": "update",
+            "label": "Update Project Recovery"
+        },
+        {
+            "value": "project-recovery:delete",
+            "name": "ProjectRecoveryDelete",
+            "entity": "project-recovery",
+            "action": "delete",
+            "label": "Delete Project Recovery"
+        },
+        {
+            "value": "project-connector:view-any",
+            "name": "ProjectConnectorViewAny",
+            "entity": "project-connector",
+            "action": "view-any",
+            "label": "View Any Project Connector"
+        },
+        {
+            "value": "project-connector:view",
+            "name": "ProjectConnectorView",
+            "entity": "project-connector",
+            "action": "view",
+            "label": "View Project Connector"
+        },
+        {
+            "value": "project-connector:create",
+            "name": "ProjectConnectorCreate",
+            "entity": "project-connector",
+            "action": "create",
+            "label": "Create Project Connector"
+        },
+        {
+            "value": "project-connector:update",
+            "name": "ProjectConnectorUpdate",
+            "entity": "project-connector",
+            "action": "update",
+            "label": "Update Project Connector"
+        },
+        {
+            "value": "project-connector:delete",
+            "name": "ProjectConnectorDelete",
+            "entity": "project-connector",
+            "action": "delete",
+            "label": "Delete Project Connector"
+        },
+        {
+            "value": "project-referral:view-any",
+            "name": "ProjectReferralViewAny",
+            "entity": "project-referral",
+            "action": "view-any",
+            "label": "View Any Project Referral"
+        },
+        {
+            "value": "project-referral:view",
+            "name": "ProjectReferralView",
+            "entity": "project-referral",
+            "action": "view",
+            "label": "View Project Referral"
+        },
+        {
+            "value": "project-referral:create",
+            "name": "ProjectReferralCreate",
+            "entity": "project-referral",
+            "action": "create",
+            "label": "Create Project Referral"
+        },
+        {
+            "value": "project-referral:update",
+            "name": "ProjectReferralUpdate",
+            "entity": "project-referral",
+            "action": "update",
+            "label": "Update Project Referral"
+        },
+        {
+            "value": "project-referral:delete",
+            "name": "ProjectReferralDelete",
+            "entity": "project-referral",
+            "action": "delete",
+            "label": "Delete Project Referral"
+        },
+        {
+            "value": "project-link:view-any",
+            "name": "ProjectLinkViewAny",
+            "entity": "project-link",
+            "action": "view-any",
+            "label": "View Any Project Link"
+        },
+        {
+            "value": "project-link:view",
+            "name": "ProjectLinkView",
+            "entity": "project-link",
+            "action": "view",
+            "label": "View Project Link"
+        },
+        {
+            "value": "project-link:create",
+            "name": "ProjectLinkCreate",
+            "entity": "project-link",
+            "action": "create",
+            "label": "Create Project Link"
+        },
+        {
+            "value": "project-link:update",
+            "name": "ProjectLinkUpdate",
+            "entity": "project-link",
+            "action": "update",
+            "label": "Update Project Link"
+        },
+        {
+            "value": "project-link:delete",
+            "name": "ProjectLinkDelete",
+            "entity": "project-link",
+            "action": "delete",
+            "label": "Delete Project Link"
+        },
+        {
+            "value": "project-sequence:view-any",
+            "name": "ProjectSequenceViewAny",
+            "entity": "project-sequence",
+            "action": "view-any",
+            "label": "View Any Project Sequence"
+        },
+        {
+            "value": "project-sequence:view",
+            "name": "ProjectSequenceView",
+            "entity": "project-sequence",
+            "action": "view",
+            "label": "View Project Sequence"
+        },
+        {
+            "value": "project-sequence:create",
+            "name": "ProjectSequenceCreate",
+            "entity": "project-sequence",
+            "action": "create",
+            "label": "Create Project Sequence"
+        },
+        {
+            "value": "project-sequence:update",
+            "name": "ProjectSequenceUpdate",
+            "entity": "project-sequence",
+            "action": "update",
+            "label": "Update Project Sequence"
+        },
+        {
+            "value": "project-sequence:delete",
+            "name": "ProjectSequenceDelete",
+            "entity": "project-sequence",
+            "action": "delete",
+            "label": "Delete Project Sequence"
+        },
+        {
+            "value": "project-knowledge:view-any",
+            "name": "ProjectKnowledgeViewAny",
+            "entity": "project-knowledge",
+            "action": "view-any",
+            "label": "View Any Project Knowledge"
+        },
+        {
+            "value": "project-knowledge:view",
+            "name": "ProjectKnowledgeView",
+            "entity": "project-knowledge",
+            "action": "view",
+            "label": "View Project Knowledge"
+        },
+        {
+            "value": "project-knowledge:create",
+            "name": "ProjectKnowledgeCreate",
+            "entity": "project-knowledge",
+            "action": "create",
+            "label": "Create Project Knowledge"
+        },
+        {
+            "value": "project-knowledge:update",
+            "name": "ProjectKnowledgeUpdate",
+            "entity": "project-knowledge",
+            "action": "update",
+            "label": "Update Project Knowledge"
+        },
+        {
+            "value": "project-knowledge:delete",
+            "name": "ProjectKnowledgeDelete",
+            "entity": "project-knowledge",
+            "action": "delete",
+            "label": "Delete Project Knowledge"
+        },
+        {
+            "value": "support-conversation:view-any",
+            "name": "SupportConversationViewAny",
+            "entity": "support-conversation",
+            "action": "view-any",
+            "label": "View Any Support Conversation"
+        },
+        {
+            "value": "support-conversation:view",
+            "name": "SupportConversationView",
+            "entity": "support-conversation",
+            "action": "view",
+            "label": "View Support Conversation"
+        },
+        {
+            "value": "support-conversation:create",
+            "name": "SupportConversationCreate",
+            "entity": "support-conversation",
+            "action": "create",
+            "label": "Create Support Conversation"
+        },
+        {
+            "value": "support-conversation:update",
+            "name": "SupportConversationUpdate",
+            "entity": "support-conversation",
+            "action": "update",
+            "label": "Update Support Conversation"
+        },
+        {
+            "value": "support-conversation:delete",
+            "name": "SupportConversationDelete",
+            "entity": "support-conversation",
+            "action": "delete",
+            "label": "Delete Support Conversation"
+        },
+        {
+            "value": "team-member:view-any",
+            "name": "TeamMemberViewAny",
+            "entity": "team-member",
+            "action": "view-any",
+            "label": "View Any Team Member"
+        },
+        {
+            "value": "team-member:view",
+            "name": "TeamMemberView",
+            "entity": "team-member",
+            "action": "view",
+            "label": "View Team Member"
+        },
+        {
+            "value": "team-member:invite",
+            "name": "TeamMemberInvite",
+            "entity": "team-member",
+            "action": "invite",
+            "label": "Invite Team Member"
+        },
+        {
+            "value": "team-member:remove",
+            "name": "TeamMemberRemove",
+            "entity": "team-member",
+            "action": "remove",
+            "label": "Remove Team Member"
+        },
+        {
+            "value": "team-member:update-role",
+            "name": "TeamMemberUpdateRole",
+            "entity": "team-member",
+            "action": "update-role",
+            "label": "Update Role Team Member"
+        },
+        {
+            "value": "copilot:use",
+            "name": "CopilotUse",
+            "entity": "copilot",
+            "action": "use",
+            "label": "Use Copilot"
+        }
+    ]
+}
