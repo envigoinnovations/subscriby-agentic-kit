@@ -2,7 +2,7 @@
   "name": "subscriby",
   "displayName": "Subscriby Agentic Kit",
   "version": "1.0.0",
-  "description": "Run a paid community, integrate the Subscriby API and webhooks, or build a connector on the SDK, with Claude: skills for creators, developers and connector authors, slash commands, read-only subagents, a guard that makes every destructive tool ask first, and the hosted MCP server bundled.",
+  "description": "Run a paid community, integrate the Subscriby API and webhooks, or build a connector on the SDK, with Claude: skills for creators, developers and connector authors, slash commands, read-only subagents, and the hosted MCP server bundled. The companion subscriby-guard plugin makes every destructive tool ask first.",
   "author": {
     "name": "Envigo Innovations",
     "email": "support@subscriby.net",

@@ -1,6 +1,6 @@
 # Subscriby Agentic Kit
 
-Teach Claude to run your paid community, integrate Subscriby into whatever you are building, or build a connector on the SDK. The kit is a Claude Code plugin: skills for creators, developers and connector authors, slash commands for the daily chores, read-only subagents for analysis and review, a guard that makes every destructive tool ask first, and the hosted Subscriby MCP server bundled.
+Teach Claude to run your paid community, integrate Subscriby into whatever you are building, or build a connector on the SDK. The kit is a Claude Code plugin: skills for creators, developers and connector authors, slash commands for the daily chores, read-only subagents for analysis and review, and the hosted Subscriby MCP server bundled; a companion guard plugin makes every destructive tool ask first.
 
 [Subscriby](https://www.subscriby.net) runs paid memberships for creators' communities on connected platforms: a creator connects a community platform, publishes plans, and Subscriby runs the subscriber lifecycle through the creator's own payment gateway. Everything the dashboard does is also an MCP tool, a REST operation and, where something changes, a webhook event.
 
@@ -9,7 +9,10 @@ Teach Claude to run your paid community, integrate Subscriby into whatever you a
 ```
 /plugin marketplace add envigoinnovations/subscriby-agentic-kit
 /plugin install subscriby@envigo
+/plugin install subscriby-guard@envigo
 ```
+
+The third line is optional and recommended: `subscriby-guard` is the hook that makes every Subscriby tool flagged destructive ask before it runs, whatever your permission settings say. It ships as its own plugin because it is a command hook, which Anthropic's plugin directory accepts only from organizations it has verified, so the kit's listing there carries none; the marketplace carries both.
 
 If the first line stops at `Host key verification failed`, the machine has no SSH host key for GitHub: set `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` in the shell that runs Claude Code and add the marketplace again, and the clone goes over HTTPS with no credential needed.
 
@@ -114,7 +117,7 @@ Prefer a narrower grant? Mint a personal access token under **Settings → API T
 
 ### Safety
 
-Every Subscriby tool that changes or removes existing data asks for your confirmation before it runs, even when you have auto-approved the server: a hook generated from the tool catalogue forces the prompt. Reads and additive tools run freely. Every call runs within the permissions of the account you signed in with and is recorded in your activity log.
+Every skill reads before it writes, shows you the exact record and what will change, and waits for your yes before a destructive tool is called; Claude Code's own permission prompt covers every tool unless you auto-approve the server. With `subscriby-guard` installed, every Subscriby tool that changes or removes existing data asks for your confirmation before it runs even then: a `PreToolUse` hook generated from the tool catalogue forces the prompt, while reads and additive tools run as your settings allow. Every call runs within the permissions of the account you signed in with and is recorded in your activity log.
 
 ## Other agents
 
@@ -129,11 +132,11 @@ Add `--skill <name>` for a single skill. That path installs the skills alone; co
 ## Local development
 
 ```
-claude --plugin-dir plugins/subscriby
+claude --plugin-dir plugins/subscriby --plugin-dir plugins/subscriby-guard
 npm run gate
 ```
 
-`npm run sync` refreshes every generated file from the catalogues Subscriby publishes; `npm run check` fails when a generated file is stale or a catalogue item has no skill; `npm run lint` holds the writing rules, the eval suite's shape included; `npm run validate` runs `claude plugin validate --strict` on the marketplace and the plugin. The scripts find Claude Code wherever it is installed (on the PATH, in the VS Code extension, or where the native installer or npm put it); set `CLAUDE_BIN` to name a binary explicitly.
+`npm run sync` refreshes every generated file from the catalogues Subscriby publishes; `npm run check` fails when a generated file is stale or a catalogue item has no skill; `npm run lint` holds the writing rules, the eval suite's shape and the plugin directory's policy over the listed plugin (no command hook, no tool grant beyond Read, Grep, Glob and LS, no file outside Markdown, JSON, YAML and images); `npm run validate` runs `claude plugin validate --strict` on the marketplace and both plugins. The scripts find Claude Code wherever it is installed (on the PATH, in the VS Code extension, or where the native installer or npm put it); set `CLAUDE_BIN` to name a binary explicitly.
 
 `npm run eval` runs the suite under `plugins/subscriby/evals` with `claude plugin eval`: one case per job a user brings (a sign-in check, a launch checklist, a broadcast that must be previewed and confirmed, a cancellation that must be confirmed, a weekly figure, a webhook verifier, the events for a CRM, a connector's data rules, and a request that must not trigger the plugin), each graded on the answer and on the steps taken, against mocked MCP tools that carry the real schemas. Every run is a real model call on your account; the script caps the cost and compares each case with a no-plugin baseline.
 

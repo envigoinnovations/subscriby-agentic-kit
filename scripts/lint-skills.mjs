@@ -4,16 +4,23 @@
  * portable front matter on every skill, trigger-style descriptions within
  * the listing budget, bodies that stay lean, tool names that exist, counts
  * that are generated rather than typed, links that resolve, words that never
- * appear, and a skill behind every path the plugin manifest declares (git
+ * appear, a skill behind every path the plugin manifest declares (git
  * carries no empty directory, so a declared path without a committed SKILL.md
- * passes locally and fails the runtime loader and CI).
+ * passes locally and fails the runtime loader and CI), and the plugin
+ * directory's policy over the listed plugin: Anthropic's directory lists the
+ * kit only while plugins/subscriby carries no command hook, no tool grant
+ * beyond Read, Grep, Glob and LS and no file outside Markdown, text, JSON,
+ * YAML and images, so a hook lives in plugins/subscriby-guard, a script in
+ * scripts/ rendered into a skill as Markdown, and a command that needs
+ * WebFetch declares no grant and lets Claude Code ask once per host. Both
+ * plugins carry one version line, held equal here so a tag names them both.
  */
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { loadCatalogue, readJson, TOOL_PREFIX } from "./lib/catalogue.mjs";
-import { CATEGORIES, PLUGIN, SKILLS, skillEntries } from "./lib/generate.mjs";
+import { CATEGORIES, GUARD, PLUGIN, SKILLS, skillEntries } from "./lib/generate.mjs";
 import { parseFrontmatter } from "./lib/frontmatter.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -35,6 +42,10 @@ const BANNED = [
   { pattern: /sbt_(live|test)_\d+_[0-9a-f]{8,}/i, why: "a token-shaped string" },
 ];
 const COUNT_WORDS = /\b\d[\d,]*\s+(tools?|resources?|webhook events?|events?|endpoints?|abilities|error codes?|permissions)\b/;
+const DIRECTORY_FILE_TYPES = new Set([".md", ".txt", ".json", ".yml", ".yaml", ".png", ".jpg", ".jpeg", ".gif", ".webp", ".ico"]);
+const DIRECTORY_FILE_NAMES = new Set(["LICENSE", "README", ".gitignore"]);
+const DIRECTORY_TOOLS = new Set(["Read", "Grep", "Glob", "LS"]);
+const LOCAL_ONLY_DIRS = new Set(["results", ".replay", "node_modules"]);
 
 const toolNames = new Set(catalogue.tools.map((tool) => tool.name));
 const toolPrefixes = new Set(catalogue.tools.map((tool) => tool.name.split("_")[0]));
@@ -80,6 +91,45 @@ function quotedDescription(file, raw) {
   }
 }
 
+/** The directory accepts a tool grant of Read, Grep, Glob and LS alone; anything else is left out so Claude Code asks. */
+function checkToolGrant(file, data) {
+  for (const key of ["allowed-tools", "allowedTools"]) {
+    if (data[key] === undefined) continue;
+    const granted = Array.isArray(data[key]) ? data[key] : String(data[key]).split(",");
+    for (const tool of granted.map((entry) => String(entry).trim().replace(/\(.*$/, "")).filter(Boolean)) {
+      if (!DIRECTORY_TOOLS.has(tool)) problem(file, `${key} grants ${tool}; the directory accepts only Read, Grep, Glob and LS, so leave the grant out and let Claude Code ask once per host`);
+    }
+  }
+}
+
+function walk(dir, visit) {
+  for (const name of readdirSync(dir)) {
+    if (LOCAL_ONLY_DIRS.has(name)) continue;
+    const path = join(dir, name);
+    if (statSync(path).isDirectory()) walk(path, visit);
+    else visit(path, name);
+  }
+}
+
+/** The listed plugin stays within the directory's policy; the guard beside it carries the kit's version. */
+function lintDirectoryPolicy(kitVersion) {
+  const pluginDir = join(root, PLUGIN);
+  walk(pluginDir, (path, name) => {
+    const extension = name.includes(".") ? name.slice(name.lastIndexOf(".")).toLowerCase() : "";
+    if (DIRECTORY_FILE_NAMES.has(name) || DIRECTORY_FILE_TYPES.has(extension)) return;
+    problem(path, "is a file type the directory refuses (Markdown, text, JSON, YAML and images only); a script belongs in scripts/, rendered into a skill as Markdown, and a hook in plugins/subscriby-guard");
+  });
+  if (existsSync(join(pluginDir, "hooks"))) {
+    problem(join(pluginDir, "hooks"), "the listed plugin carries no hooks; a command hook lives in plugins/subscriby-guard");
+  }
+
+  const guardManifest = join(root, GUARD, ".claude-plugin", "plugin.json");
+  if (!existsSync(guardManifest)) return problem(guardManifest, "the guard plugin is missing");
+  const guard = readJson(guardManifest);
+  if (guard.version !== kitVersion) problem(guardManifest, `version ${guard.version} differs from the kit's ${kitVersion}; both plugins carry one version line and bump together`);
+  if (!existsSync(join(root, GUARD, "hooks", "hooks.json"))) problem(guardManifest, "the guard has no hooks/hooks.json; run npm run sync");
+}
+
 function lintSkill(file, category, name) {
   const { data, body, raw } = parseFrontmatter(readFileSync(file, "utf8"));
   if (!data) return problem(file, "has no front matter");
@@ -96,6 +146,7 @@ function lintSkill(file, category, name) {
   }
   if (!data.metadata || data.metadata.category !== category) problem(file, `metadata.category must be "${category}"`);
   if (!data.metadata || !data.metadata.catalogue) problem(file, "metadata.catalogue must name the catalogue version the skill was written against");
+  checkToolGrant(file, data);
 
   const lines = body.split("\n").length;
   if (lines > 500) problem(file, `body is ${lines} lines; keep SKILL.md under 500 and move detail to references/`);
@@ -115,6 +166,7 @@ function lintCommand(file) {
   }
   if (!data.description) problem(file, "needs a description");
   if (data["disable-model-invocation"] !== true) problem(file, "must set disable-model-invocation: true (commands are typed, never auto-run)");
+  checkToolGrant(file, data);
   checkProse(file, body);
 }
 
@@ -251,14 +303,17 @@ for (const dir of ["commands", "agents"]) {
 }
 
 const manifestPath = join(root, PLUGIN, ".claude-plugin", "plugin.json");
+const manifest = readJson(manifestPath);
 files += 1;
-for (const declared of readJson(manifestPath).skills ?? []) {
+for (const declared of manifest.skills ?? []) {
   const dir = join(root, PLUGIN, declared);
   const written = existsSync(dir) && readdirSync(dir).some((name) => existsSync(join(dir, name, "SKILL.md")));
   if (!written) problem(manifestPath, `declares ${declared} under skills, but no SKILL.md is committed there; declare the path in the slice that writes its first skill`);
 }
+files += 1;
+lintDirectoryPolicy(manifest.version);
 
-for (const file of ["README.md", "CLAUDE.md", "SECURITY.md", "CHANGELOG.md", `${PLUGIN}/README.md`]) {
+for (const file of ["README.md", "CLAUDE.md", "SECURITY.md", "CHANGELOG.md", `${PLUGIN}/README.md`, `${GUARD}/README.md`]) {
   const path = join(root, file);
   if (!existsSync(path)) continue;
   files += 1;

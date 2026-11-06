@@ -9,12 +9,13 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { kindOf, loadCatalogue, readJson } from "./lib/catalogue.mjs";
-import { CATEGORIES, listMarkdown, skillEntries, skillsOnDisk } from "./lib/generate.mjs";
+import { CATEGORIES, GUARD, listMarkdown, skillEntries, skillsOnDisk } from "./lib/generate.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const catalogue = loadCatalogue(join(root, "catalogue"));
 const map = readJson(join(root, "scripts", "skill-map.json"));
 const plugin = readJson(join(root, "plugins", "subscriby", ".claude-plugin", "plugin.json"));
+const guard = readJson(join(root, GUARD, ".claude-plugin", "plugin.json"));
 const marketplace = readJson(join(root, ".claude-plugin", "marketplace.json"));
 const entries = new Map(skillEntries(map).map((entry) => [entry.key, entry]));
 
@@ -50,6 +51,11 @@ const inventory = {
     description: data.description ?? "",
   })),
   agents: listMarkdown(root, "agents").map(({ name, data }) => ({ name: `${plugin.name}:${name}`, description: data.description ?? "" })),
+  guard: {
+    plugin: guard.name,
+    version: guard.version,
+    install: `/plugin install ${guard.name}@${marketplace.name}`,
+  },
   hook: {
     guarded_tools: catalogue.tools.filter((tool) => kindOf(tool) === "destructive").length,
     additive_tools: catalogue.tools.filter((tool) => kindOf(tool) === "additive").length,

@@ -14,7 +14,7 @@
     "sync": "node scripts/sync-catalogues.mjs",
     "check": "node scripts/check-catalogues.mjs",
     "lint": "node scripts/lint-skills.mjs",
-    "validate": "node scripts/claude.mjs plugin validate --strict . && node scripts/claude.mjs plugin validate --strict plugins/subscriby",
+    "validate": "node scripts/claude.mjs plugin validate --strict . && node scripts/claude.mjs plugin validate --strict plugins/subscriby && node scripts/claude.mjs plugin validate --strict plugins/subscriby-guard",
     "details": "node scripts/claude.mjs plugin details subscriby",
     "test": "node scripts/test-reference.mjs",
     "gate": "npm run lint && npm run check && npm test && npm run validate",

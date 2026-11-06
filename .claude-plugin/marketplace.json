@@ -11,7 +11,7 @@
     {
       "name": "subscriby",
       "source": "./plugins/subscriby",
-      "description": "Run a paid community, integrate the Subscriby API and webhooks, or build a connector on the SDK, with Claude: skills for creators, developers and connector authors, slash commands, read-only subagents, a guard that makes every destructive tool ask first, and the hosted MCP server bundled.",
+      "description": "Run a paid community, integrate the Subscriby API and webhooks, or build a connector on the SDK, with Claude: skills for creators, developers and connector authors, slash commands, read-only subagents, and the hosted MCP server bundled. Install subscriby-guard beside it for the hook that makes every destructive tool ask first.",
       "category": "productivity",
       "homepage": "https://docs.subscriby.net/integrations/agentic-kit",
       "relevance": {
@@ -23,6 +23,19 @@
             { "file": "[/\\\\]composer\\.json$", "pattern": "\"subscriby/connector-sdk\"\\s*:" },
             { "file": "[/\\\\]package\\.json$", "pattern": "\"n8n-nodes-subscriby\"\\s*:" }
           ]
+        }
+      }
+    },
+    {
+      "name": "subscriby-guard",
+      "source": "./plugins/subscriby-guard",
+      "description": "The companion to subscriby: a PreToolUse hook that makes every Subscriby MCP tool flagged destructive ask before it runs, whatever the session's permission settings. Its matcher is generated from the tool catalogue; it carries the kit's version.",
+      "category": "security",
+      "homepage": "https://docs.subscriby.net/integrations/agentic-kit/safety",
+      "relevance": {
+        "topic": "Subscriby",
+        "signals": {
+          "hosts": ["mcp.subscriby.net"]
         }
       }
     }

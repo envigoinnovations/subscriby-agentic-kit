@@ -1,7 +1,6 @@
 ---
 description: "Look a question up in the Subscriby documentation and answer from the page's own Markdown, with links."
 argument-hint: "<question or topic>"
-allowed-tools: WebFetch(domain:docs.subscriby.net), WebFetch(domain:api.subscriby.net), WebFetch(domain:www.subscriby.net)
 disable-model-invocation: true
 ---
 

@@ -1,5 +1,5 @@
 {
-  "description": "Every Subscriby tool that changes or removes existing data asks before it runs, whatever the server's permission setting. The matcher is generated from the tool catalogue by npm run sync and leaves the server part open, so it holds under any name a host gives the server; the answer is hooks/ask-before-destructive.sh.",
+  "description": "Every Subscriby tool that changes or removes existing data asks before it runs, whatever the session's permission settings; installed beside the subscriby plugin. The matcher is generated from the tool catalogue by npm run sync and leaves the server part open, so it holds under any name a host gives the server; the answer is hooks/ask-before-destructive.sh.",
   "hooks": {
     "PreToolUse": [
       {

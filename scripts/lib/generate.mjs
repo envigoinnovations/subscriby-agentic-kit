@@ -12,6 +12,7 @@ import { parseFrontmatter } from "./frontmatter.mjs";
 import { cell, fence, fieldLines, replaceBlock, summary, table, titleCase } from "./render.mjs";
 
 export const PLUGIN = "plugins/subscriby";
+export const GUARD = "plugins/subscriby-guard";
 export const SKILLS = `${PLUGIN}/skills`;
 export const CATEGORIES = ["foundation", "creators", "developers", "connector-sdk"];
 
@@ -261,7 +262,7 @@ function hooks(catalogue) {
 
   return JSON.stringify(
     {
-      description: "Every Subscriby tool that changes or removes existing data asks before it runs, whatever the server's permission setting. The matcher is generated from the tool catalogue by npm run sync and leaves the server part open, so it holds under any name a host gives the server; the answer is hooks/ask-before-destructive.sh.",
+      description: "Every Subscriby tool that changes or removes existing data asks before it runs, whatever the session's permission settings; installed beside the subscriby plugin. The matcher is generated from the tool catalogue by npm run sync and leaves the server part open, so it holds under any name a host gives the server; the answer is hooks/ask-before-destructive.sh.",
       hooks: {
         PreToolUse: [
           {
@@ -425,7 +426,7 @@ export function generate({ root, catalogue, map }) {
     }
   }
 
-  outputs.set(`${PLUGIN}/hooks/hooks.json`, hooks(catalogue));
+  outputs.set(`${GUARD}/hooks/hooks.json`, hooks(catalogue));
   const mocksDir = join(root, PLUGIN, "evals", "mocks", "subscriby");
   const mocked = new Set(
     existsSync(mocksDir)
