@@ -21,7 +21,7 @@ Prefer a narrower grant? Mint a personal access token under **Settings → API T
 
 | Component | Count |
 | --- | --- |
-| Skills | 30 |
+| Skills | 36 |
 | Slash commands | 8 |
 | Subagents | 3 |
 | MCP tools the guard watches | 84 |
@@ -77,6 +77,17 @@ Prefer a narrower grant? Mint a personal access token under **Settings → API T
 | `webhook-events` | This skill should be used when the user asks which Subscriby webhook events exist or which to subscribe to for a job, what an event's payload carries, which ability it needs, when it fires, or how to react to a new member, a failed renewal, a cancellation, a pass window or an outage. |
 | `webhooks` | This skill should be used when the user asks to receive Subscriby webhooks, register or manage a webhook endpoint, verify the SB-Signature header, handle retries, dead deliveries or replays, rotate a signing secret, allow deliveries through a firewall, or debug a failing delivery. |
 | `zapier` | This skill should be used when the user wants to connect Subscriby to Zapier, build a Zap on a Subscriby trigger, action or search, asks which abilities the Zapier connection's token needs, why a Zap receives no events or fails test-auth, or wants Zap recipes. |
+
+#### Connector sdk (6)
+
+| Skill | When Claude reaches for it |
+| --- | --- |
+| `connector-data-rules` | This skill should be used when the user is writing a migration or a model for a Subscriby connector, asks which tables a connector may create or alter, how its rows relate to the core's rows, what storage_ref is, or what disconnect, uninstall, reinstall and purge do to data. |
+| `connector-manifest` | This skill should be used when the user is writing or fixing a connector.json manifest for a Subscriby connector, asks about one of its blocks or the eighteen capabilities, the JSON Schema, a loader error naming a dotted path, or what the registry refuses at boot. |
+| `connector-ports` | This skill should be used when the user is implementing a port of a Subscriby connector (the lifecycle, identity, inbound, failure, renderer, settings, slots, messenger, access, relay or recovery ports), asks when the core calls a method or what it must return, or needs a Core API contract. |
+| `connector-publishing` | This skill should be used when the user is preparing a Subscriby connector for release, asks how to version it or pin the SDK, write the listing and marketing words, pass review, submit a package, update it after first publish, or what the lanes, badges, pausing and retiring mean. |
+| `connector-sdk` | This skill should be used when the user wants to build a Subscriby connector for a platform, asks what a connector is, how to start a package on subscriby/connector-sdk, which ports every connector binds, or how the package, the provider and the Connector class fit together. |
+| `connector-testing` | This skill should be used when the user is testing a Subscriby connector, asks about the SDK's fake connector or port fakes and their assertions, how to run the conformance kit with TestRegistry or inside Subscriby's suite, what the kit's rules check, or what only the platform can prove. |
 
 <!-- generated:skills:end -->
 

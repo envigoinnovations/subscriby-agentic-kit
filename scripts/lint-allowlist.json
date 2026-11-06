@@ -20,6 +20,8 @@
     "preview_url",
     "resolve_url",
     "block_reason",
-    "remove_at"
+    "remove_at",
+    "set_alert_destination",
+    "broadcast_hints"
   ]
 }
