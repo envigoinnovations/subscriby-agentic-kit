@@ -12,7 +12,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { loadCatalogue, readJson } from "./lib/catalogue.mjs";
+import { loadCatalogue, readJson, TOOL_PREFIX } from "./lib/catalogue.mjs";
 import { CATEGORIES, PLUGIN, SKILLS, skillEntries } from "./lib/generate.mjs";
 import { parseFrontmatter } from "./lib/frontmatter.mjs";
 
@@ -24,6 +24,10 @@ const allowlist = existsSync(join(root, "scripts", "lint-allowlist.json")) ? rea
 const STANDARD_KEYS = new Set(["name", "description", "license", "compatibility", "metadata", "allowed-tools"]);
 const COMMAND_KEYS = new Set(["description", "argument-hint", "allowed-tools", "disable-model-invocation", "model", "effort"]);
 const AGENT_KEYS = new Set(["name", "description", "tools", "disallowedTools", "model", "color", "maxTurns", "effort", "skills"]);
+const EVAL_PROMPT_KEYS = new Set(["schema_version", "name", "description", "tags", "plugins", "runs", "expected_outcome", "model", "max_turns", "timeout_seconds", "allowed_tools", "append_system_prompt", "env"]);
+const GRADER_TYPES = new Set(["regex", "tool_used", "tool_order", "file_exists", "llm", "baseline"]);
+const GRADER_KEYS = new Set(["type", "weight", "arm", "pattern", "flags", "match", "target", "tool", "input_match", "min", "max", "before", "after", "path", "exists", "criteria", "focus", "baseline_file"]);
+const MOCK_KEYS = new Set(["type", "expect", "error", "abort_when", "tools"]);
 const BANNED = [
   { pattern: /memberpass/i, why: "the retired brand" },
   { pattern: /most requested feature/i, why: "a launch line the owner refuses" },
@@ -117,7 +121,95 @@ function lintAgent(file, name) {
   checkProse(file, body);
 }
 
+function skillNamesInMatch(pattern) {
+  const group = /\(\?:\[\\w-\]\+:\)\?\(\?:([^)]+)\)"$/.exec(pattern);
+  if (group) return group[1].split("|");
+  const single = /\(\?:\[\\w-\]\+:\)\?([\w-]+)"$/.exec(pattern);
+  return single ? [single[1]] : [];
+}
+
+/**
+ * The eval suite is hand-written and runs on real model calls, so every rule
+ * that can be checked for free is checked here: a case has a prompt phrased as
+ * a user would type it and at least one grader on the result; a grader has a
+ * known type with the fields that type needs; a tool_used grader names a tool
+ * the catalogue has and a mock answers, or a skill that exists; a mock answers
+ * a tool the catalogue has.
+ */
+function lintEvals(skillNames) {
+  const evalsDir = join(root, PLUGIN, "evals");
+  if (!existsSync(evalsDir)) return;
+  const mocksDir = join(evalsDir, "mocks", "subscriby");
+  const mocked = new Set();
+  if (existsSync(mocksDir)) {
+    for (const file of readdirSync(mocksDir).filter((f) => f.endsWith(".md") && !f.startsWith("_"))) {
+      const tool = file.replace(/\.md$/, "");
+      const path = join(mocksDir, file);
+      files += 1;
+      mocked.add(tool);
+      if (!toolNames.has(tool)) problem(path, `mocks a tool the catalogue does not have: ${tool}`);
+      const { data, body } = parseFrontmatter(readFileSync(path, "utf8"));
+      if (!data) problem(path, "has no front matter");
+      else for (const key of Object.keys(data)) if (!MOCK_KEYS.has(key)) problem(path, `front matter key "${key}" is not a mock field`);
+      if (!body.trim()) problem(path, "answers nothing; a fixed mock's body is the tool result");
+    }
+  }
+
+  let cases = 0;
+  for (const name of readdirSync(evalsDir)) {
+    const dir = join(evalsDir, name);
+    if (!statSync(dir).isDirectory() || name === "mocks" || name === "results") continue;
+    const promptFile = join(dir, "prompt.md");
+    if (!existsSync(promptFile)) {
+      problem(dir, "is not a case: it has no prompt.md");
+      continue;
+    }
+    cases += 1;
+    files += 1;
+    const { data, body } = parseFrontmatter(readFileSync(promptFile, "utf8"));
+    if (!data) problem(promptFile, "has no front matter");
+    else for (const key of Object.keys(data)) if (!EVAL_PROMPT_KEYS.has(key)) problem(promptFile, `front matter key "${key}" is not a prompt.md field`);
+    if (!body.trim()) problem(promptFile, "has an empty prompt");
+    if (/\bskills?\b/i.test(body) || /\/subscriby:/.test(body)) problem(promptFile, "names a skill or a command; a prompt is phrased the way a user would type it");
+    checkProse(promptFile, body);
+
+    const gradersDir = join(dir, "graders");
+    const graders = existsSync(gradersDir) ? readdirSync(gradersDir).filter((f) => f.endsWith(".md")) : [];
+    if (graders.length === 0) problem(dir, "has no graders; a case needs at least one");
+    let gradesTheResult = false;
+    for (const file of graders) {
+      const path = join(gradersDir, file);
+      files += 1;
+      const grader = parseFrontmatter(readFileSync(path, "utf8"));
+      if (!grader.data) {
+        problem(path, "has no front matter");
+        continue;
+      }
+      for (const key of Object.keys(grader.data)) if (!GRADER_KEYS.has(key)) problem(path, `front matter key "${key}" is not a grader field`);
+      if (!GRADER_TYPES.has(grader.data.type)) problem(path, `type "${grader.data.type}" is not a grader type`);
+      if (grader.data.type === "regex" && !grader.data.pattern) problem(path, "a regex grader needs a pattern");
+      if (grader.data.type === "llm" && !(/PASS if/.test(grader.body) && /FAIL if/.test(grader.body))) problem(path, "an llm rubric states its PASS if and FAIL if conditions in the body");
+      if (grader.data.type === "tool_used") {
+        const tool = grader.data.tool;
+        if (!tool) problem(path, "a tool_used grader needs a tool");
+        else if (tool.startsWith(TOOL_PREFIX)) {
+          const short = tool.slice(TOOL_PREFIX.length);
+          if (!toolNames.has(short)) problem(path, `grades a tool the catalogue does not have: ${short}`);
+          else if (!mocked.has(short)) problem(path, `grades ${short}, which has no mock under evals/mocks/subscriby, so no run could ever call it`);
+        } else if (tool === "Skill" && grader.data.input_match) {
+          for (const skill of skillNamesInMatch(grader.data.input_match)) if (!skillNames.has(skill)) problem(path, `names a skill that does not exist: ${skill}`);
+        }
+      }
+      if (["regex", "llm", "file_exists", "baseline"].includes(grader.data.type)) gradesTheResult = true;
+      checkProse(path, grader.body);
+    }
+    if (graders.length > 0 && !gradesTheResult) problem(dir, "has no grader on the result (regex, llm, file_exists or baseline)");
+  }
+  if (cases === 0) console.warn("lint: the eval suite has no cases yet");
+}
+
 let files = 0;
+const skillNames = new Set();
 for (const category of CATEGORIES) {
   const dir = join(root, SKILLS, category);
   if (!existsSync(dir)) continue;
@@ -127,9 +219,11 @@ for (const category of CATEGORIES) {
     const file = join(skillDir, "SKILL.md");
     if (!existsSync(file)) continue;
     files += 1;
+    skillNames.add(name);
     lintSkill(file, category, name);
   }
 }
+lintEvals(skillNames);
 
 const unwritten = skillEntries(map).filter((entry) => !existsSync(join(root, SKILLS, entry.category, entry.name, "SKILL.md")));
 if (unwritten.length) {

@@ -18,7 +18,7 @@
     "details": "node scripts/claude.mjs plugin details subscriby",
     "gate": "npm run lint && npm run check && npm run validate",
     "export:inventory": "node scripts/export-inventory.mjs",
-    "eval": "node scripts/claude.mjs plugin eval plugins/subscriby --runs 1 -j 2 --max-cost-usd 10 --judge-model sonnet",
+    "eval": "node scripts/claude.mjs plugin eval plugins/subscriby --trust-plugin --runs 1 -j 2 --max-cost-usd 10 --judge-model sonnet --no-publish",
     "format": "prettier --write \"**/*.{json,yml,yaml,md}\""
   },
   "devDependencies": {
