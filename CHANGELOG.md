@@ -4,6 +4,10 @@ All notable changes to the Subscriby Agentic Kit are documented here. The format
 
 ## [Unreleased]
 
+### Changed
+
+- The hub's confirmation rule and the subscriptions skill say that a request naming the intent ("cancel it") is not the confirmation: the destructive tool is called only after the user has seen the exact record and what will change and said yes, never in the same turn as the lookup. A second eval run had Claude attempt `cancel_subscription` on a direct instruction before explaining; the hook stopped the call, and the wording now keeps the attempt from happening.
+
 ## [1.0.0] - 2026-11-06
 
 The first release, generated from the Subscriby catalogue of 2026-05-01 (`catalogue/stamp.json`). About 4,300 tokens of skill descriptions join every session; a skill's body is loaded only when it fires.
