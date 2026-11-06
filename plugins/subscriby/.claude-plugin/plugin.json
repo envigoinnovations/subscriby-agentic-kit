@@ -33,7 +33,6 @@
   "skills": [
     "./skills/foundation",
     "./skills/creators",
-    "./skills/developers",
-    "./skills/connector-sdk"
+    "./skills/developers"
   ]
 }

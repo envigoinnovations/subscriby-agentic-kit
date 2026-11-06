@@ -3,8 +3,10 @@
  * The writing rules of the kit, held by a script so they cannot drift:
  * portable front matter on every skill, trigger-style descriptions within
  * the listing budget, bodies that stay lean, tool names that exist, counts
- * that are generated rather than typed, links that resolve, and words that
- * never appear.
+ * that are generated rather than typed, links that resolve, words that never
+ * appear, and a skill behind every path the plugin manifest declares (git
+ * carries no empty directory, so a declared path without a committed SKILL.md
+ * passes locally and fails the runtime loader and CI).
  */
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, join, relative, resolve } from "node:path";
@@ -142,6 +144,14 @@ for (const dir of ["commands", "agents"]) {
     if (dir === "commands") lintCommand(join(full, file));
     else lintAgent(join(full, file), file.replace(/\.md$/, ""));
   }
+}
+
+const manifestPath = join(root, PLUGIN, ".claude-plugin", "plugin.json");
+files += 1;
+for (const declared of readJson(manifestPath).skills ?? []) {
+  const dir = join(root, PLUGIN, declared);
+  const written = existsSync(dir) && readdirSync(dir).some((name) => existsSync(join(dir, name, "SKILL.md")));
+  if (!written) problem(manifestPath, `declares ${declared} under skills, but no SKILL.md is committed there; declare the path in the slice that writes its first skill`);
 }
 
 for (const file of ["README.md", "CLAUDE.md", "SECURITY.md", "CHANGELOG.md", `${PLUGIN}/README.md`]) {
