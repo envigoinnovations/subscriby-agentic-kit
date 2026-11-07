@@ -7,6 +7,7 @@ All notable changes to the Subscriby Agentic Kit are documented here. The format
 ### Added
 
 - `get_pass_roster` and `list_pass_moves` join the plans-and-passes skill with the `pass-roster` endpoint entity: a project's members against the dates its pass plans sell (each member's standing on every date they hold, the cancelled dates they were moved off with where they went, the columns and the moves folded by destination) and one purchase's whole trail from the pass move log. Generated from the Subscriby catalogue that carries the Pass Roster.
+- The `connector-manifest` skill's command catalogue carries `pass_roster`, the Pass Roster read in a chat, and the `connector-ports` skill names `Core\PassRoster` with `PassRosterRefused` among the creator-surface ports.
 
 ## [1.1.0] - 2026-11-07
 

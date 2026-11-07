@@ -26,7 +26,7 @@ Base URL https://api.subscriby.net/v1, described by the OpenAPI 3.1 document at 
 
 ## MCP server
 
-https://mcp.subscriby.net speaks the Model Context Protocol over Streamable HTTP with 238 tools and 6 resources, each tool gated by one ability. Every tool's description and ability is at https://api.subscriby.net/mcp-tools.json and the server card at https://www.subscriby.net/.well-known/mcp/server-card.json. A tool flagged `destructiveHint: true` must be confirmed with a human before it runs. Long-running work comes back as a job to poll.
+https://mcp.subscriby.net speaks the Model Context Protocol over Streamable HTTP with 240 tools and 6 resources, each tool gated by one ability. Every tool's description and ability is at https://api.subscriby.net/mcp-tools.json and the server card at https://www.subscriby.net/.well-known/mcp/server-card.json. A tool flagged `destructiveHint: true` must be confirmed with a human before it runs. Long-running work comes back as a job to poll.
 
 ## Webhooks
 

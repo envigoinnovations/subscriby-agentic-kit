@@ -21,7 +21,7 @@ All three, with the discovery steps, the requests and the revocation rules, are 
 
 ## Work
 
-- The server publishes 238 tools and 6 resources. `tools/list` returns the whole catalogue in one page; the resources are catalogues (abilities, error codes, connectors, payment providers, subscription statuses, webhook events) worth reading once.
+- The server publishes 240 tools and 6 resources. `tools/list` returns the whole catalogue in one page; the resources are catalogues (abilities, error codes, connectors, payment providers, subscription statuses, webhook events) worth reading once.
 - Every tool is gated by one ability. A refusal names the missing ability: ask the creator to grant it rather than retrying.
 - A tool flagged `destructiveHint=true` in the listing (every change or removal of data that already exists: updates, cancellations, deletions, revocations, secret rotation) must be confirmed with a human before it runs: state the call, the target and the side effects, then wait. A create, an invitation, a reminder, a retry and a test delivery carry `destructiveHint=false`; a read carries `readOnlyHint=true`.
 - Long-running work is handed back as a job to poll: https://docs.subscriby.net/mcp/v1/async-jobs.
