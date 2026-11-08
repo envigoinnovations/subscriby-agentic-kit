@@ -1,7 +1,7 @@
 {
   "name": "subscriby-guard",
   "displayName": "Subscriby Guard",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A PreToolUse hook that makes every Subscriby MCP tool flagged destructive (a cancellation, a deletion, a ban, a secret rotation, a broadcast) ask before it runs, whatever the session's permission settings. Install beside the subscriby plugin; the matcher is generated from the tool catalogue.",
   "author": {
     "name": "Envigo Innovations",

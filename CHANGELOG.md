@@ -4,6 +4,10 @@ All notable changes to the Subscriby Agentic Kit are documented here. The format
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-11-08
+
+Generated from the same Subscriby catalogue as 1.1.0 (`catalogue/stamp.json`), with the Pass Roster joining the plans-and-passes skill.
+
 ### Added
 
 - `get_pass_roster` and `list_pass_moves` join the plans-and-passes skill with the `pass-roster` endpoint entity: a project's members against the dates its pass plans sell (each member's standing on every date they hold, the cancelled dates they were moved off with where they went, the columns and the moves folded by destination) and one purchase's whole trail from the pass move log. Generated from the Subscriby catalogue that carries the Pass Roster.
