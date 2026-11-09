@@ -1,4 +1,4 @@
-# REST endpoints: Rest api
+# REST endpoints: REST API
 
 Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `npm run check` fails on a hand edit. One file per entity under `endpoints/`, each carrying every operation of the entity with its method, path, ability, summary, MCP twins, parameters and request body; this index says where each entity is.
 

@@ -83,7 +83,7 @@ Prefer a narrower grant? Mint a personal access token under **Settings → API T
 | `webhooks` | This skill should be used when the user asks to receive Subscriby webhooks, register or manage a webhook endpoint, verify the SB-Signature header, handle retries, dead deliveries or replays, rotate a signing secret, allow deliveries through a firewall, or debug a failing delivery. |
 | `zapier` | This skill should be used when the user wants to connect Subscriby to Zapier, build a Zap on a Subscriby trigger, action or search, asks which abilities the Zapier connection's token needs, why a Zap receives no events or fails test-auth, or wants Zap recipes. |
 
-#### Connector sdk (6)
+#### Connector SDK (6)
 
 | Skill | When Claude reaches for it |
 | --- | --- |

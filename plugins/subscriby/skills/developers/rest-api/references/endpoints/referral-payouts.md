@@ -1,4 +1,4 @@
-# REST endpoints: Rest api, the `referral-payouts` entity
+# REST endpoints: REST API, the `referral-payouts` entity
 
 Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `npm run check` fails on a hand edit. Base URL `https://api.subscriby.net`; every request carries `Authorization: Bearer <token>`; every POST, PATCH, PUT and DELETE carries an `Idempotency-Key`. The MCP twins column names the tool that runs the same action over MCP.
 

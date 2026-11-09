@@ -34,15 +34,19 @@ export function summary(text) {
   return match ? match[1] : clean;
 }
 
+const ACRONYMS = { sdk: "SDK", api: "API", mcp: "MCP", rest: "REST", oauth: "OAuth", n8n: "n8n" };
+const STOP_WORDS = ["and", "the", "of", "for"];
+
+/** A slug as a heading: acronyms spelt as acronyms, stop words lowercase except at the start. */
 export function titleCase(slug) {
   return slug
     .split("-")
-    .map((word) => (word.length <= 3 && ["and", "the", "of", "for", "sdk", "api", "mcp", "n8n"].includes(word) ? word : word[0].toUpperCase() + word.slice(1)))
-    .join(" ")
-    .replace(/\bSdk\b/g, "SDK")
-    .replace(/\bApi\b/g, "API")
-    .replace(/\bMcp\b/g, "MCP")
-    .replace(/^and /, "And ");
+    .map((word, index) => {
+      if (ACRONYMS[word]) return ACRONYMS[word];
+      if (index > 0 && STOP_WORDS.includes(word)) return word;
+      return word[0].toUpperCase() + word.slice(1);
+    })
+    .join(" ");
 }
 
 function typeOf(schema) {

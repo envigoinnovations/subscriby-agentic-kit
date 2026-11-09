@@ -1,4 +1,4 @@
-# Reference scripts: Rest api
+# Reference scripts: REST API
 
 Copy the file you need into the repository you are working in, keeping its name; each one is tested in the kit's own suite (`npm test` under `scripts/reference`) and rendered here by `npm run sync`, so `npm run check` fails on a hand edit.
 

@@ -4,6 +4,10 @@ All notable changes to the Subscriby Agentic Kit are documented here. The format
 
 ## [Unreleased]
 
+### Fixed
+
+- Generated headings spell acronyms as acronyms: the README's skill groups and every reference title read "Connector SDK", "REST API" and "MCP Clients" where the title helper had left "Connector sdk" and "mcp Clients", because it treated `sdk`, `api` and `mcp` as stop words and then looked for the capitalised spelling it had never produced. Stop words stay lowercase only after the first word, and `n8n` keeps its own spelling.
+
 ## [1.2.0] - 2026-11-08
 
 Generated from the same Subscriby catalogue as 1.1.0 (`catalogue/stamp.json`), with the Pass Roster joining the plans-and-passes skill.

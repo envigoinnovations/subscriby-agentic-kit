@@ -1,4 +1,4 @@
-# MCP resources: mcp Clients
+# MCP resources: MCP Clients
 
 Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `npm run check` fails on a hand edit. A resource is a catalogue an agent reads once per session before it reasons about statuses, abilities, error codes, providers, events or connectors; none of them changes between deploys.
 
