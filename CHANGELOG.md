@@ -14,7 +14,7 @@ Generated from the Subscriby catalogue that opens the payment ledger over the AP
 
 ### Changed
 
-- The abilities references carry the catalogue's new note on `billing:read` and `project-payment-method:create`: enforced, but only by the first-party endpoints the Subscriby apps call, with no public endpoint behind them; and `payment:view-any` and `payment:view` read as enforced rather than pending.
+- The abilities references carry the catalogue's new note on `billing:read`, `project-payment-method:create` and `copilot:use`: enforced, but only by the first-party endpoints the Subscriby apps call, with no public endpoint behind them; and `payment:view-any` and `payment:view` read as enforced rather than pending.
 
 ### Fixed
 

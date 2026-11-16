@@ -130,7 +130,7 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 
 | Ability | Status | Note |
 | --- | --- | --- |
-| `copilot:use` | no-api-surface | The team permission that opens Subscriby Copilot in the dashboard and the platform bot. The Copilot runs in-app and has no REST or MCP surface of its own; the MCP server is the door for outside agents. |
+| `copilot:use` | enforced | The team permission that opens Subscriby Copilot in the dashboard, the platform bot and the Subscriby apps, whose threads and turns travel over first-party endpoints alone. The MCP server is the door for outside agents. |
 
 ## `account`
 
