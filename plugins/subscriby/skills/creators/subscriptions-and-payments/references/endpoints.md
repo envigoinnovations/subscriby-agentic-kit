@@ -189,6 +189,13 @@ Restores access with **fresh** invite links: the ones revoked at pause never com
 - `Idempotency-Key` (header, string, required): A key unique to this operation, such as a fresh UUID. The same key replays the original 2xx response for 24 hours (with `Idempotent-Replay: true`), so a retry after a timeout never repeats the write; the same key with a different body is refused with 409.
 
 
+## `payments`
+
+| Method | Path | Ability | Summary | MCP twins |
+| --- | --- | --- | --- | --- |
+| GET | `/v1/payments` | `payment:view-any` |  |  |
+| GET | `/v1/payments/{payment}` | `payment:view` |  |  |
+
 ## `payment-methods`
 
 | Method | Path | Ability | Summary | MCP twins |

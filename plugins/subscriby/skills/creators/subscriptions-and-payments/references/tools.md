@@ -14,6 +14,8 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 | `reissue_subscription_grants` | destructive | `project-subscription:update` | Revokes the access grants a member holds on a subscription — every resource, or only `resource_id` — and has fresh ones issued by the same job that grants at purchase; the bot sends the member the new links. |
 | `list_transactions` | read | `project-subscription:view-any` | Keyset-paginated transaction listing for one project, ordered reverse-chronologically. |
 | `list_recent_payments` | read | `project-subscription:view-any` | Lists the most recent subscription payments for one project, ordered by `occurred_at` descending. |
+| `list_payments` | read | `payment:view-any` | Pages the payment ledger the dashboard's All Transactions page lists, newest first, across every project the token may see or one project via `project_id`. |
+| `get_payment` | read | `payment:view` | Fetches one payment by UUID: the amount in the currency it was paid in, the gateway with its mode and the references it gave, the fee Subscriby calculated, why it was billed, the member and the plan, and the gateway's words when it failed. |
 | `list_payment_methods` | read | `project-payment-method:view-any` | Lists configured payment methods for one project. |
 | `get_payment_method` | read | `project-payment-method:view` | Fetches one configured payment method of a project by UUID. |
 | `activate_payment_method` | destructive | `project-payment-method:update` | Offers a configured payment method to buyers again and re-queues the plan sync for its gateway. |
@@ -135,6 +137,35 @@ Lists the most recent subscription payments for one project, ordered by `occurre
 - `project_id` (string, required): UUID of the project whose payments to list.
 - `status` (one of `successful`, `failed`, `pending`, `refunded`): Payment status filter. One of: successful, failed, pending, refunded
 - `limit` (integer): Maximum payments to return (1..200, default 50).
+
+## `list_payments`
+
+Read · requires `payment:view-any`
+
+Pages the payment ledger the dashboard's All Transactions page lists, newest first, across every project the token may see or one project via `project_id`. Narrows by `status` (`successful`, `failed`, `pending`, `refunded`), `plan_id`, `method_id`, `connector` (the key of the project's live installation), `from`/`to` (ISO 8601) and `search` (gateway references, the subscription's payment id, or a member, plan or project name). Paginates with `limit` (1..100, default 25) and `page` (default 1). Amounts are as paid, in the payment's currency, never converted; a refund is a row of its own with `status` `refunded`. Use `get_payment` for one row, and `list_transactions` for the reporting view of one project over a period.
+
+**Arguments**
+
+- `project_id` (string): Optional project UUID to keep to one project's payments.
+- `status` (string): Optional status: successful, failed, pending or refunded.
+- `plan_id` (string): Optional plan UUID.
+- `method_id` (string): Optional payment method UUID.
+- `connector` (string): Optional connector key; keeps to projects whose live installation is that connector.
+- `from` (string): Optional ISO 8601 moment; payments that occurred at or after it.
+- `to` (string): Optional ISO 8601 moment; payments that occurred at or before it.
+- `search` (string): Optional text matched against the gateway references, the subscription's payment id, or a member, plan or project name.
+- `limit` (integer): Maximum payments to return per page (1..100).
+- `page` (integer): 1-indexed page number.
+
+## `get_payment`
+
+Read · requires `payment:view`
+
+Fetches one payment by UUID: the amount in the currency it was paid in, the gateway with its mode and the references it gave, the fee Subscriby calculated, why it was billed, the member and the plan, and the gateway's words when it failed. Same row shape as `list_payments`. Unknown, foreign or out-of-scope ids surface as `RESOURCE_NOT_FOUND`.
+
+**Arguments**
+
+- `payment_id` (string, required): UUID of the payment to fetch.
 
 ## `list_payment_methods`
 

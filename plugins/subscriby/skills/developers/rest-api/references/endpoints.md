@@ -9,6 +9,7 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 | `connectors` | 2 | [endpoints/connectors.md](endpoints/connectors.md) |
 | `groups` | 6 | [endpoints/groups.md](endpoints/groups.md) |
 | `me` | 31 | [endpoints/me.md](endpoints/me.md) |
+| `payments` | 2 | [endpoints/payments.md](endpoints/payments.md) |
 | `ping` | 1 | [endpoints/ping.md](endpoints/ping.md) |
 | `projects` | 20 | [endpoints/projects.md](endpoints/projects.md) |
 | `broadcasts` | 7 | [endpoints/broadcasts.md](endpoints/broadcasts.md) |

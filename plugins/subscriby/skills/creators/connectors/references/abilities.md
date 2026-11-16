@@ -8,7 +8,7 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 | --- | --- | --- |
 | `project-payment-method:view-any` | enforced |  |
 | `project-payment-method:view` | enforced |  |
-| `project-payment-method:create` | pending |  |
+| `project-payment-method:create` | enforced | Written by the Subscriby apps alone: a gateway configured from a phone, or a Stripe account connected there. Integrations configure gateways on the dashboard. |
 | `project-payment-method:update` | enforced |  |
 | `project-payment-method:delete` | enforced |  |
 | `project-resource:view-any` | enforced |  |

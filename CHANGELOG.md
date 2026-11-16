@@ -4,6 +4,18 @@ All notable changes to the Subscriby Agentic Kit are documented here. The format
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-11-16
+
+Generated from the Subscriby catalogue that opens the payment ledger over the API and marks the abilities the Subscriby apps alone enforce (`catalogue/stamp.json`). Both plugins carry this version.
+
+### Added
+
+- `list_payments` and `get_payment` join the subscriptions-and-payments skill with the `payments` endpoint entity: the ledger the dashboard's All Transactions page shows, newest first, across every project the credential may see or one project, each row with the amount as paid in its currency, the gateway with its mode and references, the fee Subscriby calculated, why it was billed, the member, the plan and the gateway's words when it failed; narrowed by status, plan, payment method, connector, a span of dates and a search. The skill says a refund is a row of its own and nothing issues one.
+
+### Changed
+
+- The abilities references carry the catalogue's new note on `billing:read` and `project-payment-method:create`: enforced, but only by the first-party endpoints the Subscriby apps call, with no public endpoint behind them; and `payment:view-any` and `payment:view` read as enforced rather than pending.
+
 ### Fixed
 
 - Generated headings spell acronyms as acronyms: the README's skill groups and every reference title read "Connector SDK", "REST API" and "MCP Clients" where the title helper had left "Connector sdk" and "mcp Clients", because it treated `sdk`, `api` and `mcp` as stop words and then looked for the capitalised spelling it had never produced. Stop words stay lowercase only after the first word, and `n8n` keeps its own spelling.

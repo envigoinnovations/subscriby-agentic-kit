@@ -4,7 +4,7 @@
         "name": "Subscriby",
         "version": "0.8.6-beta.2"
     },
-    "tool_count": 240,
+    "tool_count": 242,
     "tools": [
         {
             "name": "update_team_member_role",
@@ -3073,6 +3073,66 @@
             "output_schema": null
         },
         {
+            "name": "list_payments",
+            "title": "List Payments",
+            "class": "App\\Mcp\\Tools\\ListPayments",
+            "required_ability": "payment:view-any",
+            "read_only": true,
+            "destructive": false,
+            "idempotent": false,
+            "open_world": false,
+            "description": "Pages the payment ledger the dashboard's All Transactions page lists, newest first, across every project the token may see or one project via `project_id`. Narrows by `status` (`successful`, `failed`, `pending`, `refunded`), `plan_id`, `method_id`, `connector` (the key of the project's live installation), `from`/`to` (ISO 8601) and `search` (gateway references, the subscription's payment id, or a member, plan or project name). Paginates with `limit` (1..100, default 25) and `page` (default 1). Amounts are as paid, in the payment's currency, never converted; a refund is a row of its own with `status` `refunded`. Use `get_payment` for one row, and `list_transactions` for the reporting view of one project over a period.",
+            "input_schema": {
+                "properties": {
+                    "project_id": {
+                        "description": "Optional project UUID to keep to one project's payments.",
+                        "type": "string"
+                    },
+                    "status": {
+                        "description": "Optional status: successful, failed, pending or refunded.",
+                        "type": "string"
+                    },
+                    "plan_id": {
+                        "description": "Optional plan UUID.",
+                        "type": "string"
+                    },
+                    "method_id": {
+                        "description": "Optional payment method UUID.",
+                        "type": "string"
+                    },
+                    "connector": {
+                        "description": "Optional connector key; keeps to projects whose live installation is that connector.",
+                        "type": "string"
+                    },
+                    "from": {
+                        "description": "Optional ISO 8601 moment; payments that occurred at or after it.",
+                        "type": "string"
+                    },
+                    "to": {
+                        "description": "Optional ISO 8601 moment; payments that occurred at or before it.",
+                        "type": "string"
+                    },
+                    "search": {
+                        "description": "Optional text matched against the gateway references, the subscription's payment id, or a member, plan or project name.",
+                        "type": "string"
+                    },
+                    "limit": {
+                        "description": "Maximum payments to return per page (1..100).",
+                        "minimum": 1,
+                        "maximum": 100,
+                        "type": "integer"
+                    },
+                    "page": {
+                        "description": "1-indexed page number.",
+                        "minimum": 1,
+                        "type": "integer"
+                    }
+                },
+                "type": "object"
+            },
+            "output_schema": null
+        },
+        {
             "name": "list_plans",
             "title": "List Plans",
             "class": "App\\Mcp\\Tools\\ListPlans",
@@ -6036,6 +6096,30 @@
                 "type": "object",
                 "required": [
                     "plan_id"
+                ]
+            },
+            "output_schema": null
+        },
+        {
+            "name": "get_payment",
+            "title": "Get Payment",
+            "class": "App\\Mcp\\Tools\\GetPayment",
+            "required_ability": "payment:view",
+            "read_only": true,
+            "destructive": false,
+            "idempotent": false,
+            "open_world": false,
+            "description": "Fetches one payment by UUID: the amount in the currency it was paid in, the gateway with its mode and the references it gave, the fee Subscriby calculated, why it was billed, the member and the plan, and the gateway's words when it failed. Same row shape as `list_payments`. Unknown, foreign or out-of-scope ids surface as `RESOURCE_NOT_FOUND`.",
+            "input_schema": {
+                "properties": {
+                    "payment_id": {
+                        "description": "UUID of the payment to fetch.",
+                        "type": "string"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "payment_id"
                 ]
             },
             "output_schema": null

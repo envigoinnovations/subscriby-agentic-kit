@@ -221,6 +221,8 @@
       "reissue_subscription_grants",
       "list_transactions",
       "list_recent_payments",
+      "list_payments",
+      "get_payment",
       "list_payment_methods",
       "get_payment_method",
       "activate_payment_method",
@@ -234,6 +236,7 @@
     ],
     "endpoints": [
       "subscriptions",
+      "payments",
       "payment-methods"
     ],
     "abilities": [

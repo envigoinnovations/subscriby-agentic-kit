@@ -18,7 +18,7 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 | --- | --- | --- |
 | `project-payment-method:view-any` | enforced |  |
 | `project-payment-method:view` | enforced |  |
-| `project-payment-method:create` | pending |  |
+| `project-payment-method:create` | enforced | Written by the Subscriby apps alone: a gateway configured from a phone, or a Stripe account connected there. Integrations configure gateways on the dashboard. |
 | `project-payment-method:update` | enforced |  |
 | `project-payment-method:delete` | enforced |  |
 | `project-resource:view-any` | enforced |  |
@@ -144,7 +144,7 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 
 | Ability | Status | Note |
 | --- | --- | --- |
-| `billing:read` | no-api-surface | Subscribes an endpoint to the billing.* webhook events. The creator's own Subscriby billing has no REST surface to read. |
+| `billing:read` | enforced | Read by the Subscriby apps alone: the creator's own Subscriby subscription and invoices, with no public endpoint. Also subscribes an endpoint to the billing.* webhook events. |
 | `billing:manage` | no-api-surface | The creator's own Subscriby billing is deliberately dashboard-only. |
 
 ## `tokens`
@@ -160,8 +160,8 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 
 | Ability | Status | Note |
 | --- | --- | --- |
-| `payment:view-any` | pending |  |
-| `payment:view` | pending |  |
+| `payment:view-any` | enforced |  |
+| `payment:view` | enforced |  |
 | `payment:refund` | pending |  |
 
 ## `passes`

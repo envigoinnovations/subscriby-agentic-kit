@@ -55,8 +55,8 @@
             "value": "project-payment-method:create",
             "name": "ProjectPaymentMethodCreate",
             "category": "project-resources",
-            "status": "pending",
-            "note": null
+            "status": "enforced",
+            "note": "Written by the Subscriby apps alone: a gateway configured from a phone, or a Stripe account connected there. Integrations configure gateways on the dashboard."
         },
         {
             "value": "project-payment-method:update",
@@ -699,8 +699,8 @@
             "value": "billing:read",
             "name": "BillingRead",
             "category": "billing",
-            "status": "no-api-surface",
-            "note": "Subscribes an endpoint to the billing.* webhook events. The creator's own Subscriby billing has no REST surface to read."
+            "status": "enforced",
+            "note": "Read by the Subscriby apps alone: the creator's own Subscriby subscription and invoices, with no public endpoint. Also subscribes an endpoint to the billing.* webhook events."
         },
         {
             "value": "billing:manage",
@@ -741,14 +741,14 @@
             "value": "payment:view-any",
             "name": "PaymentViewAny",
             "category": "payments",
-            "status": "pending",
+            "status": "enforced",
             "note": null
         },
         {
             "value": "payment:view",
             "name": "PaymentView",
             "category": "payments",
-            "status": "pending",
+            "status": "enforced",
             "note": null
         },
         {

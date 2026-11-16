@@ -34,6 +34,7 @@ A pass reads `active` from the moment it is paid and carries its own window stat
 
 - `list_subscriptions` pages every purchase the credential may see, with `status` and `plan_id` filters; `get_subscription` answers one with its dates, the window on a pass, the gateway reference and whether it grants access right now (a cancelled renewal still does until its end date).
 - `list_subscription_grants` and `reissue_subscription_grants` are the member's places and their invites (the `members` skill).
+- `list_payments` pages the payment ledger the dashboard's All Transactions page shows, newest first, across every project the credential may see or one `project_id`, narrowed by `status` (`successful`, `failed`, `pending`, `refunded`), `plan_id`, `method_id`, `connector`, `from`/`to` and `search`; each row carries the amount as paid in its currency, the gateway with its mode and references, the fee Subscriby calculated, why it was billed, the member, the plan and the gateway's words when it failed. `get_payment` reads one row by `payment_id`. A refund is a row of its own; nothing issues one, because refunds come from the gateways.
 - `list_transactions` pages a project's payment ledger with `period` or `from`/`to`, `statuses`, `provider_ids`, `plan_ids`, `currency_ids`, a `cursor` and `limit`; amounts are as paid, in the payment's currency, never converted. `list_recent_payments` answers the latest with a `status` of `successful`, `failed`, `pending` or `refunded`.
 
 ## Changing a subscription

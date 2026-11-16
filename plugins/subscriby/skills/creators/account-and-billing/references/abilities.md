@@ -14,7 +14,7 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 
 | Ability | Status | Note |
 | --- | --- | --- |
-| `billing:read` | no-api-surface | Subscribes an endpoint to the billing.* webhook events. The creator's own Subscriby billing has no REST surface to read. |
+| `billing:read` | enforced | Read by the Subscriby apps alone: the creator's own Subscriby subscription and invoices, with no public endpoint. Also subscribes an endpoint to the billing.* webhook events. |
 | `billing:manage` | no-api-surface | The creator's own Subscriby billing is deliberately dashboard-only. |
 
 ## `tokens`

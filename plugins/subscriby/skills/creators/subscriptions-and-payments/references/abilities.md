@@ -6,6 +6,6 @@ Generated from the Subscriby catalogue (version 2026-05-01) by `npm run sync`; `
 
 | Ability | Status | Note |
 | --- | --- | --- |
-| `payment:view-any` | pending |  |
-| `payment:view` | pending |  |
+| `payment:view-any` | enforced |  |
+| `payment:view` | enforced |  |
 | `payment:refund` | pending |  |
